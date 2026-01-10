@@ -1,12 +1,28 @@
 # CS 260 Notes
 
-[My startup - Simon](https://simon.cs260.click)
+[My startup - startup](https://github.com/crazymay35/startup)
+for specification, it is called Color Selector
 
 ## Helpful links
-
+(I will not be changing this section)
 - [Course instruction](https://github.com/webprogramming260)
 - [Canvas](https://byu.instructure.com)
 - [MDN](https://developer.mozilla.org)
+
+## Markdown notes
+number of hashtags(#) determines heading size, # is largest  ### smallest,, 
+**bold** *italic* ~strike through~ ***bold and italic*** <ins>underline<ins>
+> this is a quote
+to quote `code` on single line
+to quote 
+```
+code
+multi-line
+cheers
+```
+can do colors using hex code #333333 also rgb(100,100,100)
+
+
 
 ## AWS
 

@@ -2,7 +2,7 @@
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Color Selector helps artists choose colors that will enhance their art and skills. It's a stepping stone for beginning artists to learn color theory in a simplified format.
 
 > [!NOTE]
 > This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
@@ -50,7 +50,18 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
+3rd party website I'm accessing:
+https://coolors.co/generate
+generator_color_background (has the color of the boxes,, example code below:),, basically look for when it says "generator_color_background", then look at background for the rgb color numbers,, this could be a random color generator
+
+>(<)div class="generator_color_background" style="background: rgb(159, 194, 204); box-shadow: rgb(159, 194, 204) 0px 0px 0px 1px;">(<)/div>
+
+http://colormind.io/ might be easier to use(?),, look at the background color #hexcode
+>(<)div class="color" style="background-color: #1e262a" data-id="4" data-color="#1e262a" data-locked="false">(<)div class="swipe">(<)/div>(<)/div>
+
+
+- **HTML** - structure and organize the pages (login, main, social, generator) *login page* has 2 boxes in the center for email and password to login. *main page* contains 2 square boxes whose colors are easily adjusted by the below color selectors. 5 slots depict the color scale. There is a button under the colors for sharing the color pallette. The *generator page* has a bar of color (divided into 5 sections) with a share button as well. *social page* has bars of color scales and the people who posted the scales underneath (denoted with a their email) essentially bar person bar person etc.
+
 - **CSS** - Description here
 - **React** - Description here
 - **Service** - Description here

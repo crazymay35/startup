@@ -1,4 +1,4 @@
-# Your startup name here
+# Color Selector
 
 [My Notes](notes.md)
 

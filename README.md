@@ -1,6 +1,7 @@
 # Color Selector
 
-[My Notes](notes.md)
+[My Notes](notes.md) 
+[cool site](https://roadmap.sh/)
 
 Color Selector helps artists choose colors that will enhance their art and skills. It's a stepping stone for beginning artists to learn color theory in a simplified format.
 
@@ -39,11 +40,14 @@ I am going to use the required technologies in the following ways.
 - **React** - current color selected updated as sliders move,the color sliders change color as a slider moves, and the box changes color too. good white space use, things evenly apart, the 5 slots change as one of the box colors change.  
 
 - **Service** - http://colormind.io/ might be easier to use(?),, look at the background color #hexcode
->(<)div class="color" style="background-color: #1e262a" data-id="4" data-color="#1e262a" data-locked="false">(<)div class="swipe">(<)/div>(<)/div> for pallette generation,, saving/storing palletes connected to each user login profile,, 
+>(<)div class="color" style="background-color: #1e262a" data-id="4" data-color="#1e262a" data-locked="false">(<)div class="swipe">(<)/div>(<)/div> 
+for pallette generation,, saving/storing palletes connected to each user login profile,, 
 
 - **DB/Login** - saves profiles and each profile's associated color palletes 
 
 - **WebSocket** - updates color palletes live for all devices logged in,
+
+
 
 ## 🚀 AWS deliverable
 

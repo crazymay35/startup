@@ -42,31 +42,25 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- color pallete generator (using a 3rd party color generator)
+- color selector (user choose 2 colors, 5 slot gradient updates)
+- saved color palletes (stores all previously saved ones)
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-3rd party website I'm accessing:
-https://coolors.co/generate
-generator_color_background (has the color of the boxes,, example code below:),, basically look for when it says "generator_color_background", then look at background for the rgb color numbers,, this could be a random color generator
+- **HTML** - structure and organize the pages (login, main, pallette, generator) *login page* has 2 boxes in the center for email and password to login. *main page* contains 2 square boxes whose colors are easily adjusted by the below color selectors. 5 slots depict the color scale. There is a button under the colors for saving the color pallette. The *generator page* has a bar of color (divided into 5 sections) with a save button as well. *pallette page* has bars of previously saved color scales saved by the user
 
->(<)div class="generator_color_background" style="background: rgb(159, 194, 204); box-shadow: rgb(159, 194, 204) 0px 0px 0px 1px;">(<)/div>
+- **CSS** - dark grey background probably, each slot is an inbetween gradient from the right color box and left color box
 
-http://colormind.io/ might be easier to use(?),, look at the background color #hexcode
->(<)div class="color" style="background-color: #1e262a" data-id="4" data-color="#1e262a" data-locked="false">(<)div class="swipe">(<)/div>(<)/div>
+- **React** - current color selected updated as sliders move,the color sliders change color as a slider moves, and the box changes color too. good white space use, things evenly apart, the 5 slots change as one of the box colors change.  
 
+- **Service** - http://colormind.io/ might be easier to use(?),, look at the background color #hexcode
+>(<)div class="color" style="background-color: #1e262a" data-id="4" data-color="#1e262a" data-locked="false">(<)div class="swipe">(<)/div>(<)/div> for pallette generation,, saving/storing palletes connected to each user login profile,, 
 
-- **HTML** - structure and organize the pages (login, main, social, generator) *login page* has 2 boxes in the center for email and password to login. *main page* contains 2 square boxes whose colors are easily adjusted by the below color selectors. 5 slots depict the color scale. There is a button under the colors for sharing the color pallette. The *generator page* has a bar of color (divided into 5 sections) with a share button as well. *social page* has bars of color scales and the people who posted the scales underneath (denoted with a their email) essentially bar person bar person etc.
-
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **DB/Login** - saves profiles and each profile's associated color palletes 
+- **WebSocket** - updates color palletes live for all devices logged in,
 
 ## 🚀 AWS deliverable
 

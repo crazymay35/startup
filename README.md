@@ -1,9 +1,9 @@
-# Color Selector
+# Color Pal
 
 [My Notes](notes.md) 
 [cool site](https://roadmap.sh/)
 
-Color Selector helps artists choose colors that will enhance their art and skills. It's a stepping stone for beginning artists to learn color theory in a simplified format.
+Color Pal helps artists choose colors that will enhance their art and skills. It's a stepping stone for beginning artists to learn color theory in a simplified format.
 
 ## 🚀 Specification Deliverable
 
@@ -17,7 +17,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-As an artist who struggles with color theory, choosing the right colors for an artpiece is incredibly daunting, especially with all the possible colors one can choose from. Simplifying the process by providing an array of colors based on a few clicks from the user will help artists pick interesting and excellent color pallettes for their art. 
+As an artist who struggles with color theory, choosing the right colors for an artpiece is incredibly daunting, especially with all the possible colors one can choose from. Simplifying the process by providing an array of colors based on a few clicks from the user will help artists pick interesting and excellent color pallettes for their art. Additionally, users can generate random color palletes to find new colors they might want to work with. Users are abls to save both the palletes they make and randomly generate for ease of access. 
 
 ### Design
 
@@ -31,21 +31,20 @@ As an artist who struggles with color theory, choosing the right colors for an a
 
 ### Technologies
 
-I am going to use the required technologies in the following ways.
+I am going to use the required technologies in the following ways...
 
-- **HTML** - structure and organize the pages (login, main, pallette, generator) *login page* has 2 boxes in the center for email and password to login. *main page* contains 2 square boxes whose colors are easily adjusted by the below color selectors. 5 slots depict the color scale. There is a button under the colors for saving the color pallette. The *generator page* has a bar of color (divided into 5 sections) with a save button as well. *pallette page* has bars of previously saved color scales saved by the user
+- **HTML** - structure and organize the pages (login, main, pallette, generator) *login page* has 2 boxes in the center for email and password to login. *main page* contains 2 square boxes whose colors are easily adjusted by the below color selectors. 5 slots depict the color scale. There is a button under the colors for saving the color pallette. The *generator page* has a bar of color (divided into 5 sections) with a save button as well. *pallette page* has bars of previously saved color scales saved by the user,, topmost pallete is most recent
 
-- **CSS** - dark grey background probably, each slot is an inbetween gradient from the right color box and left color box
+- **CSS** - dark grey background probably, each slot is an inbetween gradient from the right color box and left color box. the font will probably be robboto, open sans, Pacifico, or Lato or combination of a few. The generate button and save button will probably be blue or red (make sure it's nice), rounded buttons are more pleasing to the eye. buttons will probably get darker when a user presses them. White space nice for user interaction
 
-- **React** - current color selected updated as sliders move,the color sliders change color as a slider moves, and the box changes color too. good white space use, things evenly apart, the 5 slots change as one of the box colors change.  
+- **React** - current color selected updated as sliders move,the color sliders change color as a slider moves, and the box changes color too. things evenly apart, the 5 slots change as one of the box colors change. when save button pressed, it adds the current color pallete to the user's color palletes. when generate button pressed, displays a random color pallete. logging in directs user to main page of selecting colors. left arrow button on main page goes to generator page, right arrow button on main page goes to saved color palletes
 
-- **Service** - http://colormind.io/ might be easier to use(?),, look at the background color #hexcode
+- **Service** - allows users to edit saved color palletes (removing them from database, editting ones they created but not randomly generated) login page allows access to user's account and consequently their saved color palletes. create account and logout also some things to do. for the generate random color pallete, it accesses http://colormind.io/ and uses the randomly generated colors on there to make the pallete. (example code to look for below from the site)
 >(<)div class="color" style="background-color: #1e262a" data-id="4" data-color="#1e262a" data-locked="false">(<)div class="swipe">(<)/div>(<)/div> 
-for pallette generation,, saving/storing palletes connected to each user login profile,, 
 
-- **DB/Login** - saves profiles and each profile's associated color palletes 
+- **DB/Login** - stores profiles (account info) and each profile's associated color palletes they saved
 
-- **WebSocket** - updates color palletes live for all devices logged in,
+- **WebSocket** - updates saved color palletes live for all devices logged into the user's account.
 
 
 

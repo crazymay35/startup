@@ -44,7 +44,7 @@ I am going to use the required technologies in the following ways...
 
 - **DB/Login** - stores profiles (account info) and each profile's associated color palletes they saved. second database stores all color palletes that users post, not accept duplicate color palletes from same user, 
 
-- **WebSocket** - updates saved color palletes live for all devices logged into the user's account.,, BETTER = social page updated live when users share color palletes (maybe won't do social page, maybe will idk, need to think about it,, make a finite state machine depicting how the whole page functions)
+- **WebSocket** - updates saved color palletes live for all devices logged into the user's account.,, BETTER = social page updated live when users share color palletes (maybe won't do social page, maybe will idk, need to think about it,, make a finite state machine depicting how the whole page functions),, can also (instead of a social page) have a notification popup saying "so and so shared a new pallete! add it to your saved palletes?" that way the share button just sends a notification out to everyone (the social page could perhaps be a list of people a user added that they want to receive notifications from about new palletes shared,, they can add new people and remove people. might be easier to have a universal notification thing. go back and rework this)
 
 
 

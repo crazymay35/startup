@@ -33,7 +33,7 @@ As an artist who struggles with color theory, choosing the right colors for an a
 
 I am going to use the required technologies in the following ways...
 
-- **HTML** - structure and organize the pages (login, main, pallette, generator) *login page* has 2 boxes in the center for email and password to login. *main page* contains 2 square boxes whose colors are easily adjusted by the below color selectors. 5 slots depict the color scale. There is a button under the colors for saving the color pallette. The *generator page* has a bar of color (divided into 5 sections) with a save button as well. *pallette page* has bars of previously saved color scales saved by the user,, topmost pallete is most recent
+- **HTML** - structure and organize the pages (login, main, pallette, generator, social) *login page* has 2 boxes in the center for email and password to login. *main page* contains 2 square boxes whose colors are easily adjusted by the below color selectors. 5 slots depict the color scale. There is a button under the colors for saving the color pallette. The *generator page* has a bar of color (divided into 5 sections) with a save button as well. *pallette page* has bars of previously saved color scales saved by the user,, topmost pallete is most recent. button (or swipe action) shares the pallete once to the social page, button changes to unshare so user can remove their post *social page* can view palletes users share (top is most recent), users can save other palletes shared by users
 
 - **CSS** - dark grey background probably, each slot is an inbetween gradient from the right color box and left color box. the font will probably be robboto, open sans, Pacifico, or Lato or combination of a few. The generate button and save button will probably be blue or red (make sure it's nice), rounded buttons are more pleasing to the eye. buttons will probably get darker when a user presses them. White space nice for user interaction
 
@@ -42,9 +42,9 @@ I am going to use the required technologies in the following ways...
 - **Service** - allows users to edit saved color palletes (removing them from database, editting ones they created but not randomly generated) login page allows access to user's account and consequently their saved color palletes. create account and logout also some things to do. for the generate random color pallete, it accesses http://colormind.io/ and uses the randomly generated colors on there to make the pallete. (example code to look for below from the site)
 >(<)div class="color" style="background-color: #1e262a" data-id="4" data-color="#1e262a" data-locked="false">(<)div class="swipe">(<)/div>(<)/div> 
 
-- **DB/Login** - stores profiles (account info) and each profile's associated color palletes they saved
+- **DB/Login** - stores profiles (account info) and each profile's associated color palletes they saved. second database stores all color palletes that users post, not accept duplicate color palletes from same user, 
 
-- **WebSocket** - updates saved color palletes live for all devices logged into the user's account.
+- **WebSocket** - updates saved color palletes live for all devices logged into the user's account.,, BETTER = social page updated live when users share color palletes (maybe won't do social page, maybe will idk, need to think about it,, make a finite state machine depicting how the whole page functions)
 
 
 

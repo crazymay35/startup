@@ -28,6 +28,7 @@ As an artist who struggles with color theory, choosing the right colors for an a
 - color pallete generator (using a 3rd party color generator)
 - color selector (user choose 2 colors, 5 slot gradient updates)
 - saved color palletes (stores all previously saved ones)
+- receive notifications when users share color palletes
 
 ### Technologies
 

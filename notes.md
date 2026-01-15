@@ -12,7 +12,7 @@
 My IP address is: 44.209.182.3
 followed the steps, ran into the issue where free aws wouldn't allow me to purchase a domain name, so I signed up for the paid version. A lot of the time it seemed like I was groping around blindly trying to find the correct way to go, but other than that, worked fine with minimal issues
 nslookup byu.edu, curl -v ipAdress, curl -v https://www.byu.edu
-https://colorpal.link
+https://colorpal.link or https://startup.colorpal.link/
 
 ## Caddy
 

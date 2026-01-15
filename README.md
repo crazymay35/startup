@@ -50,7 +50,8 @@ As an artist who struggles with color theory, choosing the right colors for an a
 
 ## 🚀 AWS deliverable
 
-- [x] **Server deployed and accessible with custom domain name** - [ColorPal](https://colorpal.link/).
+- [x] **Server deployed and accessible with custom domain name** - [ColorPal](https://startup.colorpal.link/).
+- [x] **just in case** - [ColorPal more basic](https://colorpal.link/)
 
 ## 🚀 HTML deliverable
 

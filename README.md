@@ -2,6 +2,7 @@
 
 [My Notes](notes.md) 
 [cool site](https://roadmap.sh/)
+[scratch pad](scratch.md)
 
 Color Pal helps artists choose colors that will enhance their art and skills. It's a stepping stone for beginning artists to learn color theory in a simplified format.
 
@@ -32,8 +33,6 @@ As an artist who struggles with color theory, choosing the right colors for an a
 
 ### Technologies
 
-I am going to use the required technologies in the following ways...
-
 - **HTML** - structure and organize the pages (login, main, pallette, generator, social) *login page* has 2 boxes in the center for email and password to login. *main page* contains 2 square boxes whose colors are easily adjusted by the below color selectors. 5 slots depict the color scale. There is a button under the colors for saving the color pallette. The *generator page* has a bar of color (divided into 5 sections) with a save button as well. *pallette page* has bars of previously saved color scales saved by the user,, topmost pallete is most recent. button (or swipe action) shares the pallete once to the social page, button changes to unshare so user can remove their post *social page* can view palletes users share (top is most recent), users can save other palletes shared by users
 
 - **CSS** - dark grey background probably, each slot is an inbetween gradient from the right color box and left color box. the font will probably be robboto, open sans, Pacifico, or Lato or combination of a few. The generate button and save button will probably be blue or red (make sure it's nice), rounded buttons are more pleasing to the eye. buttons will probably get darker when a user presses them. White space nice for user interaction
@@ -51,9 +50,7 @@ I am going to use the required technologies in the following ways...
 
 ## 🚀 AWS deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
-
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [ColorPal](https://colorpal.link/).
 
 ## 🚀 HTML deliverable
 

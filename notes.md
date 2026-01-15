@@ -9,12 +9,17 @@
 
 ## AWS
 
-My IP address is: 54.81.96.130
-Launching my AMI I initially put it on a private subnet. Even though it had a public IP address and the security group was right, I wasn't able to connect to it.
+My IP address is: 44.209.182.3
+followed the steps, ran into the issue where free aws wouldn't allow me to purchase a domain name, so I signed up for the paid version. A lot of the time it seemed like I was groping around blindly trying to find the correct way to go, but other than that, worked fine with minimal issues
+nslookup byu.edu, curl -v ipAdress, curl -v https://www.byu.edu
+https://colorpal.link
 
 ## Caddy
 
-No problems worked just like it said in the [instruction](https://github.com/webprogramming260/.github/blob/main/profile/webServers/https/https.md).
+No issues, simple and easy, need to get a bit more used to using ssh -i "Documents\BYU\2026 Winter Semester\cs260\..." ubuntu@ipAdressOrLinkWithout 
+
+subdomain.*secondary.top,, root = secondary.top,, sld = *secondary,, tld = top,,, 
+can have as many of subdomains as want,, 127.0.0.1 always your own,, cname = alias 
 
 ## HTML
 

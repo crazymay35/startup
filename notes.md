@@ -12,7 +12,7 @@
 My IP address is: 44.209.182.3
 followed the steps, ran into the issue where free aws wouldn't allow me to purchase a domain name, so I signed up for the paid version. A lot of the time it seemed like I was groping around blindly trying to find the correct way to go, but other than that, worked fine with minimal issues
 nslookup byu.edu, curl -v ipAdress, curl -v https://www.byu.edu
-https://colorpal.link or https://startup.colorpal.link/
+https://colorpal.link 
 
 ## Caddy
 
@@ -22,6 +22,8 @@ subdomain.*secondary.top,, root = secondary.top,, sld = *secondary,, tld = top,,
 can have as many of subdomains as want,, 127.0.0.1 always your own,, cname = alias 
 
 ## HTML
+successfully (after a bit of confusion as to where the deployFiles.sh was) able to copy manipulated simon files to the remote server. Accidentally put my pem in the simon files so I removed it from the files asap.
+
 
 This was easy. I was careful to use the correct structural elements such as header, footer, main, nav, and form. The links between the three views work great using the `a` element.
 

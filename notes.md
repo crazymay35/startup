@@ -24,6 +24,8 @@ can have as many of subdomains as want,, 127.0.0.1 always your own,, cname = ali
 ## HTML
 successfully (after a bit of confusion as to where the deployFiles.sh was) able to copy manipulated simon files to the remote server. Accidentally put my pem in the simon files so I removed it from the files asap.
 
+wrote in the simon index.html file and figured out how to link it properly to my website, so that simon.colorpal.link worked as it should. I want to go back and update a few specs about what my startup is doing, clarify a few things etc. 
+
 
 This was easy. I was careful to use the correct structural elements such as header, footer, main, nav, and form. The links between the three views work great using the `a` element.
 

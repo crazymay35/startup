@@ -56,8 +56,8 @@ As an artist who struggles with color theory, choosing the right colors for an a
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I created the html pages I will be using for the project, namely index(login)  generator (generate pallete) create(create pallete) palletes(saved palletes) following(friends list)
+- [ ] **Proper HTML element usage** - 
 - [ ] **Links** - I did not complete this part of the deliverable.
 - [ ] **Text** - I did not complete this part of the deliverable.
 - [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.

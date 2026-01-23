@@ -10,39 +10,71 @@
             <h1>COLOR PAL</h1>
             <nav>
                 <!--css to add sapcing-->
-                <a href="index.html">login</a>
-                <a href="generator.html">generate pallete</a>
-                <a href="create.html">create pallete</a>
-                <a href="palletes.html">saved palletes</a>
-                <a href="following.html">friends list</a>
+                <a href="index.html">login</a>&ensp;
+                <a href="generator.html">generate pallete</a>&ensp;
+                <a href="create.html">create pallete</a>&ensp;
+                <a href="palletes.html">saved palletes</a>&ensp;
+                <a href="following.html">friends list</a>&ensp;
             </nav>
         </header>
+        <hr>
         <main>
-            <table>
+            <div class="users">
+                You:
+                <span class="username">I-am-the-current-player</span>
+            </div>
+            <br>
+            <table class="notification">
+                <tr class="username"> 
+                    <td>
+                        USERNAME1 made a new pallete! add to collection?
+                        <button type="button">remove</button>
+                        <button>add</button>
+                    </td>
+                </tr>
                 <tr>
-                    <th>PERSON USERNAME</th>
+                    <td>
+                        USERNAME2 made a new pallete! add to collection?
+                        <button type="button">remove</button>
+                        <button>add</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        USERNAME1 made a new pallete! add to collection?
+                        <button type="button">remove</button>
+                        <button>add</button>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table class="following-list">
+                <tr class="username">
+                    <th>PERSON</th>
                     <th>UNFOLLOW</th>
                 </tr>
-                <tr>
-                    <td><img src="Untitled3.png" alt="username" width="300"></td>
+                <tr class="username">
+                    <td>USERNAME1</td>
                     <td><button type="button">unfollow</button></td>
                 </tr>
-                <tr>
-                    <td><img src="Untitled3.png" alt="username" width="300"></td>
+                <tr class="username">
+                    <td>USERNAME2</td>
                     <td><button type="button">unfollow</button></td>
                 </tr>
-                <tr>
-                    <td><img src="Untitled3.png" alt="username" width="300"></td>
+                <tr class="username">
+                    <td>USERNAME3</td>
                     <td><button type="button">unfollow</button></td>
                 </tr>
             </table>
-
+            <br>
             <div>
                 <input type="email" placeholder="name@email.com">
+                <button type="button">add friend</button>
             </div>
         </main>
+        <hr>
         <footer>
-            <p>Maren Makrush</p>
+            <div>Maren Makrush</div>
             <a href="https://github.com/crazymay35/startup">github</a>
         </footer>
     </body>

@@ -57,15 +57,14 @@ As an artist who struggles with color theory, choosing the right colors for an a
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [x] **HTML pages** - I created the html pages I will be using for the project, namely index(login)  generator (generate pallete) create(create pallete) palletes(saved palletes) following(friends list)
-- [ ] **Proper HTML element usage** - 
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
-
+- [x] **Proper HTML element usage** - HTML is formated nicely and cohesively
+- [x] **Links** - the links work as intended
+- [x] **Text** - there is discernable textual content that clarifies what each section is
+- [x] **3rd party API placeholder** - the generator will be linked to colormind.io to get the randomly generated colors which will then display
+- [x] **Images** - placeholder images are displayed to show the layout of how the color palletes will look and how the color squares will look as the user moves the dials. 
+- [x] **Login placeholder** - login page is the index.html with login and create account.
+- [x] **DB data placeholder** - database displays color palletes and list of friends
+- [x] **WebSocket placeholder** - live notifications are displayed below the list of friends, notifications notify the user that a friend shared a color pallete and that they can save it. 
 ## 🚀 CSS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.

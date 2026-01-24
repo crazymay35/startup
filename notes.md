@@ -27,13 +27,11 @@ successfully (after a bit of confusion as to where the deployFiles.sh was) able 
 wrote in the simon index.html file and figured out how to link it properly to my website, so that simon.colorpal.link worked as it should. I want to go back and update a few specs about what my startup is doing, clarify a few things etc. 
 
 For the html set up, it took a little trial and error but I think I've set up msot of the things that are important, at least lay out wise. I have a few concerns about how I will access and do the color generation, it seems like there are a lot of complicated and moving parts 
+
 https://colormagic.app/random-color
 http://colormind.io/
 
-
-This was easy. I was careful to use the correct structural elements such as header, footer, main, nav, and form. The links between the three views work great using the `a` element.
-
-The part I didn't like was the duplication of the header and footer code. This is messy, but it will get cleaned up when I get to React.
+I think i finished everything as needed, hopefully at least. I need to go through and check all the boxes now. I set up the login aspect, notifications will appear at the bottom of the following page, there is a list of saved palletes the user can share or remove, there is a list of friends the user can receive shared palletes from, they can generate palletes (will need react and backend stuff for this) login (need database and other login stuff) create palletes (requires css to operate) all in all, I think and hope i have all the functionality I can do with html. There probably will be slight changes, especially as I start doing the css stuff. cheers!
 
 ## CSS
 

@@ -1,17 +1,72 @@
-/*h1, h2 {
-    font-family:'Lucida Handwriting';
-}
 
 body {
-    font-family: Verdana;
-    background-color: rgb(38, 38, 40);
-    color:aliceblue
+    background-color: rgb(43, 44, 45);
+    color: aliceblue;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 100vh;
+    flex: 1
 }
-
-button {
-    background-color: rgb(88, 88, 88);
-    color: rgb(223, 226, 228);
+footer,header {
+    display: flex;
+    min-width: 100vw;
+    background-color: rgb(31, 32, 33);
 }
-a {
-    color: rgb(223, 226, 228);
-}*/
+main {
+    flex:1
+}
+ul {
+    flex:1;
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    justify-content: end;
+    margin: 0;
+    align-items: end;
+    padding:0;
+    padding-bottom: 1rem;
+}
+li {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    
+}
+form {
+    justify-content: center;
+    align-items: center;
+}
+div {
+    width:fit-content;
+    margin:auto;
+    padding: 5px;
+}
+h1 {
+    flex: 1;
+    font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
+    margin:0;
+    width: fit-content;
+    white-space: nowrap;
+    padding: 1rem;
+    font-size: 40px;
+    inline-size:auto;
+}
+h2 {
+    font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
+    margin: auto;
+    width: fit-content;
+    white-space: nowrap;
+    padding:2rem;
+    font-size:60px;
+}
+h3 {
+    margin: auto;
+    width: fit-content;
+    white-space: nowrap;
+    padding:1rem;
+    padding-bottom: 0;
+    font-size:35px;
+}

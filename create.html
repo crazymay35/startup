@@ -19,36 +19,31 @@
         </header>
         <hr>
         <main>
-            <div>
-                <svg width="114" height="114">
-                    <rect x="7" y="7" width="100" height="100" fill="black" />
-                </svg>
-                &emsp;&emsp;&emsp;&emsp;
-                <svg width="114" height="114">
-                    <rect x="7" y="7" width="100" height="100" fill="black" />
-                </svg>
-            </div>
-            <div>
-                <label>R</label>
-                <input type="range" min="0" max="255" name="R">
-                &emsp;
-                <label>R</label>
-                <input type="range" min="0" max="255" name="R">
-            </div>
-            <div>
-                <label>G</label>
-                <input type="range" min="0" max="255" name="G">
-                &emsp;
-                <label>G</label>
-                <input type="range" min="0" max="255" name="G">
-            </div>
-            <div>
-                <label>B</label>
-                <input type="range" min="0" max="255" name="B">
-                &emsp;
-                <label>B</label>
-                <input type="range" min="0" max="255" name="B">
-            </div>
+            <!--use css to make it a table row a column-->
+            <table>
+                <tr>
+                    <td>
+                        <svg width="114" height="114">
+                            <rect x="7" y="7" width="100" height="100" fill="black" />
+                        </svg>
+                    </td>
+                    <td><label>R <input type="range" min="0" max="255" name="R"></label></td>
+                    <td><label>G <input type="range" min="0" max="255" name="G"></label></td>
+                    <td><label>B <input type="range" min="0" max="255" name="B"></label></td>
+                    
+                </tr>
+                <tr>
+                    <td>
+                        <svg width="114" height="114">
+                            <rect x="7" y="7" width="100" height="100" fill="black" />
+                        </svg>
+                    </td>
+                    <td><label>R <input type="range" min="0" max="255" name="R"></label></td>
+                    <td><label>G <input type="range" min="0" max="255" name="G"></label></td>
+                    <td><label>B <input type="range" min="0" max="255" name="B"></label></td>
+                    
+                </tr>
+            </table>
             <div>
                 <svg width="304" height="64">
                     <rect x="2" y="2" width="60" height="60" fill="none" stroke="black" stroke-width="2"/>

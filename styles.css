@@ -8,12 +8,12 @@ body {
     align-items: center;
     flex-direction: column;
     min-width: 200px;
-    min-height: 100vh;
+    min-height: 100dvh;
     flex: 1
 }
 footer,header {
     display: flex;
-    min-width: 100vw;
+    min-width: 100dvw;
     background-color: rgb(31, 32, 33);
 }
 main {
@@ -24,10 +24,11 @@ ul {
     display: flex;
     list-style: none;
     flex-wrap:wrap;
-    justify-content: center;
+    justify-content:end;
     margin: 0;
     align-items: center;
     padding:0;
+    padding-right: 1rem;
 }
 li {
     padding: 0.5rem;
@@ -48,7 +49,7 @@ h1 {
     font-size: 40px;
     flex:1;
     display: flex;
-    justify-content: center;
+    justify-content: start;
 }
 h2 {
     font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
@@ -68,5 +69,8 @@ h3 {
 }
 span {
     padding: 0.5rem;
+    justify-content: start;
     margin: auto;
+    flex:1;
+    display: flex;
 }

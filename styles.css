@@ -1,6 +1,7 @@
 
 body {
-    background-color: rgb(43, 44, 45);
+    background-color: rgb(55, 56, 57);
+    /*color: rgb(196, 219, 239);*/
     color: aliceblue;
     margin: auto;
     display: flex;
@@ -11,15 +12,16 @@ body {
     min-height: 100dvh;
     flex: 1
 }
+main {
+    flex:1
+}
+/*footer header text based info*/
 footer,header {
     display: flex;
     min-width: 100dvw;
     background-color: rgb(31, 32, 33);
 }
-main {
-    flex:1
-}
-ul {
+header ul {
     flex:1;
     display: flex;
     list-style: none;
@@ -30,19 +32,10 @@ ul {
     padding:0;
     padding-right: 1rem;
 }
-li {
+header li {
     padding: 0.5rem;
 }
-form {
-    justify-content: center;
-    align-items: center;
-}
-div {
-    width:fit-content;
-    margin:auto;
-    padding: 0.25rem;
-}
-h1 {
+header h1 {
     font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
     margin: auto;
     padding: 1rem;
@@ -51,6 +44,42 @@ h1 {
     display: flex;
     justify-content: start;
 }
+footer span {
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    justify-content: start;
+    margin: auto;
+    flex:1;
+    display: flex;
+}
+div {
+    width:fit-content;
+    margin:auto;
+    padding: 0.25rem;
+}
+
+/*links and buttons*/
+.my-button {
+    background-color: rgb(101, 126, 179);
+    border-color: rgb(101, 126, 179);   
+}
+button {
+    margin: 0.5rem;
+}
+.my-button:hover {
+    background-color: rgb(88, 109, 154);
+    border-color: rgb(88, 109, 154);
+}
+a {
+    /*color:rgb(158, 177, 219);*/
+    color:  rgb(122, 146, 199);
+}
+a:hover {
+    color:rgb(106, 126, 171);
+}
+
+/*for index html*/
 h2 {
     font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
     margin: auto;
@@ -67,10 +96,10 @@ h3 {
     padding-bottom: 0;
     font-size:35px;
 }
-span {
-    padding: 0.5rem;
-    justify-content: start;
-    margin: auto;
-    flex:1;
-    display: flex;
+#faculty-glyphic-regular {
+  font-family: "Faculty Glyphic", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.25rem;
 }
+/*generator.html*/

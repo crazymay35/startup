@@ -1,4 +1,4 @@
-
+/*base*/
 body {
     background-color: rgb(55, 56, 57);
     /*color: rgb(196, 219, 239);*/
@@ -102,4 +102,5 @@ h3 {
   font-style: normal;
   letter-spacing: 0.25rem;
 }
+
 /*generator.html*/

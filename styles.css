@@ -168,6 +168,7 @@ main h2 {
     flex-direction: row;
 }
 img {
+    opacity: 50%;
     height: 100%;
     width: 100%;
     overflow: hidden;

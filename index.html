@@ -14,32 +14,34 @@
         
         <link rel="stylesheet" href="styles.css">
     </head>
-    <body>
+    <body class="gradient-body">
         <header>
             <h1>COLOR PAL</h1>
-            <ul>
-                <li><a href="index.html">login</a></li>
-                <li><a href="generator.html">generate</a></li>
-                <li><a href="create.html">create</a></li>
-                <li><a href="palletes.html">palletes</a></li>
-                <li><a href="following.html">friends</a></li>
-            </ul>
+            <nav>
+                <ul>
+                    <li><a href="index.html">login</a></li>
+                    <li><a href="generator.html">generate</a></li>
+                    <li><a href="create.html">create</a></li>
+                    <li><a href="palletes.html">palletes</a></li>
+                    <li><a href="following.html">friends</a></li>
+                </ul>
+            </nav>
         </header>
-        <main>
+        <main class="main-transparent-container">
+            <h3 id="faculty-glyphic-regular">WELCOME TO</h3>
+            <h2>COLOR PAL!</h2>            
             <form method="get" action="create.html">
-                <h3 id="faculty-glyphic-regular">WELCOME TO</h3>
-                <h2>COLOR PAL!</h2>
-                <div><input type="email" class="form-control" placeholder="example@email.com"></div>
-                <div><input type="password" class="form-control" placeholder="password"></div>
-                <div>
+                <input type="email" class="form-control" placeholder="example@email.com">
+                <input type="password" class="form-control" placeholder="password">
+                <span>
                     <button type="submit" class="btn btn-primary my-button">login</button>
                     <button type="submit" class="btn btn-secondary">create</button>
-                </div>
+                </span>
             </form>
         </main>
         <footer>
             <span>Maren Makrush</span>
-            <span style="justify-content: end;"><a href="https://github.com/crazymay35/startup">github</a></span>
+            <span><a href="https://github.com/crazymay35/startup">github</a></span>
         </footer>
     </body>
 </html>

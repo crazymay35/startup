@@ -1,21 +1,21 @@
-/*base*/
-body {
+/*body {
     background-color: rgb(55, 56, 57);
-    /*color: rgb(196, 219, 239);*/
     color: aliceblue;
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-width: 200px;
+    min-width: 100dvw;
     min-height: 100dvh;
     flex: 1
 }
 main {
-    flex:1
+    flex:1;
+    display: flex;
 }
-/*footer header text based info*/
+
+
 footer,header {
     display: flex;
     min-width: 100dvw;
@@ -53,13 +53,13 @@ footer span {
     flex:1;
     display: flex;
 }
-div {
+form div {
     width:fit-content;
     margin:auto;
     padding: 0.25rem;
 }
 
-/*links and buttons*/
+
 .my-button {
     background-color: rgb(101, 126, 179);
     border-color: rgb(101, 126, 179);   
@@ -72,15 +72,16 @@ button {
     border-color: rgb(88, 109, 154);
 }
 a {
-    /*color:rgb(158, 177, 219);*/
+
     color:  rgb(122, 146, 199);
 }
 a:hover {
     color:rgb(106, 126, 171);
 }
 
-/*for index html*/
+
 h2 {
+    color: rgb(122, 146, 199);
     font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
     margin: auto;
     width: fit-content;
@@ -103,4 +104,184 @@ h3 {
   letter-spacing: 0.25rem;
 }
 
-/*generator.html*/
+
+.color-box-container {
+    display: flex;
+    border: 2px solid black;
+    flex-direction: row;
+}
+.inner-box {
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+}*/
+
+/*core layout*/
+body {
+    background-color: rgb(55, 56, 57);
+    /*color: rgb(122, 146, 199);*/
+    color: aliceblue;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100dvw;
+    height: 100dvh;
+}
+footer, header {
+    background-color: rgb(31, 32, 33);
+    display: flex;
+    min-width: 100dvw;
+    justify-content: space-between;
+}
+main {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+/*header content*/
+header nav {
+    flex:1;
+    display: flex;
+    justify-content:end;
+}
+header ul {
+    display: flex;
+    list-style: none;
+    flex-wrap:wrap;
+    margin: 0;
+    align-items: center;
+    padding: 0;
+}
+header li {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+header h1 {
+    font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
+    margin: 0;
+    padding: 1rem;
+    font-size: 40px;
+}
+/*footer content*/
+footer span {
+    padding: 1rem;
+}
+
+/*general*/
+input {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+div {
+    justify-content: center;
+    display: flex;
+    margin: 1rem;
+}
+button {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-primary {
+    background-color: rgb(101, 126, 179);
+    border-color: rgb(101, 126, 179);   
+}
+.btn-primary:hover {
+    background-color: rgb(87, 107, 149);
+    border-color: rgb(87, 107, 149);
+}
+.btn-primary:active {
+    background-color: rgb(80, 99, 135) !important;
+    border-color: rgb(80, 99, 135) !important;
+}
+a {
+    color:  rgb(122, 146, 199);
+}
+a:hover {
+    color:rgb(106, 126, 171);
+}
+.color-box-container {
+    display: flex;
+    border: 2px solid black;
+    flex-direction: row;
+    margin: 0;
+}
+.inner-box {
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+    margin: 0;
+}
+
+/*main content INDEX*/
+.main-transparent-container {
+    background-color: rgba(55, 56, 57,0.825);
+    width: fit-content;
+    border-radius: 40px;
+    text-align: center;
+}
+main span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#faculty-glyphic-regular {
+    font-family: "Faculty Glyphic", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.25rem;
+
+    color: aliceblue;
+    margin: 0;
+    padding:1rem;
+    font-size:35px;
+}
+main h2 {
+    color: rgb(122, 146, 199);
+    font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
+    padding:2rem;
+    margin: 0;
+    font-size:60px;
+}
+.gradient-body {
+	background: linear-gradient(
+		45deg,
+		#80ffff,
+		#ff80ff,
+        #bb77ff,
+		#7b7bff,
+		#80ffff,
+		#ff80ff
+	);
+	background-size: 600% 100%;
+	animation: gradient 30s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 0%;
+	}
+	25% {
+		background-position: 25% 25%;
+	}
+	50% {
+		background-position: 50% 50%;
+	}
+	75% {
+		background-position: 75% 75%;
+	}
+	100% {
+		background-position: 100% 100%;
+	}
+}
+/*main content GENERATOR*/
+.main-generator {
+    
+}

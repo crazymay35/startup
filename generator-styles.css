@@ -77,18 +77,6 @@ a {
 a:hover {
     color:rgb(106, 126, 171);
 }
-.color-box-container {
-    display: flex;
-    border: 2px solid black;
-    flex-direction: row;
-    margin: 0;
-}
-.inner-box {
-    width: 60px;
-    height: 60px;
-    border: 1px solid black;
-    margin: 0;
-}
 /*main content GENERATOR*/
 .main-generator {
     flex-direction: row;
@@ -110,4 +98,22 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: fit-content;
+    padding:0;
+    margin-left:0.5rem;
+    margin-right:0.5rem;
+}
+.color-box-container {
+    display: flex;
+    border: 2px solid black;
+    flex-direction: row;
+    margin: 0.5rem;
+    padding: 0;
+}
+.inner-box {
+    width: 60px;
+    height: 60px;
+    border: 1px solid black;
+    margin: 0;
+    padding: 0;
 }

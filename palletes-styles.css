@@ -1,6 +1,7 @@
 /*core layout*/
 body {
     background-color: rgb(55, 56, 57);
+    /*color: rgb(122, 146, 199);*/
     color: aliceblue;
     margin: auto;
     display: flex;
@@ -16,12 +17,12 @@ footer, header {
 main {
     display: flex;
     flex: 1;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    overflow: hidden;
 }
+
 /*header content*/
 header nav {
     flex:1;
@@ -52,11 +53,6 @@ footer span {
 }
 
 /*general*/
-input {
-    margin-bottom: 0.5rem;
-    margin-top: 0.5rem;
-}
-
 button {
     margin: 0.5rem;
     display: flex;
@@ -81,83 +77,35 @@ a {
 a:hover {
     color:rgb(106, 126, 171);
 }
+
+/*main content PALLETES*/
+.main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    padding:0;
+    margin: 0;
+}
 .color-box-container {
     display: flex;
     border: 2px solid black;
     flex-direction: row;
-    margin: 0;
+    margin: 0.5rem;
+    padding: 0;
 }
 .inner-box {
     width: 60px;
     height: 60px;
     border: 1px solid black;
     margin: 0;
-}
-
-/*main content INDEX*/
-.main-transparent-container {
-    background-color: rgba(55, 56, 57,0.825);
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: fit-content;
-    border-radius: 40px;
-    text-align: center;
-}
-main span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#faculty-glyphic-regular {
-    font-family: "Faculty Glyphic", sans-serif;
-    font-weight: 600;
-    font-style: normal;
-    letter-spacing: 0.25rem;
-
-    color: aliceblue;
-    margin: 0;
-    padding:1rem;
-    font-size:35px;
-}
-main h2 {
-    color: rgb(122, 146, 199);
-    font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
-    padding:2rem;
-    margin: 0;
-    font-size:60px;
-}
-.gradient-body {
-	background: linear-gradient(
-		45deg,
-		#80ffff,
-		#ff80ff,
-        #bb77ff,
-		#7b7bff,
-		#80ffff,
-		#ff80ff
-	);
-	background-size: 600% 100%;
-	animation: gradient 30s ease infinite;
-	height: 100vh;
-}
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 0%;
-	}
-	25% {
-		background-position: 25% 25%;
-	}
-	50% {
-		background-position: 50% 50%;
-	}
-	75% {
-		background-position: 75% 75%;
-	}
-	100% {
-		background-position: 100% 100%;
-	}
+    padding: 0;
 }

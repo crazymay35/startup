@@ -69,12 +69,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
+- [x] **Visually appealing colors and layout. No overflowing elements.** - checked on phone and laptop, with resizing the window a lot to make sure it is nice and appealing and clear
+- [x] **Use of a CSS framework** - used bootstrap buttons and styled them 
+- [x] **All visual elements styled using CSS** - yes, the css is messy and confusing, but it makes sense to me and i apologize. I will come up with more understandable names
+- [x] **Responsive to window resizing using flexbox and/or grid display** - resizes comfortably, no overflow, really happy with this part, it was a bit of a finagle. palletes page uses flex box i believe. 
+- [x] **Use of a imported font** - used a google font, and yes it is imported. used it one following.html and index.html
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - a variety of element selectors, classes, and pseudo selectors (buttons and links)
 
 ## 🚀 React part 1: Routing deliverable
 

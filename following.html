@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>ColorPal</title>
         
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&family=Fuzzy+Bubbles:wght@700&family=Indie+Flower&display=swap" rel="stylesheet">
+
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
         
@@ -26,54 +30,44 @@
             </ul>
         </header>
         <main>
-            <div class="users">
-                You:
-                <span class="username">I-am-the-current-player</span>
+            <div class="main-transparent-container">
+                <span>You Are: &emsp; current-player</span>
+                <span id="faculty-glyphic-regular">FRIENDS</span>
+                <div>
+                    USERNAME1
+                    <button type="button" class="btn btn-primary my-button">unfollow</button>
+                </div>
+                <div>
+                    USERNAME2
+                    <button type="button" class="btn btn-primary my-button">unfollow</button>
+                </div>
+                <div>
+                    USERNAME3
+                    <button type="button" class="btn btn-primary my-button">unfollow</button>
+                </div>
+                <form>
+                    <input type="email" class="form-control" placeholder="example@email.com">
+                    <button type="button" class="btn btn-primary my-button">add friend</button>
+                </form>
             </div>
-            <table class="following-list">
-                <tr class="username"><th>FRIEND</th></tr>
-                <tr class="username">
-                    <td>USERNAME1</td>
-                    <td><button type="button" class="btn btn-primary my-button">unfollow</button></td>
-                </tr>
-                <tr class="username">
-                    <td>USERNAME2</td>
-                    <td><button type="button" class="btn btn-primary my-button">unfollow</button></td>
-                </tr>
-                <tr class="username">
-                    <td>USERNAME3</td>
-                    <td><button type="button" class="btn btn-primary my-button">unfollow</button></td>
-                </tr>
-            </table>       
-            
-            <form action="">
-                <input type="email" class="form-control" placeholder="example@email.com">
-                <span><button type="button" class="btn btn-primary my-button">add friend</button></span>
-            </form>
-            <table class="notification">
-                <tr><th>NOTIFICATIONS</th></tr>
-                <tr class="username"> 
-                    <td>
-                        USERNAME1 made a new pallete! add to collection?
-                        <button type="submit" class="btn btn-secondary">remove</button>
-                        <button type="button" class="btn btn-primary my-button">add</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        USERNAME2 made a new pallete! add to collection?
-                        <button type="submit" class="btn btn-secondary">remove</button>
-                        <button type="button" class="btn btn-primary my-button">add</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        USERNAME1 made a new pallete! add to collection?
-                        <button type="submit" class="btn btn-secondary">remove</button>
-                        <button type="button" class="btn btn-primary my-button">add</button>
-                    </td>
-                </tr>
-            </table>
+            <div class="main-transparent-container">
+                <span id="faculty-glyphic-regular">NOTIFICATIONS</span>
+                <div>
+                    USERNAME1 shared a pallete
+                    <button type="button" class="btn btn-primary my-button">add</button>
+                    <button type="submit" class="btn btn-secondary">dismiss</button>
+                </div>
+                <div>
+                    USERNAME1 shared a pallete
+                    <button type="button" class="btn btn-primary my-button">add</button>
+                    <button type="submit" class="btn btn-secondary">dismiss</button>
+                </div>
+                <div>
+                    USERNAME3 shared a pallete
+                    <button type="button" class="btn btn-primary my-button">add</button>
+                    <button type="submit" class="btn btn-secondary">dismiss</button>
+                </div>
+            </div>
         </main>
         <footer>
             <span>Maren Makrush</span>

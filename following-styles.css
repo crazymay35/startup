@@ -17,10 +17,18 @@ footer, header {
 main {
     display: flex;
     flex: 1;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
+    background-image: url(color-splatter.jpg);
+    background-size: cover;
+    background-position: center;
+}
+@media (max-width="400px") {
+    main {
+        flex-direction: column;
+    }
 }
 
 /*header content*/
@@ -90,4 +98,32 @@ a {
 a:hover {
     color:rgb(106, 126, 171);
 }
-/*main following content*/
+/*main content FOLLOWING*/
+.main-transparent-container {
+    background-color: rgba(55, 56, 57,0.825);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 40px;
+    text-align: center;
+    padding: 1rem;
+    margin: 1rem;
+}
+#faculty-glyphic-regular {
+    font-family: "Faculty Glyphic", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.25rem;
+
+    color: aliceblue;
+    margin: 0;
+    font-size:20px;
+    padding-top: 0.5rem;
+}
+span {
+    margin-bottom: 0.5rem;
+}
+form {
+    margin-top: 0.5rem;
+}

@@ -97,7 +97,6 @@ a:hover {
 .main-transparent-container {
     background-color: rgba(55, 56, 57,0.825);
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -127,6 +126,9 @@ main h2 {
     padding:2rem;
     margin: 0;
     font-size:60px;
+}
+form {
+    padding-bottom: 0.5rem;
 }
 .gradient-body {
 	background: linear-gradient(

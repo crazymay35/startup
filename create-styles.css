@@ -15,15 +15,20 @@ footer, header {
     justify-content: space-between;
 }
 main {
+    background-image: url(color-splatter.jpg);
     display: flex;
     flex: 1;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    background-size: cover;
+    background-position: center;
 }
-
 /*header content*/
+header img {
+    height: 3rem;
+    width: auto;
+}
 header nav {
     flex:1;
     display: flex;
@@ -85,8 +90,6 @@ a:hover {
     align-items: center;
     width: fit-content;
     padding:0;
-    margin-left:0.5rem;
-    margin-right:0.5rem;
 }
 .color-box-container {
     display: flex;
@@ -103,7 +106,16 @@ a:hover {
     padding: 0;
 }
 /*big color square plus rgb sliders*/
-
+.main-transparent-container {
+    background-color: rgba(55, 56, 57,0.825);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 40px;
+    text-align: center;
+    padding: 1rem;
+}
 .container-boxes {
     display: flex;
     flex-direction: row;
@@ -127,7 +139,7 @@ a:hover {
     width: 114px;
     height: 114px;
     background-color: black;
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 0;
 }
 label {

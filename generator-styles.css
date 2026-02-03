@@ -1,7 +1,6 @@
 /*core layout*/
 body {
     background-color: rgb(55, 56, 57);
-    /*color: rgb(122, 146, 199);*/
     color: aliceblue;
     margin: auto;
     display: flex;
@@ -24,11 +23,6 @@ main {
     background-size: cover;
     background-position: center;
 }
-@media (max-width:400px) {
-    main {
-        transform: rotate(90deg);
-    }
-}
 
 /*header content*/
 header nav {
@@ -37,7 +31,6 @@ header nav {
     justify-content:end;
 }
 header img {
-    opacity: 100%;
     height: 3rem;
     width: auto;
 }
@@ -92,7 +85,6 @@ a:hover {
 /*main content GENERATOR*/
 .main-generator {
     flex-direction: row;
-    overflow: hidden;
 }
 .main-transparent-container {
     background-color: rgba(55, 56, 57,0.825);

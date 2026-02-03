@@ -12,7 +12,11 @@
     </head>
     <body>
         <header>
-            <h1>COLOR PAL</h1>
+            <h1>
+                <img src="paintbrush-and-palette-svgrepo-com.svg" 
+                alt="icon of a paintbrush and a color pallete">
+                COLOR PAL
+            </h1>
             <ul>
                 <li><a href="index.html">login</a></li>
                 <li><a href="generator.html">generate</a></li>
@@ -22,31 +26,33 @@
             </ul>
         </header>
         <main>
-            <div class="container-boxes">
-                <div class="container-color">
-                    <div class="color-box-selector"></div>
-                    <label>R <input type="range" min="0" max="255" name="R"></label>
-                    <label>G <input type="range" min="0" max="255" name="G"></label>
-                    <label>B <input type="range" min="0" max="255" name="B"></label>
+            <div class="main-transparent-container">
+                <div class="container-boxes">
+                    <div class="container-color">
+                        <div class="color-box-selector"></div>
+                        <label>R <input type="range" min="0" max="255" name="R"></label>
+                        <label>G <input type="range" min="0" max="255" name="G"></label>
+                        <label>B <input type="range" min="0" max="255" name="B"></label>
+                    </div>
+                    <div class="container-color">
+                        <div class="color-box-selector"></div>
+                        <label>R <input type="range" min="0" max="255" name="R"></label>
+                        <label>G <input type="range" min="0" max="255" name="G"></label>
+                        <label>B <input type="range" min="0" max="255" name="B"></label>
+                    </div>
                 </div>
-                <div class="container-color">
-                    <div class="color-box-selector"></div>
-                    <label>R <input type="range" min="0" max="255" name="R"></label>
-                    <label>G <input type="range" min="0" max="255" name="G"></label>
-                    <label>B <input type="range" min="0" max="255" name="B"></label>
-                </div>
-            </div>
-            <div class="container">
-                <div class="color-box-container">
-                    <div class="inner-box"></div>
-                    <div class="inner-box"></div>
-                    <div class="inner-box"></div>
-                    <div class="inner-box"></div>
-                    <div class="inner-box"></div>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-primary my-button">save pallete</button>
-                    <button type="button" class="btn btn-secondary">generate</button>
+                <div class="container">
+                    <div class="color-box-container">
+                        <div class="inner-box"></div>
+                        <div class="inner-box"></div>
+                        <div class="inner-box"></div>
+                        <div class="inner-box"></div>
+                        <div class="inner-box"></div>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary my-button">save pallete</button>
+                        <button type="button" class="btn btn-secondary">generate</button>
+                    </div>
                 </div>
             </div>
         </main>

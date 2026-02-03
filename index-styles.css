@@ -19,10 +19,12 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    overflow: hidden;
 }
 /*header content*/
+header img {
+    height: 3rem;
+    width: auto;
+}
 header nav {
     flex:1;
     display: flex;

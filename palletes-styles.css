@@ -24,6 +24,10 @@ main {
 }
 
 /*header content*/
+header img {
+    height: 3rem;
+    width: auto;
+}
 header nav {
     flex:1;
     display: flex;

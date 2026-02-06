@@ -1,8 +1,8 @@
 /*main content GENERATOR*/
-.main-generator {
+.generator-main-generator {
     flex-direction: row;
 }
-.main-transparent-container {
+.generator-main-transparent-container {
     background-color: rgba(55, 56, 57,0.825);
     display: flex;
     align-items: center;
@@ -11,7 +11,7 @@
     border-radius: 2.5rem;
     text-align: center;
 }
-.container {
+.generator-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,14 +19,14 @@
     width: fit-content;
     padding: 1rem;
 }
-.color-box-container {
+.generator-color-box-container {
     display: flex;
     border: 0.125rem solid black;
     flex-direction: row;
     margin: 0.5rem;
     padding: 0;
 }
-.inner-box {
+.generator-inner-box {
     width: 3.75rem;
     height: 3.75rem;
     border: 0.0625rem solid black;

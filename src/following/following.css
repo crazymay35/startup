@@ -1,10 +1,5 @@
 /*main content FOLLOWING*/
-main span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.main-transparent-container {
+.following-main-transparent-container {
     background-color: rgba(55, 56, 57,0.825);
     display: flex;
     align-items: center;
@@ -15,7 +10,7 @@ main span {
     padding: 1rem;
     margin: 1rem;
 }
-#faculty-glyphic-regular {
+#following-faculty-glyphic-regular {
     font-family: "Faculty Glyphic", sans-serif;
     font-weight: 600;
     font-style: normal;
@@ -24,11 +19,5 @@ main span {
     color: aliceblue;
     margin: 0;
     font-size: 1.25rem;
-    padding-top: 0.5rem;
-}
-span {
-    margin-bottom: 0.5rem;
-}
-form {
-    margin-top: 0.5rem;
+    padding-top: 0
 }

@@ -2,10 +2,12 @@
 .body {
     background-color: rgb(55, 56, 57);
     color: aliceblue;
-    margin: auto;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    height: 100dvh;
+    min-height: 100dvh;
+    padding: 0;
+    margin: 0;
 }
 footer, header {
     background-color: rgb(31, 32, 33);

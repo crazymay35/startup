@@ -3,14 +3,14 @@ import './generator.css';
 
 export function Generator() {
   return (
-    <main className="main-generator">
-        <div className="container main-transparent-container">
-            <div className="color-box-container">
-                <div className="inner-box"></div>
-                <div className="inner-box"></div>
-                <div className="inner-box"></div>
-                <div className="inner-box"></div>
-                <div className="inner-box"></div>
+    <main className="generator-main-generator">
+        <div className="generator-container generator-main-transparent-container">
+            <div className="generator-color-box-container">
+                <div className="generator-inner-box"></div>
+                <div className="generator-inner-box"></div>
+                <div className="generator-inner-box"></div>
+                <div className="generator-inner-box"></div>
+                <div className="generator-inner-box"></div>
             </div>
             <div>
                 <button type="button" className="btn btn-primary my-button">Save Palette</button>

@@ -1,5 +1,5 @@
 /*main content INDEX*/
-.main-transparent-container {
+.login-main-transparent-container {
     background-color: rgba(55, 56, 57,0.825);
     display: flex;
     align-items: center;
@@ -14,7 +14,7 @@ main span {
     align-items: center;
     justify-content: center;
 }
-#faculty-glyphic-regular {
+#login-faculty-glyphic-regular {
     font-family: "Faculty Glyphic", sans-serif;
     font-weight: 600;
     font-style: normal;
@@ -23,7 +23,6 @@ main span {
     color: aliceblue;
     margin: 0;
     font-size:2.25rem;
-    padding-top: 0.5rem;
 }
 main h2 {
     color: rgb(122, 146, 199);

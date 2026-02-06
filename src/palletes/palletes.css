@@ -1,5 +1,5 @@
 /*main content PALLETES*/
-.main-transparent-container {
+.palletes-main-transparent-container {
     background-color: rgba(55, 56, 57,0.825);
     display: flex;
     align-items: center;
@@ -8,14 +8,14 @@
     border-radius: 2.5rem;
     text-align: center;
 }
-.main-container {
+.palletes-main-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     padding: 0;
     margin: 0;
 }
-.container {
+.palletes-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,14 +24,14 @@
     padding: 1rem;
     margin: 0.5rem;
 }
-.color-box-container {
+.palletes-color-box-container {
     display: flex;
     border: 0.125rem solid black;
     flex-direction: row;
     margin: 0.5rem;
     padding: 0;
 }
-.inner-box {
+.palletes-inner-box {
     width: 3.75rem;
     height: 3.75rem;
     border: 0.0625 solid black;

@@ -1,4 +1,11 @@
 /*main content PALLETES*/
+.palletes-main-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+}
 .palletes-main-transparent-container {
     background-color: rgba(55, 56, 57,0.825);
     display: flex;
@@ -7,13 +14,7 @@
     flex-direction: column;
     border-radius: 2.5rem;
     text-align: center;
-}
-.palletes-main-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 0;
-    margin: 0;
+    margin: 1rem;
 }
 .palletes-container {
     display: flex;
@@ -22,7 +23,6 @@
     align-items: center;
     width: fit-content;
     padding: 1rem;
-    margin: 0.5rem;
 }
 .palletes-color-box-container {
     display: flex;
@@ -34,7 +34,7 @@
 .palletes-inner-box {
     width: 3.75rem;
     height: 3.75rem;
-    border: 0.0625 solid black;
+    border: 0.0625rem solid black;
     margin: 0;
     padding: 0;
 }

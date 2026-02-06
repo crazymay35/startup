@@ -20,7 +20,7 @@ export function Create() {
               </div>
           </div>
           <div className="create-container">
-              <div className="color-box-container">
+              <div className="create-color-box-container">
                   <div className="create-inner-box"></div>
                   <div className="create-inner-box"></div>
                   <div className="create-inner-box"></div>

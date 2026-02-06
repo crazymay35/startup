@@ -1,0 +1,85 @@
+/*core layout*/
+.body {
+    background-color: rgb(55, 56, 57);
+    color: aliceblue;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+}
+footer, header {
+    background-color: rgb(31, 32, 33);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+main {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-image: url(public/color-splatter.jpg);
+    background-size: cover;
+    background-position: center;
+}
+/*header and footer*/
+header nav {
+    flex:1;
+    display: flex;
+    justify-content:end;
+}
+header img {
+    height: 3rem;
+    width: auto;
+}
+header ul {
+    display: flex;
+    list-style: none;
+    flex-wrap:wrap;
+    margin: 0;
+    align-items: center;
+    padding: 0;
+}
+header li {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+header h1 {
+    font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;
+    margin: 0;
+    padding: 1rem;
+    font-size: 2.5rem;
+}
+footer span {
+    padding: 1rem;
+    margin: 0;
+}
+/*interactive components*/
+input {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+button {
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-primary {
+    background-color: rgb(101, 126, 179);
+    border-color: rgb(101, 126, 179);   
+}
+.btn-primary:hover {
+    background-color: rgb(87, 107, 149);
+    border-color: rgb(87, 107, 149);
+}
+.btn-primary:active {
+    background-color: rgb(80, 99, 135) !important;
+    border-color: rgb(80, 99, 135) !important;
+}
+a {
+    color:  rgb(122, 146, 199);
+}
+a:hover {
+    color:rgb(106, 126, 171);
+}

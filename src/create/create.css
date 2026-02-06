@@ -6,6 +6,7 @@
     align-items: center;
     width: fit-content;
     padding:0;
+    margin-top: 0.5rem;
 }
 .create-color-box-container {
     display: flex;
@@ -49,6 +50,7 @@
     width: fit-content;
     padding: 0;
     margin: 0;
+    margin-bottom: 0.5rem;
 }
 .create-color-box-selector {
     width: 7.125rem;
@@ -58,8 +60,9 @@
     padding: 0;
 }
 .create-label {
-    margin: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 .create-input {
-    margin: 0rem;
+    margin: 0;
 }

@@ -18,7 +18,7 @@ main {
     flex: 1;
     justify-content: center;
     align-items: center;
-    background-image: url(public/color-splatter.jpg);
+    background-image: url(color-splatter.jpg);
     background-size: cover;
     background-position: center;
 }

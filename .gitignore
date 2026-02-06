@@ -1,3 +1,6 @@
 node_modules
 deployFiles.sh
 deployReact.sh
+.vscode/
+package-lock.json
+package.json

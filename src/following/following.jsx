@@ -5,7 +5,7 @@ export function Following() {
   return (
     <main className="following-main-container">
         <div className="following-main-transparent-container">
-            <span>You Are: &emsp; current-player</span>
+            <span className="thing">You Are: &emsp; current-player</span>
             <span id="following-faculty-glyphic-regular">FRIENDS</span>
             <div>
                 USERNAME1
@@ -19,7 +19,7 @@ export function Following() {
                 USERNAME3
                 <button type="button" className="btn btn-primary my-button">Unfollow</button>
             </div>
-            <form>
+            <form className="form-thing">
                 <input type="email" className="form-control" placeholder="example@email.com"/>
                 <button type="button" className="btn btn-primary my-button">Add Friend</button>
             </form>
@@ -29,17 +29,17 @@ export function Following() {
             <div>
                 USERNAME1 shared a palette
                 <button type="button" className="btn btn-primary my-button">Add</button>
-                <button type="submit" className="btn btn-secondary">Dismiss</button>
+                <button type="submit" className="btn btn-secondary">X</button>
             </div>
             <div>
                 USERNAME1 shared a palette
                 <button type="button" className="btn btn-primary my-button">Add</button>
-                <button type="submit" className="btn btn-secondary">Dismiss</button>
+                <button type="submit" className="btn btn-secondary">X</button>
             </div>
             <div>
                 USERNAME3 shared a palette
                 <button type="button" className="btn btn-primary my-button">Add</button>
-                <button type="submit" className="btn btn-secondary">Dismiss</button>
+                <button type="submit" className="btn btn-secondary">X</button>
             </div>
         </div>
     </main>

@@ -50,13 +50,13 @@
     width: fit-content;
     padding: 0;
     margin: 0;
-    margin-bottom: 0.5rem;
 }
 .create-color-box-selector {
     width: 7.125rem;
     height: 7.125rem;
     background-color: black;
     margin: 0.5rem;
+    margin-bottom: 1rem;
     padding: 0;
 }
 .create-label {

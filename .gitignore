@@ -1,3 +1,4 @@
 node_modules
 deployFiles.sh
 deployReact.sh
+.vscode

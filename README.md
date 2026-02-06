@@ -80,9 +80,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] **Bundled using Vite** - npm run build compiles the code, o opens in the browser, q quits
+- [x] **Components** - header footer and background of main is parts of the app.css and app.jsx, each page has their own css and jsx file, images are in the public file
+- [x] **Router** - followed the assignment details (for simon and again for startup) and it navigates and operates properly. finally... XD
 
 ## 🚀 React part 2: Reactivity deliverable
 

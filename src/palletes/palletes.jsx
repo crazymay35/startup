@@ -1,9 +1,113 @@
 import React from 'react';
+import './palletes.css';
 
 export function Palletes() {
   return (
-    <main>
-      <div>Palletes displayed here</div>
+    <main class="main-container">
+        <div class="container main-transparent-container">
+            <div class="color-box-container">
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary my-button">Share</button>
+                <button type="button" class="btn btn-secondary">Remove</button>
+            </div>
+        </div>
+        <div class="container main-transparent-container">
+            <div class="color-box-container">
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary my-button">Share</button>
+                <button type="button" class="btn btn-secondary">Remove</button>
+            </div>
+        </div>
+        <div class="container main-transparent-container">
+            <div class="color-box-container">
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary my-button">Share</button>
+                <button type="button" class="btn btn-secondary">Remove</button>
+            </div>
+        </div>
+          <div class="container main-transparent-container">
+            <div class="color-box-container">
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary my-button">Share</button>
+                <button type="button" class="btn btn-secondary">Remove</button>
+            </div>
+        </div>
+        <div class="container main-transparent-container">
+            <div class="color-box-container">
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary my-button">Share</button>
+                <button type="button" class="btn btn-secondary">Remove</button>
+            </div>
+        </div>
+        <div class="container main-transparent-container">
+            <div class="color-box-container">
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary my-button">Share</button>
+                <button type="button" class="btn btn-secondary">Remove</button>
+            </div>
+        </div>
+        <div class="container main-transparent-container">
+            <div class="color-box-container">
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary my-button">Share</button>
+                <button type="button" class="btn btn-secondary">Remove</button>
+            </div>
+        </div>
+        <div class="container main-transparent-container">
+            <div class="color-box-container">
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+                <div class="inner-box"></div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary my-button">Share</button>
+                <button type="button" class="btn btn-secondary">Remove</button>
+            </div>
+        </div>
     </main>
   );
 }

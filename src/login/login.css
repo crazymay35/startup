@@ -38,7 +38,7 @@ input {
     margin-top: 0.5rem;
 }
 .login-modal {
-    background-color: rgba(55, 56, 57,0.9);
+    background-color: rgba(55, 56, 57,0.95);
     position: fixed;
     top: center;
     left: center;
@@ -48,7 +48,4 @@ input {
     flex-direction: column;
     border-radius: 2.5rem;
     padding: 2rem;
-}
-.login-thing {
-    margin-bottom: 1rem;
 }

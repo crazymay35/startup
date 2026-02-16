@@ -11,6 +11,7 @@ export function Login() {
     const [username,setUsername] = useState("");
 
     const[showCreateAccount,setShowCreateAccount] = useState(false);
+    const[errorMessage,setErrorMessage] = useState("");
 
     const navigate = useNavigate();
  
@@ -21,14 +22,17 @@ export function Login() {
         const user = users[email];
 
         if (!user) {
+            setErrorMessage("user not found");
             console.log("user not found");
             return;
         }
         
         if (user.password !== password) {
+            setErrorMessage("password incorrect");
             console.log("password incorrect");
             return;
         }
+        setErrorMessage("")
         localStorage.setItem("currentUser",email);
         navigate("/create");
         /*if (!email) {
@@ -72,13 +76,15 @@ export function Login() {
             return;
         }*/
         const users = JSON.parse(localStorage.getItem("users")) || {};
-        
+
         if (users[email]) {
             console.log("email already exists");
+            setErrorMessage("email already exists");
             return;
         }
         users[email] = {email, username, password};    
         localStorage.setItem("users", JSON.stringify(users));
+        setErrorMessage("account created! please login");
         console.log("account created! please login");
         setShowCreateAccount(false);
     }
@@ -119,6 +125,7 @@ export function Login() {
                         onClick={() => setShowCreateAccount(true)}>Create</button>
                 </span>
             </form>
+            {errorMessage && (<div>{errorMessage}</div>)}
         </div>
     </main>
   );

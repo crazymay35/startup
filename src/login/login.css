@@ -24,6 +24,16 @@ main span {
     margin: 0;
     font-size:2.25rem;
 }
+#login-faculty-glyphic-regular-2 {
+    font-family: "Faculty Glyphic", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.25rem;
+
+    color: aliceblue;
+    margin: 0;
+    font-size:2.25rem;
+}
 main h2 {
     color: rgb(122, 146, 199);
     font-family: 'Lucida Handwriting', 'Brush Script MT', cursive;

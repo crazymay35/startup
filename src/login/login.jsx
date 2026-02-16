@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
 import './login.css';
 import { jsx } from 'react/jsx-runtime';
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export function Login() {
     /*store the variables*/
@@ -16,7 +17,21 @@ export function Login() {
     function handleLogin(e) {
         e.preventDefault();
 
-        if (!email) {
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        const user = users[email];
+
+        if (!user) {
+            console.log("user not found");
+            return;
+        }
+        
+        if (user.password !== password) {
+            console.log("password incorrect");
+            return;
+        }
+        localStorage.setItem("currentUser",email);
+        navigate("/create");
+        /*if (!email) {
             console.log("email required")
             return;
         }
@@ -25,7 +40,7 @@ export function Login() {
             return;
         }
         
-        const storedLogin = localStorage.getItem(email);
+        const storedLogin = localStorage.getItem("currentUser");
 
         if (!storedLogin) {
             console.log("user not found");
@@ -40,11 +55,11 @@ export function Login() {
         }
         else {
             console.log("password incorrect")
-        }
+        }*/
     }
     function handleCreate(e) {
         e.preventDefault();
-        if (!username) {
+        /*if (!username) {
             console.log("username required")
             return;
         }
@@ -55,9 +70,15 @@ export function Login() {
         if (!password) {
             console.log("password required")
             return;
+        }*/
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        
+        if (users[email]) {
+            console.log("email already exists");
+            return;
         }
-        const newUser = {email, username, password};    
-        localStorage.setItem(email, JSON.stringify(newUser));
+        users[email] = {email, username, password};    
+        localStorage.setItem("users", JSON.stringify(users));
         console.log("account created! please login");
         setShowCreateAccount(false);
     }

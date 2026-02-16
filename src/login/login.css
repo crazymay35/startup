@@ -37,3 +37,18 @@ input {
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
 }
+.login-modal {
+    background-color: rgba(55, 56, 57,0.9);
+    position: fixed;
+    top: center;
+    left: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 2.5rem;
+    padding: 2rem;
+}
+.login-thing {
+    margin-bottom: 1rem;
+}

@@ -23,31 +23,6 @@ export default function App() {
         
         const onLoginPage = path === "/";
         
-        /*let navContent;
-
-        if (onLoginPage) {
-            navContent = (
-                <><li><NavLink to="/">Login</NavLink></li></>
-            );
-        }
-        else {
-            navContent = (
-                <>
-                    <li> hello {storedUser?.username}</li>
-                    <li>
-                        <button className='btn btn-primary my-button'
-                        onClick={() => {
-                            localStorage.removeItem("currentUser");
-                            window.location.href = "/";
-                        }}>Logout</button>
-                    </li>
-                    <li><NavLink to="/generator">Generate</NavLink></li>
-                    <li><NavLink to="/create">Create</NavLink></li>
-                    <li><NavLink to="/palletes">Palettes</NavLink></li>
-                    <li><NavLink to="/following">Friends</NavLink></li>
-                </>
-            )
-        }*/
         return (
             <header>
                 <h1>
@@ -58,7 +33,7 @@ export default function App() {
                 <ul> {onLoginPage ? (<li><NavLink to="/">Login</NavLink></li>) : (
                     <>
                     <li>
-                        <button className='btn btn-primary my-button'
+                        <button className='btn btn-secondary'
                         onClick={() => {
                             localStorage.removeItem("currentUser");
                             window.location.href = "/";
@@ -74,25 +49,25 @@ export default function App() {
             </header>
         );
     }
-  return (
-    <BrowserRouter>
-        <div className="body">
-            <Header />
-            <Routes>
-                <Route path='/' element={<Login />} />
-                <Route path='/generator' element={<ProtectedRoute><Generator /></ProtectedRoute>} />
-                <Route path='/create' element={<ProtectedRoute><Create /></ProtectedRoute>} />
-                <Route path='/palletes' element={<ProtectedRoute><Palletes /></ProtectedRoute>} />
-                <Route path='/following' element={<ProtectedRoute><Following /></ProtectedRoute>} />
-                <Route path='*' element={<NotFound />} />
-            </Routes>
-            <footer>
-                <span>Maren Makrush</span>
-                <span><a href="https://github.com/crazymay35/startup">GitHub</a></span>
-            </footer>
-        </div>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <div className="body">
+                <Header />
+                <Routes>
+                    <Route path='/' element={<Login />} />
+                    <Route path='/generator' element={<ProtectedRoute><Generator /></ProtectedRoute>} />
+                    <Route path='/create' element={<ProtectedRoute><Create /></ProtectedRoute>} />
+                    <Route path='/palletes' element={<ProtectedRoute><Palletes /></ProtectedRoute>} />
+                    <Route path='/following' element={<ProtectedRoute><Following /></ProtectedRoute>} />
+                    <Route path='*' element={<NotFound />} />
+                </Routes>
+                <footer>
+                    <span>Maren Makrush</span>
+                    <span><a href="https://github.com/crazymay35/startup">GitHub</a></span>
+                </footer>
+            </div>
+        </BrowserRouter>
+    );
 }
 
 function NotFound() {

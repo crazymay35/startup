@@ -10,6 +10,19 @@ export function Create() {
         setter((prev) => ({...prev, [name]: Number(value)}))
     };
 
+    function generateGradient(c1,c2) {
+        return [0,1,2,3,4].map((i) => {
+            const t = i/4;
+            
+
+            return {
+                r : Math.round(color1.r + (color2.r - color1.r) * t),
+                g : Math.round(color1.g + (color2.g - color1.g) * t),
+                b : Math.round(color1.b + (color2.b - color1.b) * t)
+            }
+        })
+    }
+
     function handleSavePalette() {
         const currentUser = localStorage.getItem("currentUser");
         if (!currentUser) {
@@ -17,10 +30,12 @@ export function Create() {
             return;
         }
         
+        const gradient =generateGradient(color1,color2);
+
         const savePalette = {
             color1,
             color2,
-            savedAt: Date.now()
+            gradient
         }
         let palettes = {};
         try {
@@ -45,45 +60,38 @@ export function Create() {
                             style={{backgroundColor: `rgb(${color1.r}, ${color1.g}, ${color1.b})`}}>
                         </div>
                             
-                        <label className="create-label">R </label>
+                        <label className="create-label">R &ensp;
                             <input className="create-input" type="range" min="0" max="255" name="r"
-                            value={color1.r} onChange={handleCreateChange(setColor1)}/>
-                        <label className="create-label">G </label>
+                            value={color1.r} onChange={handleCreateChange(setColor1)}/></label>
+                        <label className="create-label">G &ensp;
                             <input className="create-input" type="range" min="0" max="255" name="g"
-                            value={color1.g} onChange={handleCreateChange(setColor1)}/>
-                        <label className="create-label">B </label>
+                            value={color1.g} onChange={handleCreateChange(setColor1)}/></label>
+                        <label className="create-label">B &ensp;
                             <input className="create-input" type="range" min="0" max="255" name="b"
-                            value={color1.b} onChange={handleCreateChange(setColor1)}/>
+                            value={color1.b} onChange={handleCreateChange(setColor1)}/></label>
                     </div>
                     <div className="create-container-color">
                         <div className="create-color-box-selector"
                             style={{backgroundColor: `rgb(${color2.r}, ${color2.g}, ${color2.b})`}}>
                         </div>
-                        <label className="create-label">R </label>
+                        <label className="create-label">R &ensp;
                             <input className="create-input" type="range" min="0" max="255" name="r"
-                            value={color2.r} onChange={handleCreateChange(setColor2)}/>
-                        <label className="create-label">G </label>
+                            value={color2.r} onChange={handleCreateChange(setColor2)}/></label>
+                        <label className="create-label">G &ensp;
                             <input className="create-input" type="range" min="0" max="255" name="g"
-                            value={color2.g} onChange={handleCreateChange(setColor2)}/>
-                        <label className="create-label">B </label>
+                            value={color2.g} onChange={handleCreateChange(setColor2)}/></label>
+                        <label className="create-label">B &ensp;
                             <input className="create-input" type="range" min="0" max="255" name="b"
-                            value={color2.b} onChange={handleCreateChange(setColor2)}/>
+                            value={color2.b} onChange={handleCreateChange(setColor2)}/></label>
                     </div>
                 </div>
                 <div className="create-container">
                     <div className="create-color-box-container">
-                        {[0,1,2,3,4].map((i) => {
-                            const t = i/4;
-                            const r = Math.round(color1.r + (color2.r - color1.r) * t);
-                            const g = Math.round(color1.g + (color2.g - color1.g) * t);
-                            const b = Math.round(color1.b + (color2.b - color1.b) * t);
-
-                            return (
-                                <div key={i} className="create-inner-box" 
-                                    style={{backgroundColor: `rgb(${r}, ${g}, ${b})`}}>
-                                </div>
-                            );
-                        })}
+                        {generateGradient(color1,color2).map((c,i) => (
+                            <div key={i} className="create-inner-box" 
+                                style={{backgroundColor: `rgb(${r}, ${g}, ${b})`}}>
+                            </div>
+                        ))}
                     </div>
                     <div>
                         <button type="button" className="btn btn-primary my-button"

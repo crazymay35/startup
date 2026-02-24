@@ -9,6 +9,33 @@ export function Create() {
         const {name, value} = e.target;
         setter((prev) => ({...prev, [name]: Number(value)}))
     };
+
+    function handleSavePalette() {
+        const currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) {
+            console.log("user not logged in");
+            return;
+        }
+        
+        const savePalette = {
+            color1,
+            color2,
+            savedAt: Date.now()
+        }
+        let palettes = {};
+        try {
+            palettes = JSON.parse(localStorage.getItem("palettes")) || {};
+        }
+        catch {
+            palettes = {};
+        }
+        if (!palettes[currentUser]) {
+            palettes[currentUser] = [];
+        }
+        palettes[currentUser].push(savePalette);
+        localStorage.setItem("palettes", JSON.stringify(palettes))
+        console.log("palette saved!")
+    }
     return (
         <main>
             <div className="create-main-transparent-container">
@@ -59,7 +86,9 @@ export function Create() {
                         })}
                     </div>
                     <div>
-                        <button type="button" className="btn btn-primary my-button">Save Palette</button>
+                        <button type="button" className="btn btn-primary my-button"
+                            onClick={handleSavePalette}
+                        >Save Palette</button>
                     </div>
                 </div>
             </div>

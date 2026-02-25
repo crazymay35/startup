@@ -13,8 +13,6 @@ export function Create() {
     function generateGradient(c1,c2) {
         return [0,1,2,3,4].map((i) => {
             const t = i/4;
-            
-
             return {
                 r : Math.round(color1.r + (color2.r - color1.r) * t),
                 g : Math.round(color1.g + (color2.g - color1.g) * t),
@@ -30,13 +28,13 @@ export function Create() {
             return;
         }
         
-        const gradient =generateGradient(color1,color2);
-
+        const gradient = generateGradient(color1,color2);
         const savePalette = {
             color1,
             color2,
             gradient
         }
+        
         let palettes = {};
         try {
             palettes = JSON.parse(localStorage.getItem("palettes")) || {};
@@ -89,7 +87,7 @@ export function Create() {
                     <div className="create-color-box-container">
                         {generateGradient(color1,color2).map((c,i) => (
                             <div key={i} className="create-inner-box" 
-                                style={{backgroundColor: `rgb(${r}, ${g}, ${b})`}}>
+                                style={{backgroundColor: `rgb(${c.r}, ${c.g}, ${c.b})`}}>
                             </div>
                         ))}
                     </div>

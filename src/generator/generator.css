@@ -21,7 +21,7 @@
 }
 .generator-color-box-container {
     display: flex;
-    border: 0.125rem solid black;
+    border: 0.09375rem solid black;
     flex-direction: row;
     margin: 0.5rem;
     padding: 0;
@@ -29,7 +29,6 @@
 .generator-inner-box {
     width: 3.75rem;
     height: 3.75rem;
-    border: 0.0625rem solid black;
     margin: 0;
     padding: 0;
 }

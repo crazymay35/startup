@@ -21,7 +21,7 @@ export function Login() {
         e.preventDefault();
 
         if (!emailLogin || !passwordLogin) {
-            setErrorMessageCreate("all fields required");
+            setErrorMessageLogin("all fields required");
             return;
         }
 

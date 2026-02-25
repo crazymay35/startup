@@ -68,7 +68,7 @@ export function Login() {
             return;
         }
         users[emailCreate] = {email:emailCreate, username:usernameCreate, password:passwordCreate, 
-            palettes:[], following:[]};    
+            palettes:[], following:[], notifications:[]};    
         localStorage.setItem("users", JSON.stringify(users));
         setErrorMessageCreate("account created! please login");
         console.log("account created! please login");

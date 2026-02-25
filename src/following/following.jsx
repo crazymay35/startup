@@ -20,10 +20,40 @@ export function Following() {
     function handleUnfollow(email) {
         const updated = following.filter(f => f !== email);
         setFollowing(updated);
-        
+
         users[currentUser].following = updated;
         localStorage.setItem("users",JSON.stringify(users));
     }
+
+    const[newFriendEmail,setNewFriendEmail] = useState("");
+    const[errorMessage,setErrorMessage] = useState("");
+
+    function handleAddFriend() {
+        const email = newFriendEmail.trim().toLowerCase();;
+        if (!email) {return;}
+        if (!users[email]) {
+            console.log("user not found");
+            setErrorMessage("user not found");
+            return;
+        }
+        if (email === currentUser) {
+            console.log("can't add yourself");
+            setErrorMessage("can't add yourself");
+            return;
+        }
+        if (following.includes(email)) {
+            console.log("already following them");
+            setErrorMessage("already following them");
+            return;
+        }
+        const updated = [...following, email];
+        setFollowing(updated);
+        users[currentUser].following = updated;
+        localStorage.setItem("users", JSON.stringify(users));
+        setNewFriendEmail("");
+        setErrorMessage("");
+    }
+
 
 
     return (
@@ -45,9 +75,12 @@ export function Following() {
                     );
                 })}
                 
-                <form className="form-thing">
-                    <input type="email" className="form-control" placeholder="example@email.com"/>
-                    <button type="button" className="btn btn-primary my-button">Add Friend</button>
+                <form className="form-thing" onSubmit={e => e.preventDefault()}>
+                    <input type="email" className="form-control" placeholder="example@email.com"
+                        value={newFriendEmail} onChange={e => {setNewFriendEmail(e.target.value); setErrorMessage("");}}/>
+                    {errorMessage && (<div>{errorMessage}</div>)}
+                    <button type="button" className="btn btn-primary my-button"
+                        onClick={handleAddFriend}>Add Friend</button>
                 </form>
             </div>
             <div className="following-main-transparent-container">

@@ -14,9 +14,9 @@ export function Create() {
         return [0,1,2,3,4].map((i) => {
             const t = i/4;
             return {
-                r : Math.round(color1.r + (color2.r - color1.r) * t),
-                g : Math.round(color1.g + (color2.g - color1.g) * t),
-                b : Math.round(color1.b + (color2.b - color1.b) * t)
+                r : Math.round(c1.r + (c2.r - c1.r) * t),
+                g : Math.round(c1.g + (c2.g - c1.g) * t),
+                b : Math.round(c1.b + (c2.b - c1.b) * t)
             }
         })
     }
@@ -27,26 +27,25 @@ export function Create() {
             console.log("user not logged in");
             return;
         }
-        
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        const thisUser = users[currentUser];
+        if (!thisUser) {
+            console.log("user not found");
+            return;
+        }
         const gradient = generateGradient(color1,color2);
+        
         const savePalette = {
             color1,
             color2,
             gradient
         }
-        
-        let palettes = {};
-        try {
-            palettes = JSON.parse(localStorage.getItem("palettes")) || {};
+
+        if (!thisUser.palettes) {
+            thisUser.palettes = [];
         }
-        catch {
-            palettes = {};
-        }
-        if (!palettes[currentUser]) {
-            palettes[currentUser] = [];
-        }
-        palettes[currentUser].push(savePalette);
-        localStorage.setItem("palettes", JSON.stringify(palettes))
+        thisUser.palettes.push(savePalette);
+        localStorage.setItem("users", JSON.stringify(users))
         console.log("palette saved!")
     }
     return (

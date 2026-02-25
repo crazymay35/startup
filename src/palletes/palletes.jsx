@@ -5,15 +5,16 @@ export function Palletes() {
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
         console.log("user not logged in");
-        return null;
+        return;
     }
 
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
         try {
-            const stored = JSON.parse(localStorage.getItem("palettes")) || {};
-            setPalettes(stored[currentUser] || []);
+            const users = JSON.parse(localStorage.getItem("users")) || {}
+            const thisUser = users?.[currentUser];
+                setPalettes(thisUser?.palettes || []);
         }
         catch {
             setPalettes([]);
@@ -25,17 +26,19 @@ export function Palletes() {
         const updated = palettes.filter((_,i) => i !== index);
         setPalettes(updated);
         
-        const allPalettes = JSON.parse(localStorage.getItem("palettes")) || {};
-        allPalettes[currentUser] = updated;
-        localStorage.setItem("palettes", JSON.stringify(allPalettes));
-    }
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        if (users[currentUser]) {
+            users[currentUser].palettes = updated;
+            localStorage.setItem("users", JSON.stringify(users));
+        }
+    };
 
     return (
         <main className="palletes-main-container">
             {palettes.map((palette, index) => (
                 <div key={index} className="palletes-container palletes-main-transparent-container">
                     <div className="palletes-color-box-container">
-                        {palette.gradient.map((color,i) => (
+                        {palette.gradient?.map((color,i) => (
                             <div key={i} className="palletes-inner-box" 
                                 style={{backgroundColor: `rgb(${color.r}, ${color.g}, ${color.b})`}}>
                             </div>

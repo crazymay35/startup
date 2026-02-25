@@ -67,7 +67,8 @@ export function Login() {
             setErrorMessageCreate("email already exists");
             return;
         }
-        users[emailCreate] = {email:emailCreate, username:usernameCreate, password:passwordCreate};    
+        users[emailCreate] = {email:emailCreate, username:usernameCreate, password:passwordCreate, 
+            palettes:[], following:[]};    
         localStorage.setItem("users", JSON.stringify(users));
         setErrorMessageCreate("account created! please login");
         console.log("account created! please login");

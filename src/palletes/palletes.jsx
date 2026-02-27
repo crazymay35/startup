@@ -21,7 +21,6 @@ export function Palletes() {
         }
     }, [currentUser]);
    
-
     const handleRemove = (index) => {
         const updated = palettes.filter((_,i) => i !== index);
         setPalettes(updated);
@@ -33,19 +32,41 @@ export function Palletes() {
         }
     };
 
+    const handleShare = (palette) => {
+        const users = JSON.parse(localStorage.getItem("users")) || {};
+        
+        Object.keys(users).forEach(email => {
+            const user = users[email];
+
+            if (user.following && user.following.includes(currentUser)) {
+                if (!user.notifications) {
+                    user.notifications = [];
+                }
+                user.notifications.push({
+                    from: currentUser,
+                    palette
+                })
+            }
+        });
+
+        localStorage.setItem("users", JSON.stringify(users));
+        console.log("notification sent!");
+    };
+
     return (
         <main className="palletes-main-container">
             {palettes.map((palette, index) => (
                 <div key={index} className="palletes-container palletes-main-transparent-container">
                     <div className="palletes-color-box-container">
-                        {palette.gradient?.map((color,i) => (
+                        {palette.map((color,i) => (
                             <div key={i} className="palletes-inner-box" 
                                 style={{backgroundColor: `rgb(${color.r}, ${color.g}, ${color.b})`}}>
                             </div>
                         ))}
                     </div>
                     <div>
-                        <button type="button" className="btn btn-primary my-button">Share</button>
+                        <button type="button" className="btn btn-primary my-button"
+                            onClick={() => handleShare(palette)}>Share</button>
                         <button type="button" className="btn btn-secondary" 
                             onClick={() => handleRemove(index)}>Remove</button>
                     </div>

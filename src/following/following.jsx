@@ -15,7 +15,7 @@ export function Following() {
         return null;
     }
     const thisUsername = thisUser.username;
-    const[following, setFollowing] = useState(thisUser.following || []);
+    const[following, setFollowing] = useState(thisUser?.following || []);
 
     function handleUnfollow(email) {
         const updated = following.filter(f => f !== email);
@@ -52,9 +52,9 @@ export function Following() {
         localStorage.setItem("users", JSON.stringify(users));
         setNewFriendEmail("");
         setErrorMessage("");
-    }
+    };
 
-
+    const [notifications, setNotifications] = useState(thisUser?.notifications || []);
 
     return (
         <main className="following-main-container">
@@ -62,18 +62,14 @@ export function Following() {
                 <span className="thing">You Are: &emsp; {thisUsername}</span>
                 <span id="following-faculty-glyphic-regular">FRIENDS</span>
                 
-                {following.map(email => {
-                    const friend = users[email];
-                    const friendName = friend?.username || email;
-                    
-                    return (
+                {following.map(email => (
                         <div key={email}>
-                            {friendName}
+                            {users[email]?.username || email}
                             <button type="button" className="btn btn-secondary"
                                 onClick={() => handleUnfollow(email)}>Unfollow</button>
                         </div>
-                    );
-                })}
+                    )
+                )}
                 
                 <form className="form-thing" onSubmit={e => e.preventDefault()}>
                     <input type="email" className="form-control" placeholder="example@email.com"
@@ -85,21 +81,19 @@ export function Following() {
             </div>
             <div className="following-main-transparent-container">
                 <span id="following-faculty-glyphic-regular">NOTIFICATIONS</span>
-                <div>
-                    USERNAME1 shared a palette
-                    <button type="button" className="btn btn-primary my-button">+</button>
-                    <button type="submit" className="btn btn-secondary">x</button>
-                </div>
-                <div>
-                    USERNAME1 shared a palette
-                    <button type="button" className="btn btn-primary my-button">+</button>
-                    <button type="submit" className="btn btn-secondary">x</button>
-                </div>
-                <div>
-                    USERNAME3 shared a palette
-                    <button type="button" className="btn btn-primary my-button">+</button>
-                    <button type="submit" className="btn btn-secondary">x</button>
-                </div>
+                
+                {notifications.map((notif, index) => {
+                    const senderEmail = notif.from;
+                    const friendName = users[senderEmail]?.username || senderEmail;
+
+                    return (
+                        <div key={index}>
+                            {friendName} shared a palette
+                            <button type="button" className="btn btn-primary my-button">+</button>
+                            <button type="submit" className="btn btn-secondary">x</button>
+                        </div>
+                    )
+                })}
             </div>
         </main>
     );

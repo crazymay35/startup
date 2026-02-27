@@ -34,17 +34,11 @@ export function Create() {
             return;
         }
         const gradient = generateGradient(color1,color2);
-        
-        const savePalette = {
-            color1,
-            color2,
-            gradient
-        }
 
         if (!thisUser.palettes) {
             thisUser.palettes = [];
         }
-        thisUser.palettes.push(savePalette);
+        thisUser.palettes.push(gradient);
         localStorage.setItem("users", JSON.stringify(users))
         console.log("palette saved!")
     }

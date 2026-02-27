@@ -89,8 +89,9 @@ export function Following() {
                 )}
                 
                 <form className="form-thing" onSubmit={e => e.preventDefault()}>
-                    <input type="email" className="form-control" placeholder="example@email.com"
-                        value={newFriendEmail} onChange={e => {setNewFriendEmail(e.target.value); setErrorMessage("");}}/>
+                    <input type="email" className="form-control" placeholder="example@email.com" 
+                    value={newFriendEmail} 
+                    onChange={e => {setNewFriendEmail(e.target.value); setErrorMessage("");}}/>
                     {errorMessage && (<div>{errorMessage}</div>)}
                     <button type="button" className="btn btn-primary my-button"
                         onClick={handleAddFriend}>Add Friend</button>

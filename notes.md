@@ -45,26 +45,4 @@ finally set up vite and react, it was messy and confusing at some points, but go
 
 ## React Part 2: Reactivity
 
-This was a lot of fun to see it all come together. I had to keep remembering to use React state instead of just manipulating the DOM directly.
-
-Handling the toggling of the checkboxes was particularly interesting.
-
-```jsx
-<div className="input-group sound-button-container">
-  {calmSoundTypes.map((sound, index) => (
-    <div key={index} className="form-check form-switch">
-      <input
-        className="form-check-input"
-        type="checkbox"
-        value={sound}
-        id={sound}
-        onChange={() => togglePlay(sound)}
-        checked={selectedSounds.includes(sound)}
-      ></input>
-      <label className="form-check-label" htmlFor={sound}>
-        {sound}
-      </label>
-    </div>
-  ))}
-</div>
-```
+ohhhh boy that took a lot of work. Adding the functionality for colors gradients and random color generator was beyond my level, but finally got that done. there is more i can do, namely adding lil messages saying saved palette etc but I am ready to be done. Currently everything saved to local storage (emails,usernames, passwords, friends, palettes, notications...) which deffinitely should not be the case. I understand react better and can use it better. cheers

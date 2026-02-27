@@ -55,6 +55,23 @@ export function Following() {
     };
 
     const [notifications, setNotifications] = useState(thisUser?.notifications || []);
+    function handleCloseNotification(notif) {
+        const updated = notifications.filter(n => n !== notif);
+        setNotifications(updated);
+
+        users[currentUser].notifications = updated;
+        localStorage.setItem("users",JSON.stringify(users));
+    }
+
+    function handleAddPalette(notif) {
+        const addPalette = notif.palette;
+        if (!thisUser.palettes) {
+            thisUser.palettes = [];
+        }
+        thisUser.palettes.push(addPalette);
+        users[currentUser] = thisUser;
+        handleCloseNotification(notif);
+    }
 
     return (
         <main className="following-main-container">
@@ -81,7 +98,7 @@ export function Following() {
             </div>
             <div className="following-main-transparent-container">
                 <span id="following-faculty-glyphic-regular">NOTIFICATIONS</span>
-                
+
                 {notifications.map((notif, index) => {
                     const senderEmail = notif.from;
                     const friendName = users[senderEmail]?.username || senderEmail;
@@ -89,8 +106,10 @@ export function Following() {
                     return (
                         <div key={index}>
                             {friendName} shared a palette
-                            <button type="button" className="btn btn-primary my-button">+</button>
-                            <button type="submit" className="btn btn-secondary">x</button>
+                            <button type="button" className="btn btn-primary my-button"
+                                onClick={() => handleAddPalette(notif)}>+</button>
+                            <button type="submit" className="btn btn-secondary"
+                                onClick={() => handleCloseNotification(notif)}>x</button>
                         </div>
                     )
                 })}

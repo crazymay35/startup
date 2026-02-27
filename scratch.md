@@ -21,3 +21,6 @@ can do colors using hex code #333333 also rgb(100,100,100)
 **service** "Multiple endpoints (server function calls) that provide functionality necessary to support your application. For example, storing scores, retrieving user preferences, or generating dynamic content.",, login logout create account,, call to 3rd party site to do something
 **DB/login** application data stored
 **websocket** real time data users generate, or real time data from servers
+
+
+startup react p2 reactivity (front end) DUE THIS WEEK 

@@ -5,14 +5,14 @@ export function Following() {
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
         console.log("user not logged in");
-        return null;
+        return;
     }
 
     const users = JSON.parse(localStorage.getItem("users")) || {};
     const thisUser = users[currentUser];
     if (!thisUser) {
         console.log("user not found");
-        return null;
+        return;
     }
 
     const[following, setFollowing] = useState(thisUser?.following || []);

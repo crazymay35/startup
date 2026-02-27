@@ -31,7 +31,6 @@ export function Palletes() {
             localStorage.setItem("users", JSON.stringify(users));
         }
     };
-
     const handleShare = (palette) => {
         const users = JSON.parse(localStorage.getItem("users")) || {};
         

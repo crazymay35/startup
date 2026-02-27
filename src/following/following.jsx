@@ -7,15 +7,18 @@ export function Following() {
         console.log("user not logged in");
         return null;
     }
+
     const users = JSON.parse(localStorage.getItem("users")) || {};
     const thisUser = users[currentUser];
-
     if (!thisUser) {
         console.log("user not found");
         return null;
     }
-    const thisUsername = thisUser.username;
+
     const[following, setFollowing] = useState(thisUser?.following || []);
+    const[newFriend,setNewFriend] = useState("");
+    const[errorMessage,setErrorMessage] = useState("");
+    const [notifications, setNotifications] = useState(thisUser?.notifications || []);
 
     function handleUnfollow(email) {
         const updated = following.filter(f => f !== email);
@@ -24,12 +27,8 @@ export function Following() {
         users[currentUser].following = updated;
         localStorage.setItem("users",JSON.stringify(users));
     }
-
-    const[newFriendEmail,setNewFriendEmail] = useState("");
-    const[errorMessage,setErrorMessage] = useState("");
-
     function handleAddFriend() {
-        const email = newFriendEmail.trim().toLowerCase();;
+        const email = newFriend.trim().toLowerCase();;
         if (!email) {return;}
         if (!users[email]) {
             console.log("user not found");
@@ -50,11 +49,9 @@ export function Following() {
         setFollowing(updated);
         users[currentUser].following = updated;
         localStorage.setItem("users", JSON.stringify(users));
-        setNewFriendEmail("");
+        setNewFriend("");
         setErrorMessage("");
     };
-
-    const [notifications, setNotifications] = useState(thisUser?.notifications || []);
     function handleCloseNotification(notif) {
         const updated = notifications.filter(n => n !== notif);
         setNotifications(updated);
@@ -62,7 +59,6 @@ export function Following() {
         users[currentUser].notifications = updated;
         localStorage.setItem("users",JSON.stringify(users));
     }
-
     function handleAddPalette(notif) {
         const addPalette = notif.palette;
         if (!thisUser.palettes) {
@@ -76,7 +72,7 @@ export function Following() {
     return (
         <main className="following-main-container">
             <div className="following-main-transparent-container">
-                <span className="thing">You Are: &emsp; {thisUsername}</span>
+                <span className="thing">You Are: &emsp; {thisUser.username}</span>
                 <span id="following-faculty-glyphic-regular">FRIENDS</span>
                 
                 {following.map(email => (
@@ -90,8 +86,8 @@ export function Following() {
                 
                 <form className="form-thing" onSubmit={e => e.preventDefault()}>
                     <input type="email" className="form-control" placeholder="example@email.com" 
-                    value={newFriendEmail} 
-                    onChange={e => {setNewFriendEmail(e.target.value); setErrorMessage("");}}/>
+                    value={newFriend} 
+                    onChange={e => {setNewFriend(e.target.value); setErrorMessage("");}}/>
                     {errorMessage && (<div>{errorMessage}</div>)}
                     <button type="button" className="btn btn-primary my-button"
                         onClick={handleAddFriend}>Add Friend</button>

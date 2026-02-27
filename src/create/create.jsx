@@ -20,7 +20,6 @@ export function Create() {
             }
         })
     }
-
     function handleSavePalette() {
         const currentUser = localStorage.getItem("currentUser");
         if (!currentUser) {
@@ -42,6 +41,7 @@ export function Create() {
         localStorage.setItem("users", JSON.stringify(users))
         console.log("palette saved!")
     }
+    
     return (
         <main>
             <div className="create-main-transparent-container">

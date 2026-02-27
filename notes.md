@@ -46,3 +46,45 @@ finally set up vite and react, it was messy and confusing at some points, but go
 ## React Part 2: Reactivity
 
 ohhhh boy that took a lot of work. Adding the functionality for colors gradients and random color generator was beyond my level, but finally got that done. there is more i can do, namely adding lil messages saying saved palette etc but I am ready to be done. Currently everything saved to local storage (emails,usernames, passwords, friends, palettes, notications...) which deffinitely should not be the case. I understand react better and can use it better. AI was very helpful in helping me learn what the heck i'm doing. a few things I'm still a little shaky on,but plan to continue learning react. cheers
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Markdown notes
+number of hashtags(#) determines heading size, # is largest  ### smallest
+**bold** *italic* ~strike through~ ***bold and italic*** <ins>underline<ins>
+> this is a quote
+to quote `code` on single line
+to quote 
+```
+code
+multi-line
+cheers
+```
+can do colors using hex code #333333 also rgb(100,100,100)
+
+[THIS WEBSITE IS OP SO PLEASE FOR ALL THAT IS GOOD AND HOLY USE IT](https://roadmap.sh/)
+
+## BASIC INFO 
+[cs260 startup md file](https://github.com/webprogramming260/webprogramming/blob/main/instruction/essentials/startupSpec/startupSpec.md)
+**HTML** creates webpages and structures the content with elements and attributes
+**CSS** styles the html docs via layout, colors, fonts etc
+**react** javascript tool that creates reusable UI parts that update when data changes
+**service** "Multiple endpoints (server function calls) that provide functionality necessary to support your application. For example, storing scores, retrieving user preferences, or generating dynamic content.",, login logout create account,, call to 3rd party site to do something
+**DB/login** application data stored
+**websocket** real time data users generate, or real time data from servers
+
+
+startup react p2 reactivity (front end) DUE THIS WEEK 

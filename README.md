@@ -88,8 +88,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [ x] **All functionality implemented or mocked out** - all the pages have functionality. Currently, everything is stored in local storage, but eventually generate palette will generate random colors by linking to another website, notification page will have websocket for live updates, and the database will not be on local storage.
+- [ x] **Hooks** - hooks are implemented all through out, mainly useState, but in palletes.jsx also used UseEffectgit
 
 ## 🚀 Service deliverable
 

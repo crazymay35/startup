@@ -9,7 +9,6 @@ export function Create() {
         const {name, value} = e.target;
         setter((prev) => ({...prev, [name]: Number(value)}))
     };
-
     function generateGradient(c1,c2) {
         return [0,1,2,3,4].map((i) => {
             const t = i/4;

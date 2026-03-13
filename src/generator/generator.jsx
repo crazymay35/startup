@@ -1,7 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import './generator.css';
 
 export function Generator() {
+    const [colors, setColors] = useState([]);
+
+    const generateColors = useCallback(() => {
+        fetch(`https://x-colors.yurace.pro/api/random?number=5`)
+        .then((response) => response.json())
+        .then((data) => {
+            const fetchedColors = data.map(item => {
+                const rgbValues = item.rgb.match(/\d+/g);
+                return {
+                    r: parseInt(rgbValues[0]),
+                    g: parseInt(rgbValues[1]),
+                    b: parseInt(rgbValues[2])
+                };
+            });
+            setColors(fetchedColors);
+        })
+    }, []);
+    
+    useEffect(() => {
+        generateColors();
+    }, [generateColors]);
+    
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
         console.log("user not logged in");
@@ -14,31 +36,7 @@ export function Generator() {
         return;
     }
 
-    const generateColors = () => {
-        fetch(`https://x-colors.yurace.pro/api/random?number=5`)
-        .then((response) => response.json())
-        .then((data) => {
-            const newColors = data.map(item => item.rgb);
-            setColors(newColors);
-        });
-    };
-
-    React.useEffect(() => {
-        generateColors();
-    }, [])
-    /*const randomRGB = () => ({
-        r: Math.floor(Math.random() *256),
-        g: Math.floor(Math.random() *256),
-        b: Math.floor(Math.random() *256)
-    });*/
-    /*const createRandomPalette = () => 
-        Array.from({length:5}, () => randomRGB());*/
-
-    const [colors, setColors] = useState([]);
     
-    /*const generateColors = () => {
-        setColors(createRandomPalette());
-    }*/
     const savePalette = () => {
         if (!thisUser.palettes) {
             thisUser.palettes = [];
@@ -50,7 +48,7 @@ export function Generator() {
         <main className="generator-main-generator">
             <div className="generator-container generator-main-transparent-container">
                 <div className="generator-color-box-container">
-                    {colors.map((colorString, index) => (
+                    {colors.map((c, index) => (
                         <div key={index} className="generator-inner-box"
                             style={{backgroundColor: `rgb(${c.r}, ${c.g}, ${c.b})`}}
                         />

@@ -39,8 +39,9 @@ As an artist who struggles with color theory, choosing the right colors for an a
 
 - **React** - current color selected updated as sliders move,the color sliders change color as a slider moves, and the box changes color too. things evenly apart, the 5 slots change as one of the box colors change. when save button pressed, it adds the current color pallete to the user's color palletes. when generate button pressed, displays a random color pallete. logging in directs user to main page of selecting colors. left arrow button on main page goes to generator page, right arrow button on main page goes to saved color palletes
 
-- **Service** - allows users to edit saved color palletes (removing them from database, editting ones they created but not randomly generated) login page allows access to user's account and consequently their saved color palletes. create account and logout also some things to do. for the generate random color pallete, it accesses http://colormind.io/ and uses the randomly generated colors on there to make the pallete. (example code to look for below from the site)
->(<)div class="color" style="background-color: #1e262a" data-id="4" data-color="#1e262a" data-locked="false">(<)div class="swipe">(<)/div>(<)/div> 
+- **Service** - allows users to edit saved color palletes (removing them from database, editting ones they created but not randomly generated) login page allows access to user's account and consequently their saved color palletes. create account and logout also some things to do. for the generate random color pallete, it accesses https://x-colors.yurace.pro/api/random?number=5 and uses the randomly generated colors on there to make the pallete.,, comb through and read rgb: "rgb(0,0,0)" in each {} in the whole []
+
+https://github.com/marcelscruz/public-apis
 
 - **DB/Login** - stores profiles (account info) and each profile's associated color palletes they saved along with database stores the list of people the user ollows.
 
@@ -88,8 +89,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ x] **All functionality implemented or mocked out** - all the pages have functionality. Currently, everything is stored in local storage, but eventually generate palette will generate random colors by linking to another website, notification page will have websocket for live updates, and the database will not be on local storage.
-- [ x] **Hooks** - hooks are implemented all through out, mainly useState, but in palletes.jsx also used UseEffectgit
+- [x] **All functionality implemented or mocked out** - all the pages have functionality. Currently, everything is stored in local storage, but eventually generate palette will generate random colors by linking to another website, notification page will have websocket for live updates, and the database will not be on local storage.
+- [x] **Hooks** - hooks are implemented all through out, mainly useState, but in palletes.jsx also used UseEffectgit
 
 ## 🚀 Service deliverable
 

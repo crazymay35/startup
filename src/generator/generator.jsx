@@ -14,17 +14,31 @@ export function Generator() {
         return;
     }
 
-    const randomRGB = () => ({
+    const generateColors = () => {
+        fetch(`https://x-colors.yurace.pro/api/random?number=5`)
+        .then((response) => response.json())
+        .then((data) => {
+            const newColors = data.map(item => item.rgb);
+            setColors(newColors);
+        });
+    };
+
+    React.useEffect(() => {
+        generateColors();
+    }, [])
+    /*const randomRGB = () => ({
         r: Math.floor(Math.random() *256),
         g: Math.floor(Math.random() *256),
         b: Math.floor(Math.random() *256)
-    });
-    const createRandomPalette = () => 
-        Array.from({length:5}, () => randomRGB());
-    const [colors, setColors] = useState(createRandomPalette);
-    const generateColors = () => {
+    });*/
+    /*const createRandomPalette = () => 
+        Array.from({length:5}, () => randomRGB());*/
+
+    const [colors, setColors] = useState([]);
+    
+    /*const generateColors = () => {
         setColors(createRandomPalette());
-    };
+    }*/
     const savePalette = () => {
         if (!thisUser.palettes) {
             thisUser.palettes = [];
@@ -36,7 +50,7 @@ export function Generator() {
         <main className="generator-main-generator">
             <div className="generator-container generator-main-transparent-container">
                 <div className="generator-color-box-container">
-                    {colors.map((c, index) => (
+                    {colors.map((colorString, index) => (
                         <div key={index} className="generator-inner-box"
                             style={{backgroundColor: `rgb(${c.r}, ${c.g}, ${c.b})`}}
                         />

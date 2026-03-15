@@ -11,14 +11,6 @@ export function Palletes() {
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
-        /*try {
-            const users = JSON.parse(localStorage.getItem("users")) || {}
-            const thisUser = users?.[currentUser];
-                setPalettes(thisUser?.palettes || []);
-        }
-        catch {
-            setPalettes([]);
-        }*/
         async function loadUser() {
             const response = await fetch(`/api/user/${currentUser}`);
             const data = await response.json();
@@ -32,16 +24,10 @@ export function Palletes() {
     const handleRemove = (index) => {
         const updated = palettes.filter((_,i) => i !== index);
         setPalettes(updated);
-        
-        /*const users = JSON.parse(localStorage.getItem("users")) || {};
-        if (users[currentUser]) {
-            users[currentUser].palettes = updated;
-            localStorage.setItem("users", JSON.stringify(users));
-        }*/
     };
+
     const handleShare = (palette) => {
         const users = JSON.parse(localStorage.getItem("users")) || {};
-        
         Object.keys(users).forEach(email => {
             const user = users[email];
 
@@ -55,7 +41,6 @@ export function Palletes() {
                 })
             }
         });
-
         localStorage.setItem("users", JSON.stringify(users));
         console.log("notification sent!");
     };

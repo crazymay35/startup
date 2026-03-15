@@ -25,12 +25,6 @@ export function Create() {
             console.log("user not logged in");
             return;
         }
-        /*const users = JSON.parse(localStorage.getItem("users")) || {};
-        const thisUser = users[currentUser];
-        if (!thisUser) {
-            console.log("user not found");
-            return;
-        }*/
         const gradient = generateGradient(color1,color2);
 
         try {
@@ -55,12 +49,6 @@ export function Create() {
         catch(error) {
             console.error("network error:", error);
         }
-        /*if (!thisUser.palettes) {
-            thisUser.palettes = [];
-        }
-        thisUser.palettes.push(gradient);
-        localStorage.setItem("users", JSON.stringify(users))
-        console.log("palette saved!")*/
     }
     
     return (

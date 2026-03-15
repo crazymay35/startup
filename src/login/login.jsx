@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router-dom'
 import './login.css';
 
 export function Login() {
-    /*store the variables*/
     const [emailCreate,setEmailCreate] = useState("");
     const [passwordCreate,setPasswordCreate] = useState("");
     const [usernameCreate,setUsernameCreate] = useState("");
@@ -19,33 +18,6 @@ export function Login() {
  
     async function handleLogin(e) {
         e.preventDefault();
-
-        /*if (!emailLogin || !passwordLogin) {
-            setErrorMessageLogin("all fields required");
-            return;
-        }
-
-        let users = {}; 
-        try { 
-            users = JSON.parse(localStorage.getItem("users")) || {}; 
-        } catch { 
-            users = {}; 
-        }
-        const user = users[emailLogin];
-
-        if (!user) {
-            setErrorMessageLogin("user not found");
-            console.log("user not found");
-            return;
-        }
-        
-        if (user.password !== passwordLogin) {
-            setErrorMessageLogin("password incorrect");
-            console.log("password incorrect");
-            return;
-        }
-        setErrorMessageLogin("")
-        localStorage.setItem("currentUser",emailLogin);*/
 
         const response = await fetch('/api/auth/login', {
             method: 'POST',
@@ -70,28 +42,6 @@ export function Login() {
     async function handleCreate(e) {
         e.preventDefault();
 
-        /*if (!usernameCreate || !emailCreate || !passwordCreate) {
-            setErrorMessageCreate("all fields required");
-            return;
-        }
-        let users = {}; 
-        try { 
-            users = JSON.parse(localStorage.getItem("users")) || {}; 
-        } catch { 
-            users = {}; 
-        }
-
-        if (users[emailCreate]) {
-            console.log("email already exists");
-            setErrorMessageCreate("email already exists");
-            return;
-        }
-        users[emailCreate] = {email:emailCreate, username:usernameCreate, password:passwordCreate, 
-            palettes:[], following:[], notifications:[]};    
-        localStorage.setItem("users", JSON.stringify(users));
-        setErrorMessageCreate("account created! please login");
-        console.log("account created! please login");
-        setShowCreateAccount(false);*/
         const response = await fetch('/api/auth/create', {
             method: 'POST',
             heards: {

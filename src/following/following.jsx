@@ -7,14 +7,7 @@ export function Following() {
         console.log("user not logged in");
         return;
     }
-
-    /*const users = JSON.parse(localStorage.getItem("users")) || {};
-    const thisUser = users[currentUser];
-    if (!thisUser) {
-        console.log("user not found");
-        return;
-    }*/
-
+    
     const[following, setFollowing] = useState(thisUser?.following || []);
     const[newFriend,setNewFriend] = useState("");
     const[errorMessage,setErrorMessage] = useState("");
@@ -25,7 +18,6 @@ export function Following() {
         setFollowing(updated);
 
         users[currentUser].following = updated;
-        /*localStorage.setItem("users",JSON.stringify(users));*/
 
         try {
             const response = await fetch('api/friends', {
@@ -62,11 +54,6 @@ export function Following() {
         setErrorMessage("");
     };
     async function handleCloseNotification(notif) {
-        /*const updated = notifications.filter(n => n !== notif);
-        setNotifications(updated);
-
-        users[currentUser].notifications = updated;
-        localStorage.setItem("users",JSON.stringify(users));*/
         await fetch('/api/notifications/clear', {
             method: 'POST',
             headers: {

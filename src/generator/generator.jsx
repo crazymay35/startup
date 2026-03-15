@@ -24,25 +24,7 @@ export function Generator() {
         generateColors();
     }, [generateColors]);
     
-    
-    /*if (!currentUser) {
-        console.log("user not logged in");
-        return;
-    }
-   /* const users = JSON.parse(localStorage.getItem("users")) || {};
-    const thisUser = users[currentUser];
-    if (!thisUser) {
-        console.log("user not found");
-        return;
-    }*/
-
-    
     const savePalette = async () => {
-        /*if (!thisUser.palettes) {
-            thisUser.palettes = [];
-        }
-        thisUser.palettes.push(colors);
-        localStorage.setItem("users", JSON.stringify(users));*/
         const currentUser = localStorage.getItem("currentUser");
         
         const response = await fetch('api/palettes', {

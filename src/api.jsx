@@ -27,5 +27,5 @@ export function useUser() {
 
         apiRequest(`/api/user/${email}`).then(setUser);
     }, [email]);
-    return {email,user,setUser};
+    return {email,user,setUser}
 }

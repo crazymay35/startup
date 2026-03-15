@@ -11,15 +11,18 @@ import { Palletes } from './palletes/palletes';
 import { Following } from './following/following';
 
 import { ProtectedRoute } from "./login/ProtectedRoute";
+import { useUser } from './api';
 
 export default function App() {
     function Header () {
         const location = useLocation();
         const path = location.pathname;
 
-        const email = localStorage.getItem("currentUser");
+        const {currEmail, currUser} = useUser();
+        if (!currUser) return;
+        /*const email = localStorage.getItem("currentUser");
         const users = JSON.parse(localStorage.getItem("users")) || {};
-        const storedUser = users[email];
+        const storedUser = users[email];*/
         
         const onLoginPage = path === "/";
         

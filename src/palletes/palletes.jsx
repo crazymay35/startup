@@ -3,32 +3,26 @@ import './palletes.css';
 import { apiRequest, useUser } from '../api';
 
 export function Palletes() {
-    const currentUser = useUser();
+    const {currEmail, currUser} = useUser();
+    if (!currUser) return;
 
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
-        async function loadUser() {
-            const response = await apiRequest(`/api/user/${currentUser}`);
-            const data = await response.json();
-            if (response.ok) {
-                setPalettes(data.palette);
-            }
-        }
-        loadUser();
-    }, [currentUser]);
+        apiRequest(`/api/user/${currEmail}`).then(thing => setPalettes(thing.palettes));
+    }, []);
 
     async function handleRemove(index) {
         const updated = await apiRequest("/api/palettes", "DELETE", {
-            email: currentUser,
+            email: currEmail,
             index
         });
-        setPalettes(updated.palette);
+        setPalettes(updated);
     }
 
     async function  handleShare(palette) {
-        await apiRequest("api/share", "POST", {
-            fromEmail: currentUser,
+        await apiRequest("/api/share", "POST", {
+            fromEmail: currEmail,
             palette
         });
         console.log("palette shared");

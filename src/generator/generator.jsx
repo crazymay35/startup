@@ -1,55 +1,37 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import './generator.css';
-import { apiRequest } from '../api';
-import { Palletes } from '../palletes/palletes';
+import { apiRequest, useUser} from '../api';
+import { Palletes} from '../palletes/palletes';
 
 export function Generator() {
     const [colors, setColors] = useState([]);
 
-    const generateColors = useCallback(() => {
-        fetch(`https://x-colors.yurace.pro/api/random?number=5`)
-        .then((response) => response.json())
-        .then((data) => {
-            const fetchedColors = data.map(item => {
-                const rgbValues = item.rgb.match(/\d+/g);
-                return {
-                    r: parseInt(rgbValues[0]),
-                    g: parseInt(rgbValues[1]),
-                    b: parseInt(rgbValues[2])
-                };
-            });
-            setColors(fetchedColors);
-        })
-    }, []);
+    async function generateColors() {
+        const response = await fetch(`https://x-colors.yurace.pro/api/random?number=5`)
+        const data = await response.json();
     
+        const fetchedColors = data.map(item => {
+            const rgbValues = item.rgb.match(/\d+/g);
+            return {
+                r: +rgbValues[0],
+                g: +rgbValues[1],
+                b: +rgbValues[2]
+            };
+        });
+        setColors(fetchedColors);
+    }
+
     useEffect(() => {
         generateColors();
     }, [generateColors]);
     
-    const savePalette = async () => {
-        const currentUser = useUser();
-        const response = await apiRequest("/api/palettes", "POST", {
-            email: currentUser,
+    async function savePalette() {
+        const {currEmail, currUser} = useUser();
+        if (!currUser) return;
+        await apiRequest("/api/palettes", "POST", {
+            email: currEmail,
             palette: colors
         });
-        if (!response.ok) {
-            console.error("failed to save palette");
-        }
-
-        /*const response = await fetch('api/palettes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: currentUser,
-                palette: colors,
-            }),
-        });
-
-        if (!response.ok) {
-            console.error("failed to save palette");
-        }*/
     }
     return (
         <main className="generator-main-generator">

@@ -6,6 +6,9 @@ export function Create() {
     const [color1, setColor1] = useState({r:0,g:0,b:0});
     const [color2, setColor2] = useState({r:0,g:0,b:0});
 
+    const {currEmail, currUser} = useUser();
+    if (!currUser) return;
+
     const handleCreateChange = (setter) => (e) => {
         const {name, value} = e.target;
         setter((prev) => ({...prev, [name]: Number(value)}))
@@ -20,12 +23,13 @@ export function Create() {
             }
         })
     }
+
+
     async function handleSavePalette() {
-        const currentUser = useUser();
         const gradient = generateGradient(color1,color2);
 
         await apiRequest("/api/palettes", "POST", {
-            email: currentUser.email,
+            email: currEmail,
             palette: gradient
         });
     }

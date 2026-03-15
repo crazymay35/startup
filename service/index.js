@@ -21,14 +21,13 @@ function getUser(email, res) {
 //login.jsx Endpoints
 app.post('/api/auth/create', (req, res) => {
   const {email, username, password } = req.body;
-  const user = getUser(email, res);
-  if (user) {
+  if (users[email]) {
     return res.status(409).send({msg:'user already exists'});
   }
   users[email] = {
     email, username, password, palettes:[], following:[], notifications: []
   };
-  res.status(201).send({msg:'user created'})
+  res.status(201).send({email, username});
 });
 
 app.post('/api/auth/login', (req, res) => {
@@ -93,12 +92,11 @@ app.delete('/api/friends', (req, res) => {
   const {currentUsersEmail, friendEmail} = req.body;
   const user = getUser(currentUsersEmail, res);
   if (!user) return;
-  if (users[friendEmail]) {
-    if (user.following.includes(friendEmail)) {
-      user.following = user.following.filter(f => f !== friendEmail);
-    }
-    res.send(user.following);
+  if (!users[friendEmail]) return;
+  if (user.following.includes(friendEmail)) {
+    user.following = user.following.filter(f => f !== friendEmail);
   }
+  res.send(user.following);
 });
 
 app.post('/api/share', (req, res) => {
@@ -115,7 +113,8 @@ app.post('/api/notifications/clear', (req,res) => {
   const {email,notificationsIndex} = req.body;
   const user = getUser(email, res);
   if (!user) return;
-  user.palettes.splice(notificationsIndex,1);
+  
+  user.notifications.splice(notificationsIndex,1);
   res.send(user.palettes);
 });
 

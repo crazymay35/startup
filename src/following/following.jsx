@@ -1,55 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './following.css';
 import { apiRequest, useUser } from '../api';
 
+
 export function Following() {
-    const currentUser = useUser();
+    const {currEmail, currUser} = useUser();
+    if (!currUser) return;
    
-    const[following, setFollowing] = useState(thisUser?.following || []);
+    const[following, setFollowing] = useState([]);
     const[newFriend,setNewFriend] = useState("");
-    const [notifications, setNotifications] = useState(thisUser?.notifications || []);
+    const[notifications, setNotifications] = useState([]);
+    const[errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        loadUser();
+        apiRequest(`/api/user/${currEmail}`).then(thing => {
+            setFollowing(thing.following);
+            setNotifications(thing.notifications);
+        })
     }, []);
 
-    async function loadUser() {
+    /*async function loadUser() {
         const data = await apiRequest(`/api/user/${currentUser.email}`);
         setFollowing(data.following);
         setNotifications(data.notifications);
-    }
+    }*/
 
-    async function handleUnfollow(email) {
+    async function handleUnfollow(friend) {
         const updated = await apiRequest("/api/friends", "DELETE", {
-            currentUsersEmail: currentUser,
-            friendEmail: email
+            currentUsersEmail: currEmail,
+            friendEmail: friend
         });
         setFollowing(updated);
-        setNewFriend("");
     }
     async function handleAddFriend() {
         const updated = await apiRequest("/api/friends", "POST", {
-            currentUsersEmail: currentUser,
+            currentUsersEmail: currEmail,
             friendEmail: newFriend
         });
         setFollowing(updated);
         setNewFriend("");
     }
     async function handleCloseNotification(index) {
-        const updated = await apiRequest("/ap/notifications/clear", "POST", {
-            email: currentUser,
+        const updated = await apiRequest("/api/notifications/clear", "POST", {
+            email: currEmail,
             notificationsIndex: index
         });
         setNotifications(updated);
     }
-    function handleAddPalette(notif) {
-        const addPalette = notif.palette;
+    async function handleAddPalette(notif) {
+        /*const addPalette = notif.palette;
         if (!thisUser.palettes) {
             thisUser.palettes = [];
         }
         thisUser.palettes.push(addPalette);
         users[currentUser] = thisUser;
-        handleCloseNotification(notif);
+        handleCloseNotification(notif);*/
+        const updated = await apiRequest("/api/palettes", "POST", {
+            email: currEmail,
+            palette: notif.palette
+        });
+        handleCloseNotification(notif.index);
     }
 
     return (

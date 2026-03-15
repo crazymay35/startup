@@ -21,9 +21,9 @@ export function Login() {
         e.preventDefault();
 
         try {
-            const user = await apiRequest("/api/auth/login","POST", 
-                {email, password}
-            );
+            const user = await apiRequest("/api/auth/login","POST", {
+                email: emailLogin, password: passwordLogin
+            });
             localStorage.setItem("currentUser", user.email);
             navigate("/create");
         }
@@ -35,9 +35,11 @@ export function Login() {
         e.preventDefault();
 
         try {
-            const user = await apiRequest("/api/auth/create", "POST", 
-                {email, username, password}
-            );
+            const user = await apiRequest("/api/auth/create", "POST", {
+                email: emailCreate, 
+                username: usernameCreate, 
+                password: passwordCreate
+            });
             localStorage.setItem("currentUser", user.email);
             setErrorMessageCreate("account created! login");
             setShowCreateAccount(false);

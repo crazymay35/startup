@@ -2,9 +2,8 @@ import {Navigate} from "react-router-dom";
 import {useUser} from "../api";
 
 export function ProtectedRoute({children}) {
-    const currentUser = useUser();
-    if (!currentUser) {
+    const {email} = useUser();
+    if (!email) {
         return <Navigate to="/" replace />;
     }
-    return children;
 }

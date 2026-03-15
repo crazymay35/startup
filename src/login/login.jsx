@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
+import {apiRequest} from "../api.jsx";
 import './login.css';
 
 export function Login() {
@@ -19,7 +20,15 @@ export function Login() {
     async function handleLogin(e) {
         e.preventDefault();
 
-        const response = await fetch('/api/auth/login', {
+        try {
+            const user = await apiRequest("/api/auth/login","POST",{email, password});
+            localStorage.setItem("currentUser", user.email);
+            navigate("/create");
+        }
+        catch(err) {
+            setErrorMessageLogin(err.message);
+        }
+        /*const response = await fetch('/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
@@ -37,14 +46,24 @@ export function Login() {
         else {
             const err = await response.json();
             setErrorMessageLogin(err.msg);
-        }
+        }*/
     }
     async function handleCreate(e) {
         e.preventDefault();
 
-        const response = await fetch('/api/auth/create', {
+        try {
+            const user = await apiRequest("/api/auth/create", "POST", {email, username, password});
+            localStorage.setItem("currentUser", user.email);
+            setErrorMessageCreate("account created! login");
+            setShowCreateAccount(false);
+        }
+        catch(err) {
+            setErrorMessageCreate(err.message);
+        }
+
+        /*const response = await fetch('/api/auth/create', {
             method: 'POST',
-            heards: {
+            headers: {
                 'Content-Type' : 'application/json',
             },
             body: JSON.stringify({
@@ -61,7 +80,7 @@ export function Login() {
         }
         else {
             setErrorMessageCreate(data.msg);
-        }
+        }*/
     }
 
     return (

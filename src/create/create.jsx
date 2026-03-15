@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './create.css';
+import {apiRequest} from "../api";
 
 export function Create() {
     const [color1, setColor1] = useState({r:0,g:0,b:0});
@@ -27,28 +28,10 @@ export function Create() {
         }
         const gradient = generateGradient(color1,color2);
 
-        try {
-            const response = await fetch('/api/palettes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: currentUser,
-                    palette: gradient
-                }),
-            });
-            if (response.ok) {
-                console.log("palette saved to serve");
-                console.error("save failed:", error.msg);
-            }
-            else {
-                const error = await response.json();
-            }
-        }
-        catch(error) {
-            console.error("network error:", error);
-        }
+        await apiRequest("/api/palettes", "POST", {
+            email: currentUser,
+            palette: gradient
+        });
     }
     
     return (

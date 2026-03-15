@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './palletes.css';
+import { apiRequest } from '../api';
 
 export function Palletes() {
     const currentUser = localStorage.getItem("currentUser");
@@ -21,12 +22,28 @@ export function Palletes() {
         loadUser();
     }, [currentUser]);
    
-    const handleRemove = (index) => {
+    /*const handleRemove = (index) => {
         const updated = palettes.filter((_,i) => i !== index);
         setPalettes(updated);
-    };
+    };*/
 
-    const handleShare = (palette) => {
+    async function handleRemove(index) {
+        const updated = await apiRequest("/api/palettes", "DELETE", {
+            email: currentUser,
+            index
+        });
+        setPalettes(updated);
+    }
+
+    async function  handleShare(palette) {
+        await apiRequest("api/share", "POST", {
+            fromEmail: currentUser,
+            palette
+        });
+        console.log("palette shared");
+    }
+
+    /*const handleShare = (palette) => {
         const users = JSON.parse(localStorage.getItem("users")) || {};
         Object.keys(users).forEach(email => {
             const user = users[email];
@@ -43,7 +60,7 @@ export function Palletes() {
         });
         localStorage.setItem("users", JSON.stringify(users));
         console.log("notification sent!");
-    };
+    };*/
 
     return (
         <main className="palletes-main-container">

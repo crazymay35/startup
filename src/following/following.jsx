@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
 import './following.css';
+import { apiRequest } from '../api';
 
 export function Following() {
     const currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
+    /*if (!currentUser) {
         console.log("user not logged in");
         return;
-    }
+    }*/
     
     const[following, setFollowing] = useState(thisUser?.following || []);
     const[newFriend,setNewFriend] = useState("");
-    const[errorMessage,setErrorMessage] = useState("");
+    //const[errorMessage,setErrorMessage] = useState("");
     const [notifications, setNotifications] = useState(thisUser?.notifications || []);
 
+    useEffect(() => {
+        loadUser();
+    }, []);
+
+    async function loadUser() {
+        const data = await apiRequest(`/api/user/${currentUser}`);
+        setFollowing(data.following);
+        setNotifications(data.notifications);
+    }
+
     async function handleUnfollow(email) {
-        const updated = following.filter(f => f !== email);
+        /*const updated = following.filter(f => f !== email);
         setFollowing(updated);
 
         users[currentUser].following = updated;
@@ -26,10 +37,16 @@ export function Following() {
         }
         catch {
 
-        }
+        }*/
+        const updated = await apiRequest("/api/friends", "DELETE", {
+            currentUsersEmail: currentUser,
+            friendEmail: email
+        });
+        setFollowing(updated);
+        setNewFriend("");
     }
-    function handleAddFriend() {
-        const email = newFriend.trim().toLowerCase();;
+    async function handleAddFriend() {
+        /*const email = newFriend.trim().toLowerCase();;
         if (!email) {return;}
         if (!users[email]) {
             console.log("user not found");
@@ -51,10 +68,16 @@ export function Following() {
         users[currentUser].following = updated;
         localStorage.setItem("users", JSON.stringify(users));
         setNewFriend("");
-        setErrorMessage("");
-    };
-    async function handleCloseNotification(notif) {
-        await fetch('/api/notifications/clear', {
+        setErrorMessage("");*/
+        const updated = await apiRequest("/api/friends", "POST", {
+            currentUsersEmail: currentUser,
+            friendEmail: newFriend
+        });
+        setFollowing(updated);
+        setNewFriend("");
+    }
+    async function handleCloseNotification(index) {
+        /*await fetch('/api/notifications/clear', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +86,12 @@ export function Following() {
                 email: currentUser,
                 notificationsIndex: index
             })
+        });*/
+        const updated = await apiRequest("/ap/notifications/clear", "POST", {
+            email: currentUser,
+            notificationsIndex: index
         });
+        setNotifications(updated);
     }
     function handleAddPalette(notif) {
         const addPalette = notif.palette;

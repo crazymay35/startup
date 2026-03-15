@@ -1,5 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import './generator.css';
+import { apiRequest } from '../api';
+import { Palletes } from '../palletes/palletes';
 
 export function Generator() {
     const [colors, setColors] = useState([]);
@@ -25,9 +27,16 @@ export function Generator() {
     }, [generateColors]);
     
     const savePalette = async () => {
-        const currentUser = localStorage.getItem("currentUser");
-        
-        const response = await fetch('api/palettes', {
+        const currentUser = useUser();
+        const response = await apiRequest("/api/palettes", "POST", {
+            email: currentUser,
+            palette: colors
+        });
+        if (!response.ok) {
+            console.error("failed to save palette");
+        }
+
+        /*const response = await fetch('api/palettes', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +49,7 @@ export function Generator() {
 
         if (!response.ok) {
             console.error("failed to save palette");
-        }
+        }*/
     }
     return (
         <main className="generator-main-generator">

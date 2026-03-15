@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './following.css';
-import { apiRequest } from '../api';
+import { apiRequest, useUser } from '../api';
 
 export function Following() {
-    const currentUser = localStorage.getItem("currentUser");
+    const currentUser = useUser();
    
     const[following, setFollowing] = useState(thisUser?.following || []);
     const[newFriend,setNewFriend] = useState("");
@@ -14,7 +14,7 @@ export function Following() {
     }, []);
 
     async function loadUser() {
-        const data = await apiRequest(`/api/user/${currentUser}`);
+        const data = await apiRequest(`/api/user/${currentUser.email}`);
         setFollowing(data.following);
         setNotifications(data.notifications);
     }

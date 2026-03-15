@@ -1,7 +1,8 @@
 import {Navigate} from "react-router-dom";
+import {useUser} from "../api";
 
 export function ProtectedRoute({children}) {
-    const currentUser = localStorage.getItem("currentUser");
+    const currentUser = useUser();
     if (!currentUser) {
         return <Navigate to="/" replace />;
     }

@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './palletes.css';
-import { apiRequest } from '../api';
+import { apiRequest, useUser } from '../api';
 
 export function Palletes() {
-    const currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
-        console.log("user not logged in");
-        return;
-    }
+    const currentUser = useUser();
 
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
         async function loadUser() {
-            const response = await fetch(`/api/user/${currentUser}`);
+            const response = await apiRequest(`/api/user/${currentUser}`);
             const data = await response.json();
             if (response.ok) {
-                setPalettes(data.palettes);
-            }        
+                setPalettes(data.palette);
+            }
         }
         loadUser();
     }, [currentUser]);
@@ -27,7 +23,7 @@ export function Palletes() {
             email: currentUser,
             index
         });
-        setPalettes(updated);
+        setPalettes(updated.palette);
     }
 
     async function  handleShare(palette) {

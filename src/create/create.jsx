@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './create.css';
-import {apiRequest} from "../api";
+import {apiRequest, useUser} from "../api";
 
 export function Create() {
     const [color1, setColor1] = useState({r:0,g:0,b:0});
@@ -21,15 +21,11 @@ export function Create() {
         })
     }
     async function handleSavePalette() {
-        const currentUser = localStorage.getItem("currentUser");
-        if (!currentUser) {
-            console.log("user not logged in");
-            return;
-        }
+        const currentUser = useUser();
         const gradient = generateGradient(color1,color2);
 
         await apiRequest("/api/palettes", "POST", {
-            email: currentUser,
+            email: currentUser.email,
             palette: gradient
         });
     }

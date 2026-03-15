@@ -44,7 +44,7 @@ app.post('/api/auth/login', (req, res) => {
   }
 });
 
-//palletes.jsx Endpoints
+//following.jsx and palletes.jsx Endpoints
 app.get('/api/user/:email', (req,res) => {
   const user = users[req.params.email];
   if (user) {
@@ -56,6 +56,7 @@ app.get('/api/user/:email', (req,res) => {
   }
 });
 
+//palletes.jsx Endpoints
 app.post('/api/palettes', (req,res) => {
   const {email, palette} = req.body;
 

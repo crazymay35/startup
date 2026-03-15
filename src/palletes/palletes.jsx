@@ -11,25 +11,33 @@ export function Palletes() {
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
-        try {
+        /*try {
             const users = JSON.parse(localStorage.getItem("users")) || {}
             const thisUser = users?.[currentUser];
                 setPalettes(thisUser?.palettes || []);
         }
         catch {
             setPalettes([]);
+        }*/
+        async function loadUser() {
+            const response = await fetch(`/api/user/${currentUser}`);
+            const data = await response.json();
+            if (response.ok) {
+                setPalettes(data.palettes);
+            }        
         }
+        loadUser();
     }, [currentUser]);
    
     const handleRemove = (index) => {
         const updated = palettes.filter((_,i) => i !== index);
         setPalettes(updated);
         
-        const users = JSON.parse(localStorage.getItem("users")) || {};
+        /*const users = JSON.parse(localStorage.getItem("users")) || {};
         if (users[currentUser]) {
             users[currentUser].palettes = updated;
             localStorage.setItem("users", JSON.stringify(users));
-        }
+        }*/
     };
     const handleShare = (palette) => {
         const users = JSON.parse(localStorage.getItem("users")) || {};

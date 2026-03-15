@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './following.css';
-import { json } from 'express';
 
 export function Following() {
     const currentUser = localStorage.getItem("currentUser");
@@ -29,7 +28,7 @@ export function Following() {
         /*localStorage.setItem("users",JSON.stringify(users));*/
 
         try {
-            const response = await fetch('api/friend', {
+            const response = await fetch('api/friends', {
                 method: 'DELETE'
             })
         }
@@ -62,12 +61,22 @@ export function Following() {
         setNewFriend("");
         setErrorMessage("");
     };
-    function handleCloseNotification(notif) {
-        const updated = notifications.filter(n => n !== notif);
+    async function handleCloseNotification(notif) {
+        /*const updated = notifications.filter(n => n !== notif);
         setNotifications(updated);
 
         users[currentUser].notifications = updated;
-        localStorage.setItem("users",JSON.stringify(users));
+        localStorage.setItem("users",JSON.stringify(users));*/
+        await fetch('/api/notifications/clear', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: currentUser,
+                notificationsIndex: index
+            })
+        });
     }
     function handleAddPalette(notif) {
         const addPalette = notif.palette;

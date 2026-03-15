@@ -24,25 +24,41 @@ export function Generator() {
         generateColors();
     }, [generateColors]);
     
-    const currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
+    
+    /*if (!currentUser) {
         console.log("user not logged in");
         return;
     }
-    const users = JSON.parse(localStorage.getItem("users")) || {};
+   /* const users = JSON.parse(localStorage.getItem("users")) || {};
     const thisUser = users[currentUser];
     if (!thisUser) {
         console.log("user not found");
         return;
-    }
+    }*/
 
     
-    const savePalette = () => {
-        if (!thisUser.palettes) {
+    const savePalette = async () => {
+        /*if (!thisUser.palettes) {
             thisUser.palettes = [];
         }
         thisUser.palettes.push(colors);
-        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("users", JSON.stringify(users));*/
+        const currentUser = localStorage.getItem("currentUser");
+        
+        const response = await fetch('api/palettes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: currentUser,
+                palette: colors,
+            }),
+        });
+
+        if (!response.ok) {
+            console.error("failed to save palette");
+        }
     }
     return (
         <main className="generator-main-generator">

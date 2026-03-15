@@ -28,25 +28,6 @@ export function Login() {
         catch(err) {
             setErrorMessageLogin(err.message);
         }
-        /*const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json',
-            },
-            body: JSON.stringify({
-                email: emailLogin,
-                password: passwordLogin,
-            }),
-        });
-        if (response.ok) {
-            const user = await response.json();
-            localStorage.setItem("currentUser", user.email);
-            navigate("/create");
-        } 
-        else {
-            const err = await response.json();
-            setErrorMessageLogin(err.msg);
-        }*/
     }
     async function handleCreate(e) {
         e.preventDefault();
@@ -60,27 +41,6 @@ export function Login() {
         catch(err) {
             setErrorMessageCreate(err.message);
         }
-
-        /*const response = await fetch('/api/auth/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type' : 'application/json',
-            },
-            body: JSON.stringify({
-                email: emailCreate,
-                username: usernameCreate,
-                password: passwordCreate,
-            }),
-        });
-        const data = await response.json();
-
-        if(response.ok) {
-            setErrorMessageCreate("account created! login");
-            setShowCreateAccount(false);
-        }
-        else {
-            setErrorMessageCreate(data.msg);
-        }*/
     }
 
     return (

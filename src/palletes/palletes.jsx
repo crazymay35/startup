@@ -21,11 +21,6 @@ export function Palletes() {
         }
         loadUser();
     }, [currentUser]);
-   
-    /*const handleRemove = (index) => {
-        const updated = palettes.filter((_,i) => i !== index);
-        setPalettes(updated);
-    };*/
 
     async function handleRemove(index) {
         const updated = await apiRequest("/api/palettes", "DELETE", {
@@ -42,25 +37,6 @@ export function Palletes() {
         });
         console.log("palette shared");
     }
-
-    /*const handleShare = (palette) => {
-        const users = JSON.parse(localStorage.getItem("users")) || {};
-        Object.keys(users).forEach(email => {
-            const user = users[email];
-
-            if (user.following && user.following.includes(currentUser)) {
-                if (!user.notifications) {
-                    user.notifications = [];
-                }
-                user.notifications.push({
-                    from: currentUser,
-                    palette
-                })
-            }
-        });
-        localStorage.setItem("users", JSON.stringify(users));
-        console.log("notification sent!");
-    };*/
 
     return (
         <main className="palletes-main-container">

@@ -4,14 +4,9 @@ import { apiRequest } from '../api';
 
 export function Following() {
     const currentUser = localStorage.getItem("currentUser");
-    /*if (!currentUser) {
-        console.log("user not logged in");
-        return;
-    }*/
-    
+   
     const[following, setFollowing] = useState(thisUser?.following || []);
     const[newFriend,setNewFriend] = useState("");
-    //const[errorMessage,setErrorMessage] = useState("");
     const [notifications, setNotifications] = useState(thisUser?.notifications || []);
 
     useEffect(() => {
@@ -25,19 +20,6 @@ export function Following() {
     }
 
     async function handleUnfollow(email) {
-        /*const updated = following.filter(f => f !== email);
-        setFollowing(updated);
-
-        users[currentUser].following = updated;
-
-        try {
-            const response = await fetch('api/friends', {
-                method: 'DELETE'
-            })
-        }
-        catch {
-
-        }*/
         const updated = await apiRequest("/api/friends", "DELETE", {
             currentUsersEmail: currentUser,
             friendEmail: email
@@ -46,29 +28,6 @@ export function Following() {
         setNewFriend("");
     }
     async function handleAddFriend() {
-        /*const email = newFriend.trim().toLowerCase();;
-        if (!email) {return;}
-        if (!users[email]) {
-            console.log("user not found");
-            setErrorMessage("user not found");
-            return;
-        }
-        if (email === currentUser) {
-            console.log("can't add yourself");
-            setErrorMessage("can't add yourself");
-            return;
-        }
-        if (following.includes(email)) {
-            console.log("already following them");
-            setErrorMessage("already following them");
-            return;
-        }
-        const updated = [...following, email];
-        setFollowing(updated);
-        users[currentUser].following = updated;
-        localStorage.setItem("users", JSON.stringify(users));
-        setNewFriend("");
-        setErrorMessage("");*/
         const updated = await apiRequest("/api/friends", "POST", {
             currentUsersEmail: currentUser,
             friendEmail: newFriend
@@ -77,16 +36,6 @@ export function Following() {
         setNewFriend("");
     }
     async function handleCloseNotification(index) {
-        /*await fetch('/api/notifications/clear', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: currentUser,
-                notificationsIndex: index
-            })
-        });*/
         const updated = await apiRequest("/ap/notifications/clear", "POST", {
             email: currentUser,
             notificationsIndex: index

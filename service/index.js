@@ -17,8 +17,8 @@ function getUser(email, res) {
   }
   return user;
 }
-//login.jsx Endpoints
 
+//login.jsx Endpoints
 app.post('/api/auth/create', (req, res) => {
   const {email, username, password } = req.body;
   const user = getUser(email, res);
@@ -29,13 +29,6 @@ app.post('/api/auth/create', (req, res) => {
     email, username, password, palettes:[], following:[], notifications: []
   };
   res.status(201).send({msg:'user created'})
-  /*if (users[email]) {
-    return res.status(409).send({msg:'user already exists'})
-  }
-  users[email] = {
-    email, username, password, palettes:[], following:[], notifications: []
-  };
-  res.status(201).send({msg:'user created'});*/
 });
 
 app.post('/api/auth/login', (req, res) => {
@@ -49,12 +42,6 @@ app.post('/api/auth/login', (req, res) => {
   else {
     res.status(401).send({msg:'incorrect password'});
   }
-  /*if (user && user.password === password) {
-    res.send({email: user.email, username: user.username});
-  }
-  else {
-    res.status(401).send({msg:'incorrect password'});
-  }*/
 });
 
 //palletes.jsx Endpoints
@@ -86,13 +73,6 @@ app.delete('/api/palettes', (req, res) => {
   if (!user) return;
   user.palettes.splice(index,1);
   res.send(user.palettes);
-  /*if (users[email]) {
-    users[email].palettes.splice(index,1);
-    res.send(users[email].palettes);
-  }
-  else {
-    res.status(404).send({msg:'user not found'});
-  }*/
 });
 
 //following.jsx Endpoints
@@ -106,16 +86,6 @@ app.post('/api/friends', (req,res) => {
     }
     res.send(user.following);
   }
-  /*const user = users[currentUsersEmail];
-  if (user && users[friendEmail]) {
-    if (!user.following.includes(friendEmail)) {
-      user.following.push(friendEmail);
-    }
-    res.send(user.following);
-  }
-  else {
-    res.status(404).send({msg:'user not found'});
-  }*/
 });
 
 app.delete('/api/friends', (req, res) => {
@@ -128,16 +98,6 @@ app.delete('/api/friends', (req, res) => {
     }
     res.send(user.following);
   }
-
-  /*if (users && users[friendEmail]) {
-    if (user.following.includes(friendEmail)) {
-      user.following = user.following.filter(f => f !== friendEmail);
-    }
-    res.send(user.following);
-  }
-  else {
-    res.status(404).send({msg: 'user not found'});
-  }*/
 });
 
 app.post('/api/share', (req, res) => {
@@ -156,13 +116,6 @@ app.post('/api/notifications/clear', (req,res) => {
   if (!user) return;
   user.palettes.splice(notificationsIndex,1);
   res.send(user.palettes);
-  /*if (users[email]) {
-    users[email].notifications.splice(notificationsIndex, 1);
-    res.send(users[email].notifications);
-  }
-  else {
-    res.status(404).send({msg: 'user not found'});
-  }*/
 });
 
 app.listen(port, () => {

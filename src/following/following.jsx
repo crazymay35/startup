@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './following.css';
+import { json } from 'express';
 
 export function Following() {
     const currentUser = localStorage.getItem("currentUser");
@@ -8,24 +9,33 @@ export function Following() {
         return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users")) || {};
+    /*const users = JSON.parse(localStorage.getItem("users")) || {};
     const thisUser = users[currentUser];
     if (!thisUser) {
         console.log("user not found");
         return;
-    }
+    }*/
 
     const[following, setFollowing] = useState(thisUser?.following || []);
     const[newFriend,setNewFriend] = useState("");
     const[errorMessage,setErrorMessage] = useState("");
     const [notifications, setNotifications] = useState(thisUser?.notifications || []);
 
-    function handleUnfollow(email) {
+    async function handleUnfollow(email) {
         const updated = following.filter(f => f !== email);
         setFollowing(updated);
 
         users[currentUser].following = updated;
-        localStorage.setItem("users",JSON.stringify(users));
+        /*localStorage.setItem("users",JSON.stringify(users));*/
+
+        try {
+            const response = await fetch('api/friend', {
+                method: 'DELETE'
+            })
+        }
+        catch {
+
+        }
     }
     function handleAddFriend() {
         const email = newFriend.trim().toLowerCase();;

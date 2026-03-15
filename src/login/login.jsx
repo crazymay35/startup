@@ -17,10 +17,10 @@ export function Login() {
 
     const navigate = useNavigate();
  
-    function handleLogin(e) {
+    async function handleLogin(e) {
         e.preventDefault();
 
-        if (!emailLogin || !passwordLogin) {
+        /*if (!emailLogin || !passwordLogin) {
             setErrorMessageLogin("all fields required");
             return;
         }
@@ -45,13 +45,32 @@ export function Login() {
             return;
         }
         setErrorMessageLogin("")
-        localStorage.setItem("currentUser",emailLogin);
-        navigate("/create");
+        localStorage.setItem("currentUser",emailLogin);*/
+
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({
+                email: emailLogin,
+                password: passwordLogin,
+            }),
+        });
+        if (response.ok) {
+            const user = await response.json();
+            localStorage.setItem("currentUser", user.email);
+            navigate("/create");
+        } 
+        else {
+            const err = await response.json();
+            setErrorMessageLogin(err.msg);
+        }
     }
-    function handleCreate(e) {
+    async function handleCreate(e) {
         e.preventDefault();
 
-        if (!usernameCreate || !emailCreate || !passwordCreate) {
+        /*if (!usernameCreate || !emailCreate || !passwordCreate) {
             setErrorMessageCreate("all fields required");
             return;
         }
@@ -72,7 +91,27 @@ export function Login() {
         localStorage.setItem("users", JSON.stringify(users));
         setErrorMessageCreate("account created! please login");
         console.log("account created! please login");
-        setShowCreateAccount(false);
+        setShowCreateAccount(false);*/
+        const response = await fetch('/api/auth/create', {
+            method: 'POST',
+            heards: {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({
+                email: emailCreate,
+                username: usernameCreate,
+                password: passwordCreate,
+            }),
+        });
+        const data = await response.json();
+
+        if(response.ok) {
+            setErrorMessageCreate("account created! login");
+            setShowCreateAccount(false);
+        }
+        else {
+            setErrorMessageCreate(data.msg);
+        }
     }
 
     return (

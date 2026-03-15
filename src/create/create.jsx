@@ -45,15 +45,15 @@ export function Create() {
                 }),
             });
             if (response.ok) {
-                console.log("Palette saved to serve");
-                console.error("Save failed:", error.msg);
+                console.log("palette saved to serve");
+                console.error("save failed:", error.msg);
             }
             else {
                 const error = await response.json();
             }
         }
         catch(error) {
-            console.error("Network error:", error);
+            console.error("network error:", error);
         }
         /*if (!thisUser.palettes) {
             thisUser.palettes = [];

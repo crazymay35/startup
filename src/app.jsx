@@ -21,11 +21,11 @@ export default function App() {
             <div className="body">
                 <Header userState={userState} />
                 <Routes>
-                    <Route path='/' element={<Login/>} />
+                    <Route path='/' element={<Login userState={userState}/>} />
                     <Route path='/generator' element={<ProtectedRoute userState={userState}><Generator userState={userState} /></ProtectedRoute>}/>
                     <Route path='/create' element={<ProtectedRoute userState={userState}><Create userState={userState} /></ProtectedRoute>}/>
-                    <Route path='/create' element={<ProtectedRoute userState={userState}><Palletes userState={userState} /></ProtectedRoute>}/>
-                    <Route path='/create' element={<ProtectedRoute userState={userState}><Following userState={userState} /></ProtectedRoute>}/>
+                    <Route path='/palletes' element={<ProtectedRoute userState={userState}><Palletes userState={userState} /></ProtectedRoute>}/>
+                    <Route path='/following' element={<ProtectedRoute userState={userState}><Following userState={userState} /></ProtectedRoute>}/>
                     <Route path='*' element={<NotFound />} />
                 </Routes>
                 <footer>

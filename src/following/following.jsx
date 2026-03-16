@@ -34,7 +34,7 @@ export function Following(userState) {
             }
             setFriendNames(names);
         }
-        if (following.lenth > 0) loadNames();
+        if (following.length > 0) loadNames();
     }, [following]); 
 
     async function handleUnfollow(friendEmail) {

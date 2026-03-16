@@ -3,7 +3,8 @@ import {useNavigate} from 'react-router-dom'
 import {apiRequest} from "../api.jsx";
 import './login.css';
 
-export function Login() {
+export function Login({userState}) {
+
     const [emailCreate,setEmailCreate] = useState("");
     const [passwordCreate,setPasswordCreate] = useState("");
     const [usernameCreate,setUsernameCreate] = useState("");
@@ -16,10 +17,11 @@ export function Login() {
     const[errorMessageCreate,setErrorMessageCreate] = useState("");
 
     const navigate = useNavigate();
- 
+
+    const { setEmail } = userState;
+
     async function handleLogin(e) {
         e.preventDefault();
-
         try {
             const user = await apiRequest("/api/auth/login","POST", {
                 email: emailLogin, password: passwordLogin

@@ -33,9 +33,11 @@ app.post('/api/auth/create', (req, res) => {
 
 app.post('/api/auth/login', (req, res) => {
   const {email, password} = req.body;
-  const user = getUser(email, res);
+  const user = users[email];
 
-  if (!user) return;
+  if (!user) {
+    return res.status(404).send({msg: "user not found"});
+  };
   if (user.password === password) {
     res.send({email: user.email, username: user.username});
   }

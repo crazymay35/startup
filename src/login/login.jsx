@@ -40,8 +40,7 @@ export function Login() {
                 username: usernameCreate, 
                 password: passwordCreate
             });
-            localStorage.setItem("currentUser", user.email);
-            setErrorMessageCreate("account created! login");
+            setErrorMessageLogin("account created! please login");
             setShowCreateAccount(false);
         }
         catch(err) {

@@ -1,9 +1,10 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import './generator.css';
-import { apiRequest, useUser} from '../api';
-import { Palletes} from '../palletes/palletes';
+import { apiRequest} from '../api';
 
-export function Generator() {
+export function Generator(userState) {
+    const {email, user} = userState;
+    if (!user) return <main>Loading...</main>;
     const [colors, setColors] = useState([]);
 
     async function generateColors() {
@@ -23,13 +24,11 @@ export function Generator() {
 
     useEffect(() => {
         generateColors();
-    }, [generateColors]);
+    }, []);
     
     async function savePalette() {
-        const {currEmail, currUser} = useUser();
-        if (!currUser) return;
         await apiRequest("/api/palettes", "POST", {
-            email: currEmail,
+            email,
             palette: colors
         });
     }

@@ -5,27 +5,36 @@ export async function apiRequest(url, method = "GET", body = null) {
         method,
         headers: {"Content-Type": "application/json"},
     };
-    if (body) {
+    if (body !== null) {
         options.body = JSON.stringify(body);
     }
 
     const response = await fetch(url, options);
-    const data = await response.json();
-
+    
+    let data = null;
+    try {
+        data = await response.json();
+    }
+    catch {
+        data = null;
+    }
     if (!response.ok) {
-        throw new Error(data.msg || "API error");
+        const message = data?.msg || `API error (${response.status})`;
+        throw new Error(message);
     }
     return data;
 }
 
 export function useUser() {
-    const email = localStorage.getItem("currentUser");
-    const [user,setUser] = useState(null);
+    const [email, setEmail] = useState(localStorage.getItem("currentUser"));
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         if (!email) return;
 
-        apiRequest(`/api/user/${email}`).then(setUser);
+        apiRequest(`/api/user/${email}`)
+            .then(setUser)
+            .catch(() => setUser(null));
     }, [email]);
-    return {email,user,setUser}
+    return {email,setEmail,user,setUser}
 }

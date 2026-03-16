@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './palletes.css';
-import { apiRequest, useUser } from '../api';
+import { apiRequest} from '../api';
 
-export function Palletes() {
-    const {currEmail, currUser} = useUser();
-    if (!currUser) return;
+export function Palletes(userState) {
+    const {email, user} = userState;
+    if (!user) return <main>Loading...</main>;
 
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
-        apiRequest(`/api/user/${currEmail}`).then(thing => setPalettes(thing.palettes));
-    }, []);
+        apiRequest(`/api/user/${email}`).then(data => setPalettes(data.palettes));
+    }, [email]);
 
     async function handleRemove(index) {
         const updated = await apiRequest("/api/palettes", "DELETE", {
-            email: currEmail,
+            email,
             index
         });
         setPalettes(updated);
@@ -22,7 +22,7 @@ export function Palletes() {
 
     async function  handleShare(palette) {
         await apiRequest("/api/share", "POST", {
-            fromEmail: currEmail,
+            fromEmail: email,
             palette
         });
         console.log("palette shared");

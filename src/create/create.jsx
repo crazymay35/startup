@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './create.css';
-import {apiRequest, useUser} from "../api";
+import {apiRequest} from "../api.jsx";
 
-export function Create() {
+export function Create(userState) {
+    const {email, user} = userState;
+    if (!user) return <main>Loading...</main>;;
+    
     const [color1, setColor1] = useState({r:0,g:0,b:0});
     const [color2, setColor2] = useState({r:0,g:0,b:0});
-
-    const {currEmail, currUser} = useUser();
-    if (!currUser) return;
 
     const handleCreateChange = (setter) => (e) => {
         const {name, value} = e.target;
         setter((prev) => ({...prev, [name]: Number(value)}))
     };
     function generateGradient(c1,c2) {
-        return [0,1,2,3,4].map((i) => {
+        return [0,1,2,3,4].map(i => {
             const t = i/4;
             return {
                 r : Math.round(c1.r + (c2.r - c1.r) * t),
@@ -29,7 +29,7 @@ export function Create() {
         const gradient = generateGradient(color1,color2);
 
         await apiRequest("/api/palettes", "POST", {
-            email: currEmail,
+            email,
             palette: gradient
         });
     }
@@ -78,8 +78,8 @@ export function Create() {
                     </div>
                     <div>
                         <button type="button" className="btn btn-primary my-button"
-                            onClick={handleSavePalette}
-                        >Save Palette</button>
+                            onClick={handleSavePalette}>Save Palette
+                        </button>
                     </div>
                 </div>
             </div>

@@ -24,6 +24,7 @@ app.post('/api/auth/create', (req, res) => {
   if (users[email]) {
     return res.status(409).send({msg:'user already exists'});
   }
+  
   users[email] = {
     email, username, password, palettes:[], following:[], notifications: []
   };
@@ -58,7 +59,9 @@ app.get('/api/user/:email', (req,res) => {
 //palletes.jsx Endpoints
 app.post('/api/palettes', (req,res) => {
   const {email, palette} = req.body;
-
+  if (!palette) {
+    return res.status(400).send({msg: "palette required"});
+  }
   const user = getUser(email, res);
   if (!user) return;
 
@@ -80,19 +83,23 @@ app.post('/api/friends', (req,res) => {
   const {currentUsersEmail, friendEmail} = req.body;
   const user = getUser(currentUsersEmail, res);
   if (!user) return;
-  if (users[friendEmail]) {
-    if (!user.following.includes(friendEmail)) {
-      user.following.push(friendEmail);
-    }
-    res.send(user.following);
+
+  if (!users[friendEmail]) {
+    return res.status(404).send({msg: "friend not found"});
   }
+  if (!user.following.includes(friendEmail)) {
+    user.following.push(friendEmail);
+  }
+  res.send(user.following);
 });
 
 app.delete('/api/friends', (req, res) => {
   const {currentUsersEmail, friendEmail} = req.body;
   const user = getUser(currentUsersEmail, res);
   if (!user) return;
-  if (!users[friendEmail]) return;
+  if (!users[friendEmail]) {
+    return res.status(404).send({msg: "friend not found"});
+  };
   if (user.following.includes(friendEmail)) {
     user.following = user.following.filter(f => f !== friendEmail);
   }
@@ -113,9 +120,9 @@ app.post('/api/notifications/clear', (req,res) => {
   const {email,notificationsIndex} = req.body;
   const user = getUser(email, res);
   if (!user) return;
-  
+
   user.notifications.splice(notificationsIndex,1);
-  res.send(user.palettes);
+  res.send(user.notifications);
 });
 
 app.listen(port, () => {

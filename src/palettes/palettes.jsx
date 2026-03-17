@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import './palletes.css';
+import './palettes.css';
 import { apiRequest} from '../api';
 
-export function Palletes(userState) {
+export function Palettes(userState) {
     const {email, user} = userState;
-    if (!user) return <main>Loading...</main>;
-
+    
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {

@@ -4,7 +4,6 @@ import {apiRequest} from "../api.jsx";
 
 export function Create(userState) {
     const {email, user} = userState;
-    if (!user) return <main>Loading...</main>;;
     
     const [color1, setColor1] = useState({r:0,g:0,b:0});
     const [color2, setColor2] = useState({r:0,g:0,b:0});
@@ -24,10 +23,9 @@ export function Create(userState) {
         })
     }
 
+    const gradient = generateGradient(color1, color2);
 
     async function handleSavePalette() {
-        const gradient = generateGradient(color1,color2);
-
         await apiRequest("/api/palettes", "POST", {
             email,
             palette: gradient
@@ -70,7 +68,7 @@ export function Create(userState) {
                 </div>
                 <div className="create-container">
                     <div className="create-color-box-container">
-                        {generateGradient(color1,color2).map((c,i) => (
+                        {gradient.map((c,i) => (
                             <div key={i} className="create-inner-box" 
                                 style={{backgroundColor: `rgb(${c.r}, ${c.g}, ${c.b})`}}>
                             </div>

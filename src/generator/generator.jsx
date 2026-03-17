@@ -4,20 +4,15 @@ import { apiRequest} from '../api';
 
 export function Generator(userState) {
     const {email, user} = userState;
-    if (!user) return <main>Loading...</main>;
     const [colors, setColors] = useState([]);
 
     async function generateColors() {
         const response = await fetch(`https://x-colors.yurace.pro/api/random?number=5`)
         const data = await response.json();
     
-        const fetchedColors = data.map(item => {
-            const rgbValues = item.rgb.match(/\d+/g);
-            return {
-                r: +rgbValues[0],
-                g: +rgbValues[1],
-                b: +rgbValues[2]
-            };
+        const fetchedColors = data.map(({ rgb }) => {
+            const [r,g,b] = rgb.match(/\d+/g).map(Number);
+            return { r,g,b };
         });
         setColors(fetchedColors);
     }

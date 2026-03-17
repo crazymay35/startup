@@ -7,7 +7,7 @@ import { BrowserRouter, NavLink, Route, Routes, useLocation } from 'react-router
 import { Login } from './login/login';
 import { Generator } from './generator/generator';
 import { Create } from './create/create';
-import { Palletes } from './palletes/palletes';
+import { Palettes } from './palettes/palettes';
 import { Following } from './following/following';
 
 import { ProtectedRoute } from "./login/ProtectedRoute";
@@ -24,7 +24,7 @@ export default function App() {
                     <Route path='/' element={<Login userState={userState}/>} />
                     <Route path='/generator' element={<ProtectedRoute userState={userState}><Generator userState={userState} /></ProtectedRoute>}/>
                     <Route path='/create' element={<ProtectedRoute userState={userState}><Create userState={userState} /></ProtectedRoute>}/>
-                    <Route path='/palletes' element={<ProtectedRoute userState={userState}><Palletes userState={userState} /></ProtectedRoute>}/>
+                    <Route path='/palettes' element={<ProtectedRoute userState={userState}><Palettes userState={userState} /></ProtectedRoute>}/>
                     <Route path='/following' element={<ProtectedRoute userState={userState}><Following userState={userState} /></ProtectedRoute>}/>
                     <Route path='*' element={<NotFound />} />
                 </Routes>
@@ -46,7 +46,7 @@ function Header({ userState }) {
         <header>
             <h1>
                 <img src="paintbrush-and-palette-svgrepo-com.svg"
-                     alt="icon of a paintbrush and a color pallete"/>
+                     alt="icon of a paintbrush and a color palette"/>
                 COLOR PAL
             </h1>
 
@@ -59,14 +59,14 @@ function Header({ userState }) {
                             <button className='btn btn-secondary'
                                 onClick={() => {
                                     localStorage.removeItem("currentUser");
-                                    window.location.href = "/";
+                                    userState.setEmail(null);
                                 }}>
                                 Logout
                             </button>
                         </li>
                         <li><NavLink to="/generator">Generate</NavLink></li>
                         <li><NavLink to="/create">Create</NavLink></li>
-                        <li><NavLink to="/palletes">Palettes</NavLink></li>
+                        <li><NavLink to="/palettes">Palettes</NavLink></li>
                         <li><NavLink to="/following">Friends</NavLink></li>
                     </>
                 )}

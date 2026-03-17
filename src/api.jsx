@@ -11,13 +11,7 @@ export async function apiRequest(url, method = "GET", body = null) {
 
     const response = await fetch(url, options);
     
-    let data = null;
-    try {
-        data = await response.json();
-    }
-    catch {
-        data = null;
-    }
+    const data = await response.json().catch(() => null);
     if (!response.ok) {
         const message = data?.msg || `API error (${response.status})`;
         throw new Error(message);
@@ -26,15 +20,16 @@ export async function apiRequest(url, method = "GET", body = null) {
 }
 
 export function useUser() {
-    const [email, setEmail] = useState(localStorage.getItem("currentUser"));
-    const [user, setUser] = useState(null);
+  const [email, setEmail] = useState(() => localStorage.getItem("currentUser"));
+  const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        if (!email) return;
+  useEffect(() => {
+    if (!email) return;
 
-        apiRequest(`/api/user/${email}`)
-            .then(setUser)
-            .catch(() => setUser(null));
-    }, [email]);
-    return {email,setEmail,user,setUser}
+    apiRequest(`/api/user/${email}`)
+      .then(setUser)
+      .catch(() => setUser(null));
+  }, [email]);
+
+  return { email, setEmail, user };
 }

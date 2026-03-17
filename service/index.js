@@ -9,15 +9,6 @@ app.use(express.json());
 
 let users = {};
 
-function getUser(email, res) {
-  const user = users[email];
-  if(!user) {
-    res.status(404).send({msg: "user not found"});
-    return null;
-  }
-  return user;
-}
-
 //login.jsx Endpoints
 app.post('/api/auth/create', (req, res) => {
   const {email, username, password } = req.body;
@@ -50,8 +41,13 @@ app.post('/api/auth/login', (req, res) => {
 app.get('/api/user/:email', (req,res) => {
   const user = users[req.params.email];
   if (user) {
-    const {password, ...userSafeData} = user;
-    res.send(userSafeData);
+    res.send({
+      email: user.email,
+      username: user.username,
+      palettes: user.palettes,
+      following: user.following,
+      notifications: user.notifications
+    });
   }
   else {
     res.status(404).send({msg:'user not found'});
@@ -64,8 +60,8 @@ app.post('/api/palettes', (req,res) => {
   if (!palette) {
     return res.status(400).send({msg: "palette required"});
   }
-  const user = getUser(email, res);
-  if (!user) return;
+  const user = users[email];
+  if (!user) return res.status(404).send({msg:"user not found"});
 
   user.palettes.push(palette);
   res.status(201).send(user.palettes);
@@ -73,7 +69,8 @@ app.post('/api/palettes', (req,res) => {
 
 app.delete('/api/palettes', (req, res) => {
   const{email, index} = req.body;
-  const user = getUser(email, res);
+  const user = users[email];
+  if (!user) return res.status(404).send({msg:"user not found"});
 
   if (!user) return;
   user.palettes.splice(index,1);
@@ -83,8 +80,8 @@ app.delete('/api/palettes', (req, res) => {
 //following.jsx Endpoints
 app.post('/api/friends', (req,res) => {
   const {currentUsersEmail, friendEmail} = req.body;
-  const user = getUser(currentUsersEmail, res);
-  if (!user) return;
+  const user = users[currentUsersEmail];
+  if (!user) return res.status(404).send({msg:"user not found"});
 
   if (!users[friendEmail]) {
     return res.status(404).send({msg: "friend not found"});
@@ -97,8 +94,9 @@ app.post('/api/friends', (req,res) => {
 
 app.delete('/api/friends', (req, res) => {
   const {currentUsersEmail, friendEmail} = req.body;
-  const user = getUser(currentUsersEmail, res);
-  if (!user) return;
+  if (!users[currentUsersEmail]) {
+    return res.status(404).send({msg: "user not found"});
+  }
   if (!users[friendEmail]) {
     return res.status(404).send({msg: "friend not found"});
   };
@@ -110,18 +108,18 @@ app.delete('/api/friends', (req, res) => {
 
 app.post('/api/share', (req, res) => {
   const {fromEmail, palette} = req.body;
-  Object.keys(users).forEach((email) => {
-    if (users[email].following.includes(fromEmail)) {
-      users[email].notifications.push({from: fromEmail, palette});
+  for (const user of Object.values(users)) {
+    if (user.following.includes(fromEmail)) {
+      user.notifications.push({from: fromEmail, palette});
     }
-  });
+  }
   res.send({msg:'shared palette'});
 });
 
 app.post('/api/notifications/clear', (req,res) => {
   const {email,notificationsIndex} = req.body;
-  const user = getUser(email, res);
-  if (!user) return;
+  const user = users[email];
+  if (!user) return res.status(404).send({msg:"user not found"});
 
   user.notifications.splice(notificationsIndex,1);
   res.send(user.notifications);

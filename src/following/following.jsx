@@ -5,7 +5,6 @@ import { apiRequest} from '../api';
 
 export function Following(userState) {
     const {email, user} = userState;
-    if (!user) return <main>Loading...</main>;
    
     const[following, setFollowing] = useState([]);
     const[friendNames, setFriendNames] = useState({});
@@ -22,17 +21,18 @@ export function Following(userState) {
 
     useEffect(() => {
         async function loadNames() {
-            const names = {};
-            for (const email of following) {
+            const entries = await Promise.all(
+                following.map(async email => {
                 try {
                     const data = await apiRequest(`/api/user/${email}`);
-                    names[email] = data.username;
+                    return [email, data.username];
+                } catch {
+                    return [email, email];
                 }
-                catch {
-                    names[email] = email;
-                }
-            }
-            setFriendNames(names);
+                })
+            );
+
+            setFriendNames(Object.fromEntries(entries));
         }
         if (following.length > 0) loadNames();
     }, [following]); 

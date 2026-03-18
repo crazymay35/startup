@@ -68,10 +68,10 @@ export default function App() {
                             setAuthState(newStatus);
                         }}/>} 
                     />
-                    <Route path='/generator' element={<Generator />} />
-                    <Route path='/create' element={<Create />} />
-                    <Route path='/palettes' element={<Palettes />} />
-                    <Route path='/following' element={<Following />} />
+                    <Route path='/generator' element={<Generator email = {email} />} />
+                    <Route path='/create' element={<Create email = {email}/>} />
+                    <Route path='/palettes' element={<Palettes email = {email} />} />
+                    <Route path='/following' element={<Following email = {email} />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
                 <footer>

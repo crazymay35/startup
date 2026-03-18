@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import './palettes.css';
 
-export function Palettes(userState) {
-    const {email, user} = userState;
+export function Palettes(email) {
     
     const [palettes,setPalettes] = useState([]);
 

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './following.css';
 
-export function Following(userState) {
-    const {email, user} = userState;
-   
+export function Following(email) {
     const[following, setFollowing] = useState([]);
     const[friendNames, setFriendNames] = useState({});
     const[newFriend,setNewFriend] = useState("");
@@ -74,7 +72,7 @@ export function Following(userState) {
     return (
         <main className="following-main-container">
             <div className="following-main-transparent-container">
-                <span className="thing">You Are: &emsp; {user?.username}</span>
+                <span className="thing">You Are: &emsp; {email}</span>
                 <span id="following-faculty-glyphic-regular">FRIENDS</span>
                 
                 {following.map(email => (

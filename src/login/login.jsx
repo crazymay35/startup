@@ -33,13 +33,8 @@ export function Login(props) {
             navigate("/generator");
         }
         else {
-            const body = await response.json();
-            setErrorMessageLogin(`Error in login: ${body.msg}`);
+            setErrorMessageLogin(`Error in login`);
         }
-    }
-
-    async function findUser(field, value) {
-        return Object.values(users).find(u => u[field] === value);
     }
 
     async function handleCreate(e) {
@@ -56,8 +51,7 @@ export function Login(props) {
             setShowCreateAccount(false);
         }
         else {
-            const body = await response.json();
-            setErrorMessageCreate(`Error in create account: ${body.msg}`);
+            setErrorMessageCreate(`Error in create account`);
         }
     }
 

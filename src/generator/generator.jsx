@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './generator.css';
 
-export function Generator(userState) {
-    const {email, user} = userState;
+export function Generator(email) {
     const [colors, setColors] = useState([]);
 
     async function generateColors() {

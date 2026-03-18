@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './create.css';
 
-export function Create(userState) {
-    const {email, user} = userState;
+export function Create(email) {
     
     const [color1, setColor1] = useState({r:0,g:0,b:0});
     const [color2, setColor2] = useState({r:0,g:0,b:0});

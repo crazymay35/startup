@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './following.css';
-import { apiRequest} from '../api';
-
 
 export function Following(userState) {
     const {email, user} = userState;
@@ -34,7 +32,8 @@ export function Following(userState) {
 
             setFriendNames(Object.fromEntries(entries));
         }
-        if (following.length > 0) loadNames();
+        if (following.length) loadNames();
+        else setFriendNames({});
     }, [following]); 
 
     async function handleUnfollow(friendEmail) {

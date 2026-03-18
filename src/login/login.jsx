@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom'
-import {apiRequest} from "../api.jsx";
 import './login.css';
+import { AuthState } from './authState';
 
-export function Login({userState}) {
+export function Login(props) {
 
     const [emailCreate,setEmailCreate] = useState("");
     const [passwordCreate,setPasswordCreate] = useState("");
@@ -18,35 +18,46 @@ export function Login({userState}) {
 
     const navigate = useNavigate();
 
-    const { setEmail } = userState;
-
     async function handleLogin(e) {
         e.preventDefault();
-        try {
-            const user = await apiRequest("/api/auth/login","POST", {
-                email: emailLogin, password: passwordLogin
-            });
-            localStorage.setItem("currentUser", user.email);
-            navigate("/create");
+        const response = await fetch(`/api/auth/login`, {
+            method: 'post',
+            body: JSON.stringify({email: emailLogin, 
+            password: passwordLogin}),
+            headers: { 'Content-type': 'application/json; charset=UTF-8'},
+        });
+        if (response.ok) {
+            const body = await response.json();
+            localStorage.setItem('email', body.email);
+            props.onAuthChange(body.email, AuthState.Authenticated);
+            navigate("/generator");
         }
-        catch(err) {
-            setErrorMessageLogin(err.message);
+        else {
+            const body = await response.json();
+            setErrorMessageLogin(`Error in login: ${body.msg}`);
         }
     }
+
+    async function findUser(field, value) {
+        return Object.values(users).find(u => u[field] === value);
+    }
+
     async function handleCreate(e) {
         e.preventDefault();
-
-        try {
-            const user = await apiRequest("/api/auth/create", "POST", {
-                email: emailCreate, 
+        const response = await fetch(`/api/auth/create`, {
+            method: 'post',
+            body: JSON.stringify({email: emailCreate, 
                 username: usernameCreate, 
-                password: passwordCreate
-            });
+                password: passwordCreate}),
+            headers: { 'Content-type': 'application/json; charset=UTF-8'},
+        });
+        if (response?.status === 200) {
             setErrorMessageLogin("account created! please login");
             setShowCreateAccount(false);
         }
-        catch(err) {
-            setErrorMessageCreate(err.message);
+        else {
+            const body = await response.json();
+            setErrorMessageCreate(`Error in create account: ${body.msg}`);
         }
     }
 

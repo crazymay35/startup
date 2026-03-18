@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import './generator.css';
-import { apiRequest} from '../api';
 
 export function Generator(userState) {
     const {email, user} = userState;

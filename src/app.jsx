@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
@@ -10,22 +10,68 @@ import { Create } from './create/create';
 import { Palettes } from './palettes/palettes';
 import { Following } from './following/following';
 
-import { ProtectedRoute } from "./login/ProtectedRoute";
-import { useUser } from './api';
+import { AuthState } from './login/authState';
+//import { ProtectedRoute } from "./login/ProtectedRoute";
 
 export default function App() {
-    const userState = useUser();   // <--- useUser called ONCE
+    const [email, setEmail] = React.useState(localStorage.getItem('email') || '');
+    const currentAuthState = email ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
+    
+        function logout() {
+        fetch(`/api/auth/logout`, {
+            method: 'delete',
+        })
+        .finally(() => {
+            localStorage.removeItem('email');
+            setEmail('');
+            setAuthState(AuthState.Unauthenticated)
+        });
+    }
 
+    function Header () {
+        const location = useLocation();
+        const onLoginPage = location.pathname === "/";
+        
+        return (
+            <header>
+                <h1>
+                    <img src="paintbrush-and-palette-svgrepo-com.svg"
+                    alt="icon of a paintbrush and a color pallete"/>
+                    COLOR PAL
+                </h1>
+                <ul> {onLoginPage ? (<li><NavLink to="/">Login</NavLink></li>) : (
+                    <>
+                    <li>
+                        <button className='btn btn-secondary'
+                        onClick={logout}>Logout</button>
+                    </li>
+                    {authState === AuthState.Authenticated && (<>
+                        <li><NavLink to="/generator">Generate</NavLink></li>
+                        <li><NavLink to="/create">Create</NavLink></li>
+                        <li><NavLink to="/palettes">Palettes</NavLink></li>
+                        <li><NavLink to="/following">Friends</NavLink></li>
+                    </>)}
+                </>
+                )} </ul>
+            </header>
+        );
+    }
     return (
         <BrowserRouter>
             <div className="body">
-                <Header userState={userState} />
+                <Header />
                 <Routes>
-                    <Route path='/' element={<Login userState={userState}/>} />
-                    <Route path='/generator' element={<ProtectedRoute userState={userState}><Generator userState={userState} /></ProtectedRoute>}/>
-                    <Route path='/create' element={<ProtectedRoute userState={userState}><Create userState={userState} /></ProtectedRoute>}/>
-                    <Route path='/palettes' element={<ProtectedRoute userState={userState}><Palettes userState={userState} /></ProtectedRoute>}/>
-                    <Route path='/following' element={<ProtectedRoute userState={userState}><Following userState={userState} /></ProtectedRoute>}/>
+                    <Route path='/' element={
+                        <Login onAuthChange = {(userEmail, newStatus) => {
+                            setEmail(userEmail);
+                            setAuthState(newStatus);
+                        }}/>} 
+                    />
+                    <Route path='/generator' element={<Generator />} />
+                    <Route path='/create' element={<Create />} />
+                    <Route path='/palettes' element={<Palettes />} />
+                    <Route path='/following' element={<Following />} />
                     <Route path='*' element={<NotFound />} />
                 </Routes>
                 <footer>
@@ -34,44 +80,6 @@ export default function App() {
                 </footer>
             </div>
         </BrowserRouter>
-    );
-}
-
-function Header({ userState }) {
-    const { email, user } = userState;
-    const location = useLocation();
-    const onLoginPage = location.pathname === "/";
-
-    return (
-        <header>
-            <h1>
-                <img src="paintbrush-and-palette-svgrepo-com.svg"
-                     alt="icon of a paintbrush and a color palette"/>
-                COLOR PAL
-            </h1>
-
-            <ul>
-                {onLoginPage || !user ? (
-                    <li><NavLink to="/">Login</NavLink></li>
-                ) : (
-                    <>
-                        <li>
-                            <button className='btn btn-secondary'
-                                onClick={() => {
-                                    localStorage.removeItem("currentUser");
-                                    userState.setEmail(null);
-                                }}>
-                                Logout
-                            </button>
-                        </li>
-                        <li><NavLink to="/generator">Generate</NavLink></li>
-                        <li><NavLink to="/create">Create</NavLink></li>
-                        <li><NavLink to="/palettes">Palettes</NavLink></li>
-                        <li><NavLink to="/following">Friends</NavLink></li>
-                    </>
-                )}
-            </ul>
-        </header>
     );
 }
 

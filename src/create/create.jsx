@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './create.css';
-import {apiRequest} from "../api.jsx";
 
 export function Create(userState) {
     const {email, user} = userState;

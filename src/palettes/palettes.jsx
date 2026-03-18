@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './palettes.css';
-import { apiRequest} from '../api';
 
 export function Palettes(userState) {
     const {email, user} = userState;

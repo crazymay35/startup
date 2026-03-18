@@ -1,44 +1,86 @@
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcryptjs');
 const express = require('express');
+const uuid = require('uuid');
 const app = express();
+
+const authCookieName = 'token';
+
+let users = {};
+let tokens = {};
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
+app.use(express.json());
+app.use(cookieParser());
 app.use(express.static('public'));
 
-app.use(express.json());
+var apiRouter = express.Router();
+app.use(`/api`, apiRouter);
 
-let users = {};
+const verifyAuth = (req, res, next) => {
+  const token = req.cookies[authCookieName];
+  const email = tokens[token];
+  const user = users[email];
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+  //apiRouter.post('/palettes', verifyAuth, (req,res) => {})
+};
 
 //login.jsx Endpoints
-app.post('/api/auth/create', (req, res) => {
+apiRouter.post('/auth/create', async (req, res) => {
   const {email, username, password } = req.body;
   if (users[email]) {
     return res.status(409).send({msg:'user already exists'});
   }
-  
-  users[email] = {
-    email, username, password, palettes:[], following:[], notifications: []
-  };
-  res.status(201).send({email, username});
-});
 
-app.post('/api/auth/login', (req, res) => {
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  users[email] = {
+    email, username, password: hashedPassword, palettes:[], following:[], notifications:[], token:null
+  };
+  res.status(200).send({ msg: 'Success' });
+});
+apiRouter.post('/auth/login', async (req, res) => {
   const {email, password} = req.body;
   const user = users[email];
 
   if (!user) {
     return res.status(404).send({msg: "user not found"});
   };
-  if (user.password === password) {
-    res.send({email: user.email, username: user.username});
+  if (await bcrypt.compare(req.body.password, user.password)) {
+    const authToken = uuid.v4();
+    user.token = authToken;
+    tokens[authToken] = email;
+
+    res.cookie(authCookieName, authToken, {
+      maxAge: 1000 * 60 * 60 * 24 * 365,
+      secure: true,
+      httpOnly: true,
+      sameSite: 'strict',
+    }) 
+    res.send({email: user.email});
+    return;
   }
   else {
-    res.status(401).send({msg:'incorrect password'});
+    res.status(401).send({msg:'Unauthorized'});
   }
 });
-
+apiRouter.use(verifyAuth);
+apiRouter.delete('/auth/logout', async(req,res) => {
+  const token = req.cookies[authCookieName];
+  if (token) {
+    delete tokens[token];
+  }
+  res.clearCookie(authCookieName);
+  res.status(204).end();
+})
 //following.jsx and palletes.jsx Endpoints
-app.get('/api/user/:email', (req,res) => {
+apiRouter.get('/user/:email', (req,res) => {
   const user = users[req.params.email];
   if (user) {
     res.send({
@@ -53,61 +95,52 @@ app.get('/api/user/:email', (req,res) => {
     res.status(404).send({msg:'user not found'});
   }
 });
-
 //palletes.jsx Endpoints
-app.post('/api/palettes', (req,res) => {
-  const {email, palette} = req.body;
+apiRouter.post('/palettes', (req,res) => {
+  const {palette} = req.body;
   if (!palette) {
     return res.status(400).send({msg: "palette required"});
   }
-  const user = users[email];
-  if (!user) return res.status(404).send({msg:"user not found"});
+  const user = req.user;
 
   user.palettes.push(palette);
   res.status(201).send(user.palettes);
 });
+apiRouter.delete('/palettes', (req, res) => {
+  const{index} = req.body;
+  const user = req.user;
 
-app.delete('/api/palettes', (req, res) => {
-  const{email, index} = req.body;
-  const user = users[email];
-  if (!user) return res.status(404).send({msg:"user not found"});
-
-  if (!user) return;
+  if (index < 0 || index >= user.palettes.length) {
+    return res.status(400).send({msg:"invalid index"});
+  }
   user.palettes.splice(index,1);
   res.send(user.palettes);
 });
-
 //following.jsx Endpoints
-app.post('/api/friends', (req,res) => {
-  const {currentUsersEmail, friendEmail} = req.body;
-  const user = users[currentUsersEmail];
-  if (!user) return res.status(404).send({msg:"user not found"});
+apiRouter.post('/friends', (req,res) => {
+  const {friendEmail} = req.body;
+  const user = req.user;
 
   if (!users[friendEmail]) {
     return res.status(404).send({msg: "friend not found"});
+  }
+  if (user.email === friendEmail) {
+    return res.status(400).send({msg:"cannot follow yourself"});
   }
   if (!user.following.includes(friendEmail)) {
     user.following.push(friendEmail);
   }
   res.send(user.following);
 });
-
-app.delete('/api/friends', (req, res) => {
-  const {currentUsersEmail, friendEmail} = req.body;
-  if (!users[currentUsersEmail]) {
-    return res.status(404).send({msg: "user not found"});
-  }
-  if (!users[friendEmail]) {
-    return res.status(404).send({msg: "friend not found"});
-  };
-  if (user.following.includes(friendEmail)) {
-    user.following = user.following.filter(f => f !== friendEmail);
-  }
+apiRouter.delete('/friends', (req, res) => {
+  const {friendEmail} = req.body;
+  const user = req.user;
+  user.following = user.following.filter(f => f !== friendEmail);
   res.send(user.following);
 });
-
-app.post('/api/share', (req, res) => {
-  const {fromEmail, palette} = req.body;
+apiRouter.post('/share', (req, res) => {
+  const {palette} = req.body;
+  const fromEmail = req.user.email;
   for (const user of Object.values(users)) {
     if (user.following.includes(fromEmail)) {
       user.notifications.push({from: fromEmail, palette});
@@ -115,16 +148,15 @@ app.post('/api/share', (req, res) => {
   }
   res.send({msg:'shared palette'});
 });
-
-app.post('/api/notifications/clear', (req,res) => {
-  const {email,notificationsIndex} = req.body;
-  const user = users[email];
-  if (!user) return res.status(404).send({msg:"user not found"});
-
+apiRouter.post('/notifications/clear', (req,res) => {
+  const {notificationsIndex} = req.body;
+  const user = req.user;
+  if (notificationsIndex < 0 || notificationsIndex >= user.notifications.length) {
+    return res.status(400).send({msg:"invalid notification"});
+  }
   user.notifications.splice(notificationsIndex,1);
   res.send(user.notifications);
 });
-
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });

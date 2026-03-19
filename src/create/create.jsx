@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './create.css';
 
-export function Create(email) {
+export function Create({email}) {
     
     const [color1, setColor1] = useState({r:0,g:0,b:0});
     const [color2, setColor2] = useState({r:0,g:0,b:0});
@@ -24,10 +24,18 @@ export function Create(email) {
     const gradient = generateGradient(color1, color2);
 
     async function handleSavePalette() {
-        await apiRequest("/api/palettes", "POST", {
-            email,
-            palette: gradient
+        const response = await fetch("/api/palettes", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include', 
+            body: JSON.stringify({ palette: gradient })
         });
+        if (response.ok) {
+            console.log("palette saved")
+        }
+        else {
+            console.log("failed to save palette");
+        }
     }
     
     return (

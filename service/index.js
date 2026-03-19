@@ -151,12 +151,12 @@ apiRouter.post('/share', (req, res) => {
   res.send({msg:'shared palette'});
 });
 apiRouter.post('/notifications/clear', (req,res) => {
-  const {notificationsIndex} = req.body;
+  const {index} = req.body;
   const user = req.user;
-  if (notificationsIndex < 0 || notificationsIndex >= user.notifications.length) {
+  if (index < 0 || index >= user.notifications.length) {
     return res.status(400).send({msg:"invalid notification"});
   }
-  user.notifications.splice(notificationsIndex,1);
+  user.notifications.splice(index,1);
   res.send(user.notifications);
 });
 app.listen(port, () => {

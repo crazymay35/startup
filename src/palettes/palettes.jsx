@@ -6,17 +6,20 @@ export function Palettes({email}) {
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
-        //apiRequest(`/api/user/${email}`).then(data => setPalettes(data.palettes));
-        fetch(`/api/user/${email}`)
-        .then(response => response.json())
-        .then(data => setPalettes(data.palettes)
-        .catch(err => console.error("Loading error:", err))
-    );
+        if (!email) return;
 
+        fetch(`/api/user/${email}`)
+        .then(response => {
+            if (!response.ok) throw new Error('failed to fetch');
+            return response.json();
+        })
+        .then(data => setPalettes(data.palettes))
+        .catch(err => console.error("Loading error:", err));
+        
     }, [email]);
 
     async function handleRemove(index) {
-        const response = ("/api/palettes", {
+        const response = await fetch("/api/palettes", {
             method: 'delete',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include', 
@@ -26,16 +29,21 @@ export function Palettes({email}) {
             const updatedPalettes = await response.json();
             setPalettes(updatedPalettes);
         }
+        else {
+            console.log("error in delete palette");
+        }
     }
 
     async function handleShare(palette) {
-        await fetch("/api/share", {
+        const response = await fetch("/api/share", {
             method: "post",
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include', 
             body: JSON.stringify({ palette })
         })
-        console.log("palette shared");
+        if (response.ok) {
+            console.log("palette shared");
+        }
     }
 
     return (

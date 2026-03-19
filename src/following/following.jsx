@@ -1,72 +1,96 @@
 import React, { useState, useEffect } from 'react';
 import './following.css';
 
-export function Following(email) {
+export function Following({email}) {
     const[following, setFollowing] = useState([]);
     const[friendNames, setFriendNames] = useState({});
-    const[newFriend,setNewFriend] = useState("");
+    const[newFriend, setNewFriend] = useState("");
     const[notifications, setNotifications] = useState([]);
     const[errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        apiRequest(`/api/user/${email}`).then(data => {
-            setFollowing(data.following);
-            setNotifications(data.notifications);
+        if (!email) return;
+
+        fetch(`/api/user/${email}`)
+        .then(response => {
+            if (!response.ok) throw new Error('failed to fetch');
+            return response.json();
         })
+        .then(data => {
+            const {following, notifications} = data;
+            setFollowing(following);
+            setNotifications(notifications);
+        })
+        .catch(err => console.error("Loading error:", err));
     }, [email]);
 
     useEffect(() => {
         async function loadNames() {
             const entries = await Promise.all(
-                following.map(async email => {
-                try {
-                    const data = await apiRequest(`/api/user/${email}`);
-                    return [email, data.username];
-                } catch {
-                    return [email, email];
-                }
+                following.map(async (friendEmail) => {
+                    try {
+                        const response = await fetch(`/api/user/${friendEmail}`);
+                        const data = await response.json();
+                        return [friendEmail, data.username];
+                    }
+                    catch {
+                        return [friendEmail, friendEmail];
+                    }
                 })
             );
 
             setFriendNames(Object.fromEntries(entries));
         }
-        if (following.length) loadNames();
+        if (following.length > 0) loadNames();
         else setFriendNames({});
     }, [following]); 
 
     async function handleUnfollow(friendEmail) {
-        const updated = await apiRequest("/api/friends", "DELETE", {
-            currentUsersEmail: email,
-            friendEmail
-        });
-        setFollowing(updated);
+        const response = await fetch('/api/friends', {
+            method: 'delete',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ friendEmail })
+        })
+        if (response.ok) {
+            const updateFollowing = await response.json();
+            setFollowing(updateFollowing);
+        }
     }
     async function handleAddFriend() {
-        try {
-            const updated = await apiRequest("/api/friends", "POST", {
-                currentUsersEmail: email,
-                friendEmail: newFriend
+        const response = await fetch('/api/friends', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ friendEmail: newFriend })
         });
-        setFollowing(updated);
-        setNewFriend("");
+        const data = await response.json();
+        if (response.ok) {
+            setFollowing(data);
+            setNewFriend("");
         }
-        catch(err) {
-            setErrorMessage(err.message);
+        else {
+            setErrorMessage("user not found, error with data");
         }
     }
     async function handleCloseNotification(index) {
-        const updated = await apiRequest("/api/notifications/clear", "POST", {
-            email,
-            notificationsIndex: index
+        const response = await fetch('api/notifications/clear', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ index })
         });
-        setNotifications(updated);
+        if (response.ok) {
+            const updatedNotifications = await response.json();
+            setNotifications(updatedNotifications);
+        }
     }
     async function handleAddPalette(notif, index) {
-        await apiRequest("/api/palettes", "POST", {
-            email,
-            palette: notif.palette
+        const response = await fetch('/api/palettes', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({palette: notif.palette})
         });
-        handleCloseNotification(index);
+        if (response.ok) {
+            handleCloseNotification(index);
+        }
     }
 
     return (

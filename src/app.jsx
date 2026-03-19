@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import './app.css';
 
-import { BrowserRouter, NavLink, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Navigate, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Login } from './login/login';
 import { Generator } from './generator/generator';
 import { Create } from './create/create';
@@ -17,22 +17,23 @@ export default function App() {
     const [email, setEmail] = React.useState(localStorage.getItem('email') || '');
     const currentAuthState = email ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
-    
-        function logout() {
-        fetch(`/api/auth/logout`, {
-            method: 'delete',
-        })
-        .finally(() => {
-            localStorage.removeItem('email');
-            setEmail('');
-            setAuthState(AuthState.Unauthenticated)
-        });
-    }
 
     function Header () {
         const location = useLocation();
+        const navigate = useNavigate();
         const onLoginPage = location.pathname === "/";
-        
+
+        function logout() {
+            fetch(`/api/auth/logout`, {
+                method: 'delete',
+            })
+            .finally(() => {
+                localStorage.removeItem('email');
+                setEmail('');
+                setAuthState(AuthState.Unauthenticated)
+                navigate('/')
+        });
+    }
         return (
             <header>
                 <h1>

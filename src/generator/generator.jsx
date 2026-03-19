@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './generator.css';
 
-export function Generator(email) {
+export function Generator({email}) {
     const [colors, setColors] = useState([]);
 
     async function generateColors() {
@@ -20,10 +20,18 @@ export function Generator(email) {
     }, []);
     
     async function savePalette() {
-        await apiRequest("/api/palettes", "POST", {
-            email,
-            palette: colors
+        const response = await fetch("/api/palettes", {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include', 
+            body: JSON.stringify({ palette: colors })
         });
+        if (response.ok) {
+            console.log("palette saved")
+        }
+        else {
+            console.log("failed to save palette");
+        }
     }
     return (
         <main className="generator-main-generator">

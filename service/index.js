@@ -13,23 +13,10 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static('public'));
-
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
+app.use(express.static('public'));
 
-const verifyAuth = (req, res, next) => {
-  const token = req.cookies[authCookieName];
-  const email = tokens[token];
-  const user = users[email];
-  if (user) {
-    req.user = user;
-    next();
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
-  //apiRouter.post('/palettes', verifyAuth, (req,res) => {})
-};
 
 //login.jsx Endpoints
 apiRouter.post('/auth/create', async (req, res) => {
@@ -52,7 +39,8 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (!user) {
     return res.status(404).send({msg: "user not found"});
   };
-  if (await bcrypt.compare(req.body.password, user.password)) {
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (isMatch) {
     const authToken = uuid.v4();
     user.token = authToken;
     tokens[authToken] = email;
@@ -70,6 +58,18 @@ apiRouter.post('/auth/login', async (req, res) => {
     res.status(401).send({msg:'Unauthorized'});
   }
 });
+const verifyAuth = (req, res, next) => {
+  const token = req.cookies[authCookieName];
+  const email = tokens[token];
+  const user = users[email];
+  if (user) {
+    req.user = user;
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+  //apiRouter.post('/palettes', verifyAuth, (req,res) => {})
+};
 apiRouter.use(verifyAuth);
 apiRouter.delete('/auth/logout', async(req,res) => {
   const token = req.cookies[authCookieName];
@@ -95,7 +95,8 @@ apiRouter.get('/user/:email', (req,res) => {
     res.status(404).send({msg:'user not found'});
   }
 });
-//palletes.jsx Endpoints
+
+//palettes endpoints
 apiRouter.post('/palettes', (req,res) => {
   const {palette} = req.body;
   if (!palette) {
@@ -116,7 +117,8 @@ apiRouter.delete('/palettes', (req, res) => {
   user.palettes.splice(index,1);
   res.send(user.palettes);
 });
-//following.jsx Endpoints
+
+//friends endpoints
 apiRouter.post('/friends', (req,res) => {
   const {friendEmail} = req.body;
   const user = req.user;

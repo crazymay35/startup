@@ -1,27 +1,40 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './palettes.css';
 
-export function Palettes(email) {
+export function Palettes({email}) {
     
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
-        apiRequest(`/api/user/${email}`).then(data => setPalettes(data.palettes));
+        //apiRequest(`/api/user/${email}`).then(data => setPalettes(data.palettes));
+        fetch(`/api/user/${email}`)
+        .then(response => response.json())
+        .then(data => setPalettes(data.palettes)
+        .catch(err => console.error("Loading error:", err))
+    );
+
     }, [email]);
 
     async function handleRemove(index) {
-        const updated = await apiRequest("/api/palettes", "DELETE", {
-            email,
-            index
+        const response = ("/api/palettes", {
+            method: 'delete',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include', 
+            body: JSON.stringify({ index })
         });
-        setPalettes(updated);
+        if (response.ok) {
+            const updatedPalettes = await response.json();
+            setPalettes(updatedPalettes);
+        }
     }
 
-    async function  handleShare(palette) {
-        await apiRequest("/api/share", "POST", {
-            fromEmail: email,
-            palette
-        });
+    async function handleShare(palette) {
+        await fetch("/api/share", {
+            method: "post",
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include', 
+            body: JSON.stringify({ palette })
+        })
         console.log("palette shared");
     }
 

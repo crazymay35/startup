@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import './app.css';
 
-import { BrowserRouter, Navigate, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { Login } from './login/login';
 import { Generator } from './generator/generator';
 import { Create } from './create/create';
@@ -11,7 +11,6 @@ import { Palettes } from './palettes/palettes';
 import { Following } from './following/following';
 
 import { AuthState } from './login/authState';
-//import { ProtectedRoute } from "./login/ProtectedRoute";
 
 export default function App() {
     const [email, setEmail] = React.useState(localStorage.getItem('email') || '');

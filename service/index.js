@@ -3,11 +3,9 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
 
 const authCookieName = 'token';
-
-let users = {};
-let tokens = {};
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -17,82 +15,90 @@ var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 app.use(express.static('public'));
 
-
-//login.jsx Endpoints
+//login Endpoints
 apiRouter.post('/auth/create', async (req, res) => {
   const {email, username, password } = req.body;
-  if (users[email]) {
+  if (await DB.getUser(email)) {
     return res.status(409).send({msg:'user already exists'});
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  users[email] = {
-    email, username, password: hashedPassword, palettes:[], following:[], notifications:[], token:null
-  };
+  const newUser = {email, username, password: hashedPassword, palettes:[], following:[], notifications:[], token:null};
+  await DB.createUser(newUser);
   res.status(200).send({ msg: 'Success' });
 });
+
 apiRouter.post('/auth/login', async (req, res) => {
   const {email, password} = req.body;
-  const user = users[email];
+  const user = await DB.getUser(email);
 
-  if (!user) {
-    return res.status(404).send({msg: "user not found"});
-  };
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (isMatch) {
-    const authToken = uuid.v4();
-    user.token = authToken;
-    tokens[authToken] = email;
+  if (user) {
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
+      const authToken = uuid.v4();
+      await DB.updateUser(email, {token: authToken});
 
-    res.cookie(authCookieName, authToken, {
-      maxAge: 1000 * 60 * 60 * 24 * 365,
-      secure: true,
-      httpOnly: true,
-      sameSite: 'strict',
-    }) 
-    res.send({email: user.email});
-    return;
+      res.cookie(authCookieName, authToken, {
+        maxAge: 1000 * 60 * 60 * 24 * 365,
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
+      }) 
+      res.send({email: user.email});
+      return;
+    }
+    else {
+      res.status(401).send({msg:'unauthorized'});
+    }
   }
   else {
-    res.status(401).send({msg:'Unauthorized'});
+    return res.status(404).send({msg:"user not found"});
   }
 });
-const verifyAuth = (req, res, next) => {
+
+const verifyAuth = async (req, res, next) => {
   const token = req.cookies[authCookieName];
-  const email = tokens[token];
-  const user = users[email];
+  const user = await DB.getUserByToken(token);
   if (user) {
     req.user = user;
     next();
   } else {
-    res.status(401).send({ msg: 'Unauthorized' });
+    res.status(401).send({ msg: 'unauthorized' });
   }
-  //apiRouter.post('/palettes', verifyAuth, (req,res) => {})
 };
+
 apiRouter.use(verifyAuth);
+
 apiRouter.delete('/auth/logout', async(req,res) => {
   const token = req.cookies[authCookieName];
+
   if (token) {
-    delete tokens[token];
+    await DB.updateUserByToken(token, {token: null});
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
 })
+
 //following.jsx and palletes.jsx Endpoints
-apiRouter.get('/user/:email', (req,res) => {
-  const user = users[req.params.email];
-  if (user) {
-    res.send({
-      email: user.email,
-      username: user.username,
-      palettes: user.palettes,
-      following: user.following,
-      notifications: user.notifications
-    });
+apiRouter.get('/user/:email', async (req,res) => {
+  try{
+    const user = await DB.getUser(req.params.email);
+    if (user) {
+      res.send({
+        email: user.email,
+        username: user.username,
+        palettes: user.palettes,
+        following: user.following,
+        notifications: user.notifications
+      });
+    }
+    else {
+      res.status(404).send({msg:'user not found'});
+    }
   }
-  else {
-    res.status(404).send({msg:'user not found'});
+  catch (error) {
+    return res.status(500).send({msg: 'server error retrieving user'});
   }
 });
 

@@ -21,12 +21,11 @@ apiRouter.post('/auth/create', async (req, res) => {
   if (await DB.getUser(email)) {
     return res.status(409).send({msg:'user already exists'});
   }
-
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = {email, username, password: hashedPassword, palettes:[], following:[], notifications:[], token:null};
   await DB.createUser(newUser);
-  res.status(200).send({ msg: 'Success' });
+  res.status(200).send({ msg: 'success! user created' });
 });
 
 apiRouter.post('/auth/login', async (req, res) => {
@@ -80,40 +79,39 @@ apiRouter.delete('/auth/logout', async(req,res) => {
   res.status(204).end();
 })
 
-//following.jsx and palletes.jsx Endpoints
+//get user data to edit it directly
 apiRouter.get('/user/:email', async (req,res) => {
-  try{
-    const user = await DB.getUser(req.params.email);
-    if (user) {
-      res.send({
-        email: user.email,
-        username: user.username,
-        palettes: user.palettes,
-        following: user.following,
-        notifications: user.notifications
-      });
-    }
-    else {
-      res.status(404).send({msg:'user not found'});
-    }
+  if (req.user.email !== req.params.email) {
+    return res.status(403).send({msg: 'forbidden'});
   }
-  catch (error) {
-    return res.status(500).send({msg: 'server error retrieving user'});
+  const user = await DB.getUser(req.params.email);
+  if (user) {
+    res.send({
+      email: user.email,
+      username: user.username,
+      palettes: user.palettes,
+      following: user.following,
+      notifications: user.notifications
+    });
+  }
+  else {
+    res.status(404).send({msg:'user not found'});
   }
 });
 
 //palettes endpoints
-apiRouter.post('/palettes', (req,res) => {
+apiRouter.post('/palettes', async (req,res) => {
   const {palette} = req.body;
   if (!palette) {
     return res.status(400).send({msg: "palette required"});
   }
   const user = req.user;
 
-  user.palettes.push(palette);
+  await DB.updateUser(user.email, {$push: {palettes: palette}});
   res.status(201).send(user.palettes);
 });
-apiRouter.delete('/palettes', (req, res) => {
+
+apiRouter.delete('/palettes', async (req, res) => {
   const{index} = req.body;
   const user = req.user;
 
@@ -121,50 +119,57 @@ apiRouter.delete('/palettes', (req, res) => {
     return res.status(400).send({msg:"invalid index"});
   }
   user.palettes.splice(index,1);
+  await DB.updateUser(user.email, {palettes: user.palettes});
   res.send(user.palettes);
 });
 
 //friends endpoints
-apiRouter.post('/friends', (req,res) => {
+apiRouter.post('/friends', async (req,res) => {
   const {friendEmail} = req.body;
   const user = req.user;
 
-  if (!users[friendEmail]) {
+  const friendExists = await DB.getUser(friendEmail);
+
+  if (!friendExists) {
     return res.status(404).send({msg: "friend not found"});
   }
   if (user.email === friendEmail) {
     return res.status(400).send({msg:"cannot follow yourself"});
   }
-  if (!user.following.includes(friendEmail)) {
-    user.following.push(friendEmail);
-  }
+  await DB.updateUser(user.email, {$addToSet: {following: friendEmail}});
   res.send(user.following);
 });
-apiRouter.delete('/friends', (req, res) => {
+
+apiRouter.delete('/friends', async (req, res) => {
   const {friendEmail} = req.body;
   const user = req.user;
-  user.following = user.following.filter(f => f !== friendEmail);
+  
+  await DB.updateUser(user.email, {$pull: {following: friendEmail}});
   res.send(user.following);
 });
-apiRouter.post('/share', (req, res) => {
+
+apiRouter.post('/share', async (req, res) => {
   const {palette} = req.body;
   const fromEmail = req.user.email;
-  for (const user of Object.values(users)) {
-    if (user.following.includes(fromEmail)) {
-      user.notifications.push({from: fromEmail, palette});
-    }
+
+  if (!palette) {
+    return res.status(400).send({msg: "palette required"});
   }
+  await DB.addNotificationToFollowers(fromEmail, palette)
   res.send({msg:'shared palette'});
 });
-apiRouter.post('/notifications/clear', (req,res) => {
+
+apiRouter.post('/notifications/clear', async (req,res) => {
   const {index} = req.body;
   const user = req.user;
   if (index < 0 || index >= user.notifications.length) {
     return res.status(400).send({msg:"invalid notification"});
   }
   user.notifications.splice(index,1);
+  await DB.updateUser(user.email, {notifications: user.notifications});
   res.send(user.notifications);
 });
+
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });

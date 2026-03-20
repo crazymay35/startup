@@ -3,7 +3,7 @@ const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('simon');
+const db = client.db('startup');
 const userCollection = db.collection('user');
 
 (async function testConnection() {
@@ -27,11 +27,17 @@ async function createUser(user) {
     await userCollection.insertOne(user);
     return user;
 }
-function updateUser(email, data) {
-    return userCollection.updateOne({email: email}, {$set: data});
+function updateUser(email, update) {
+    return userCollection.updateOne({email: email}, update);
 }
-function updateUserByToken(token, data) {
-    return userCollection.updateOne({token: token}, {$set: data});
+function updateUserByToken(token, update) {
+    return userCollection.updateOne({token: token}, update);
+}
+async function addNotificationToFollowers(senderEmail, palette) {
+    return userCollection.updateMany(
+        {following: senderEmail},
+        {$push: {notifications: {from: senderEmail, palette: palette}}}
+    );
 }
 
 module.exports = {
@@ -40,4 +46,5 @@ module.exports = {
     createUser,
     updateUser,
     updateUserByToken,
+    addNotificationToFollowers,
 };

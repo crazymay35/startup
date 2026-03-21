@@ -28,9 +28,8 @@ export function Login(props) {
         });
         if (response.ok) {
             const body = await response.json();
-            localStorage.setItem('email', body.email);
             props.onAuthChange(body.email, AuthState.Authenticated);
-            console.log('account logged in')
+            console.log('logged in')
             navigate("/generator");
         }
         else {

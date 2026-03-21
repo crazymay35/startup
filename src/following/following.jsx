@@ -78,7 +78,7 @@ export function Following({email}) {
     }
     async function handleCloseNotification(index) {
         const response = await fetch('/api/notifications/clear', {
-            method: 'POST',
+            method: 'delete',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ index })
         });

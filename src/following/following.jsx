@@ -6,7 +6,8 @@ export function Following({email}) {
     const[friendNames, setFriendNames] = useState({});
     const[newFriend, setNewFriend] = useState("");
     const[notifications, setNotifications] = useState([]);
-    const[errorMessage, setErrorMessage] = useState("");
+    const[friendErrorMessage, setFriendErrorMessage] = useState("");
+    const[NotificationErrorMessage, setNotificationErrorMessage] = useState("");
 
     useEffect(() => {
         if (!email) return;
@@ -29,7 +30,7 @@ export function Following({email}) {
             const entries = await Promise.all(
                 following.map(async (friendEmail) => {
                     try {
-                        const response = await fetch(`/api/user/${friendEmail}`);
+                        const response = await fetch(`/api/user/name/${friendEmail}`);
                         const data = await response.json();
                         return [friendEmail, data.username];
                     }
@@ -38,7 +39,6 @@ export function Following({email}) {
                     }
                 })
             );
-
             setFriendNames(Object.fromEntries(entries));
         }
         if (following.length > 0) loadNames();
@@ -51,9 +51,13 @@ export function Following({email}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ friendEmail })
         })
+        const data = await response.json();
         if (response.ok) {
-            const updateFollowing = await response.json();
-            setFollowing(updateFollowing);
+            setFollowing(data);
+            console.log('unfollowed friend')
+        }
+        else {
+            setFriendErrorMessage(data.msg || "an error occured");
         }
     }
     async function handleAddFriend() {
@@ -66,9 +70,10 @@ export function Following({email}) {
         if (response.ok) {
             setFollowing(data);
             setNewFriend("");
+            console.log('followed friend')
         }
         else {
-            setErrorMessage("user not found, error with data");
+            setFriendErrorMessage(data.msg || "an error occured");
         }
     }
     async function handleCloseNotification(index) {
@@ -77,9 +82,13 @@ export function Following({email}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ index })
         });
+        data = await response.json();
         if (response.ok) {
-            const updatedNotifications = await response.json();
-            setNotifications(updatedNotifications);
+            setNotifications(data);
+            console.log('closed notification');
+        }
+        else {
+            setNotificationErrorMessage(data.msg || "an error occured");
         }
     }
     async function handleAddPalette(notif, index) {
@@ -90,6 +99,10 @@ export function Following({email}) {
         });
         if (response.ok) {
             handleCloseNotification(index);
+            console.log('saved palette');
+        }
+        else {
+            setNotificationErrorMessage(data.msg || "an error occured");
         }
     }
 
@@ -111,8 +124,8 @@ export function Following({email}) {
                 <form className="form-thing" onSubmit={e => e.preventDefault()}>
                     <input type="email" className="form-control" placeholder="example@email.com" 
                     value={newFriend} 
-                    onChange={e => {setNewFriend(e.target.value); setErrorMessage("");}}/>
-                    {errorMessage && (<div>{errorMessage}</div>)}
+                    onChange={e => {setNewFriend(e.target.value); setFriendErrorMessage("");}}/>
+                    {friendErrorMessage && (<div>{friendErrorMessage}</div>)}
                     <button type="button" className="btn btn-primary my-button"
                         onClick={handleAddFriend}>Add Friend</button>
                 </form>
@@ -129,6 +142,7 @@ export function Following({email}) {
                             onClick={() => handleCloseNotification(index)}>x</button>
                     </div>
                 ))}
+                {NotificationErrorMessage && (<div>{NotificationErrorMessage}</div>)}
             </div>
         </main>
     );

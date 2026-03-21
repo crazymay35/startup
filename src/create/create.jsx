@@ -31,10 +31,7 @@ export function Create({email}) {
             body: JSON.stringify({ palette: gradient })
         });
         if (response.ok) {
-            console.log("palette saved")
-        }
-        else {
-            console.log("failed to save palette");
+            console.log("saved palette")
         }
     }
     

@@ -30,10 +30,13 @@ export function Login(props) {
             const body = await response.json();
             localStorage.setItem('email', body.email);
             props.onAuthChange(body.email, AuthState.Authenticated);
+            console.log('account logged in')
             navigate("/generator");
         }
         else {
-            setErrorMessageLogin(`Error in login`);
+            const error = await response.json();
+            setErrorMessageLogin(error.msg);
+            return;
         }
     }
 
@@ -46,12 +49,16 @@ export function Login(props) {
                 password: passwordCreate}),
             headers: { 'Content-type': 'application/json; charset=UTF-8'},
         });
-        if (response?.status === 200) {
-            setErrorMessageLogin("account created! please login");
+        if (response.ok) {
+            const ok = await response.json();
+            setErrorMessageLogin(ok.msg);
             setShowCreateAccount(false);
+            console.log('account created')
         }
         else {
-            setErrorMessageCreate(`Error in create account`);
+            const error = await response.json();
+            setErrorMessageCreate(error.msg);
+            return;
         }
     }
 

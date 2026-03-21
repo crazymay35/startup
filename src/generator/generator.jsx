@@ -29,9 +29,6 @@ export function Generator({email}) {
         if (response.ok) {
             console.log("palette saved")
         }
-        else {
-            console.log("failed to save palette");
-        }
     }
     return (
         <main className="generator-main-generator">

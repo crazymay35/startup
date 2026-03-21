@@ -28,9 +28,7 @@ export function Palettes({email}) {
         if (response.ok) {
             const updatedPalettes = await response.json();
             setPalettes(updatedPalettes);
-        }
-        else {
-            console.log("error in delete palette");
+            console.log("removed palette");
         }
     }
 
@@ -42,7 +40,7 @@ export function Palettes({email}) {
             body: JSON.stringify({ palette })
         })
         if (response.ok) {
-            console.log("palette shared");
+            console.log("shared palette");
         }
     }
 

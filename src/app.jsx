@@ -31,8 +31,9 @@ export default function App() {
                 setEmail('');
                 setAuthState(AuthState.Unauthenticated)
                 navigate('/')
-        });
-    }
+            });
+            console.log('logged out');
+        }
         return (
             <header>
                 <h1>

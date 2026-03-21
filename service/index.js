@@ -25,7 +25,7 @@ apiRouter.post('/auth/create', async (req, res) => {
 
   const newUser = {email, username, password: hashedPassword, palettes:[], following:[], notifications:[], token:null};
   await DB.createUser(newUser);
-  res.status(200).send({ msg: 'success! user created' });
+  res.status(200).send({ msg: 'account created! please login' });
 });
 
 apiRouter.post('/auth/login', async (req, res) => {
@@ -36,7 +36,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
       const authToken = uuid.v4();
-      await DB.updateUser(email, {token: authToken});
+      await DB.updateUser(email, {$set: {token: authToken}});
 
       res.cookie(authCookieName, authToken, {
         maxAge: 1000 * 60 * 60 * 24 * 365,
@@ -48,7 +48,7 @@ apiRouter.post('/auth/login', async (req, res) => {
       return;
     }
     else {
-      res.status(401).send({msg:'unauthorized'});
+      res.status(401).send({msg:'incorrect email or password'});
     }
   }
   else {
@@ -69,17 +69,26 @@ const verifyAuth = async (req, res, next) => {
 
 apiRouter.use(verifyAuth);
 
-apiRouter.delete('/auth/logout', async(req,res) => {
+apiRouter.delete('/auth/logout', async (req,res) => {
   const token = req.cookies[authCookieName];
 
   if (token) {
-    await DB.updateUserByToken(token, {token: null});
+    await DB.updateUserByToken(token, {$set: {token: null}});
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
 })
 
 //get user data to edit it directly
+apiRouter.get('/user/name/:email', async (req,res) => {
+  const user = await DB.getUser(req.params.email);
+  if (user) {
+    res.send({username: user.username});
+  }
+  else {
+    res.status(404).send({msg: 'user not found'});
+  }
+})
 apiRouter.get('/user/:email', async (req,res) => {
   if (req.user.email !== req.params.email) {
     return res.status(403).send({msg: 'forbidden'});
@@ -119,7 +128,7 @@ apiRouter.delete('/palettes', async (req, res) => {
     return res.status(400).send({msg:"invalid index"});
   }
   user.palettes.splice(index,1);
-  await DB.updateUser(user.email, {palettes: user.palettes});
+  await DB.updateUser(user.email, {$set: {palettes: user.palettes}});
   res.send(user.palettes);
 });
 
@@ -137,7 +146,8 @@ apiRouter.post('/friends', async (req,res) => {
     return res.status(400).send({msg:"cannot follow yourself"});
   }
   await DB.updateUser(user.email, {$addToSet: {following: friendEmail}});
-  res.send(user.following);
+  const updatedUser = await DB.getUser(user.email);
+  res.send(updatedUser.following);
 });
 
 apiRouter.delete('/friends', async (req, res) => {
@@ -145,7 +155,8 @@ apiRouter.delete('/friends', async (req, res) => {
   const user = req.user;
   
   await DB.updateUser(user.email, {$pull: {following: friendEmail}});
-  res.send(user.following);
+  const updatedUser = await DB.getUser(user.email);
+  res.send(updatedUser.following);
 });
 
 apiRouter.post('/share', async (req, res) => {
@@ -166,7 +177,7 @@ apiRouter.post('/notifications/clear', async (req,res) => {
     return res.status(400).send({msg:"invalid notification"});
   }
   user.notifications.splice(index,1);
-  await DB.updateUser(user.email, {notifications: user.notifications});
+  await DB.updateUser(user.email, {$set: {notifications: user.notifications}});
   res.send(user.notifications);
 });
 

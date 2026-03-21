@@ -6,8 +6,8 @@ export function Following({email}) {
     const[friendNames, setFriendNames] = useState({});
     const[newFriend, setNewFriend] = useState("");
     const[notifications, setNotifications] = useState([]);
-    const[friendErrorMessage, setFriendErrorMessage] = useState("");
-    const[NotificationErrorMessage, setNotificationErrorMessage] = useState("");
+    const[errorMessage, setErrorMessage] = useState("");
+    
 
     useEffect(() => {
         if (!email) return;
@@ -57,7 +57,7 @@ export function Following({email}) {
             console.log('unfollowed friend')
         }
         else {
-            setFriendErrorMessage(data.msg || "an error occured");
+            setErrorMessage(data.msg || "an error occured");
         }
     }
     async function handleAddFriend() {
@@ -73,7 +73,7 @@ export function Following({email}) {
             console.log('followed friend')
         }
         else {
-            setFriendErrorMessage(data.msg || "an error occured");
+            setErrorMessage(data.msg || "an error occured");
         }
     }
     async function handleCloseNotification(index) {
@@ -82,13 +82,10 @@ export function Following({email}) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ index })
         });
-        data = await response.json();
+        const data = await response.json();
         if (response.ok) {
             setNotifications(data);
             console.log('closed notification');
-        }
-        else {
-            setNotificationErrorMessage(data.msg || "an error occured");
         }
     }
     async function handleAddPalette(notif, index) {
@@ -97,12 +94,10 @@ export function Following({email}) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({palette: notif.palette})
         });
+        const data = await response.json();
         if (response.ok) {
             handleCloseNotification(index);
             console.log('saved palette');
-        }
-        else {
-            setNotificationErrorMessage(data.msg || "an error occured");
         }
     }
 
@@ -124,8 +119,8 @@ export function Following({email}) {
                 <form className="form-thing" onSubmit={e => e.preventDefault()}>
                     <input type="email" className="form-control" placeholder="example@email.com" 
                     value={newFriend} 
-                    onChange={e => {setNewFriend(e.target.value); setFriendErrorMessage("");}}/>
-                    {friendErrorMessage && (<div>{friendErrorMessage}</div>)}
+                    onChange={e => {setNewFriend(e.target.value); setErrorMessage("");}}/>
+                    {errorMessage && (<div>{errorMessage}</div>)}
                     <button type="button" className="btn btn-primary my-button"
                         onClick={handleAddFriend}>Add Friend</button>
                 </form>
@@ -142,7 +137,6 @@ export function Following({email}) {
                             onClick={() => handleCloseNotification(index)}>x</button>
                     </div>
                 ))}
-                {NotificationErrorMessage && (<div>{NotificationErrorMessage}</div>)}
             </div>
         </main>
     );

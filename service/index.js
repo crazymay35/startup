@@ -140,7 +140,7 @@ apiRouter.post('/friends', async (req,res) => {
   const friendExists = await DB.getUser(friendEmail);
 
   if (!friendExists) {
-    return res.status(404).send({msg: "friend not found"});
+    return res.status(404).send({msg: "user not found"});
   }
   if (user.email === friendEmail) {
     return res.status(400).send({msg:"cannot follow yourself"});
@@ -170,7 +170,7 @@ apiRouter.post('/share', async (req, res) => {
   res.send({msg:'shared palette'});
 });
 
-apiRouter.post('/notifications/clear', async (req,res) => {
+apiRouter.delete('/notifications/clear', async (req,res) => {
   const {index} = req.body;
   const user = req.user;
   if (index < 0 || index >= user.notifications.length) {

@@ -6,6 +6,21 @@ export function Create({email}) {
     const [color1, setColor1] = useState({r:0,g:0,b:0});
     const [color2, setColor2] = useState({r:0,g:0,b:0});
 
+    async function generateColors() {
+        const response = await fetch(`https://x-colors.yurace.pro/api/random?number=2`)
+        const data = await response.json();
+    
+        const fetchedColors = data.map(({ rgb }) => {
+            const [r,g,b] = rgb.match(/\d+/g).map(Number);
+            return { r,g,b };
+        });
+        
+        if (fetchedColors.length == 2) {
+            setColor1(fetchedColors[0]);
+            setColor2(fetchedColors[1]);
+        }
+    }
+
     const handleCreateChange = (setter) => (e) => {
         const {name, value} = e.target;
         setter((prev) => ({...prev, [name]: Number(value)}))

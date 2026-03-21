@@ -11,9 +11,9 @@ const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 app.use(express.json());
 app.use(cookieParser());
-var apiRouter = express.Router();
-app.use(`/api`, apiRouter);
 app.use(express.static('public'));
+const apiRouter = express.Router();
+app.use(`/api`, apiRouter);
 
 //login Endpoints
 apiRouter.post('/auth/create', async (req, res) => {

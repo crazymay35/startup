@@ -27,7 +27,6 @@ export default function App() {
                 method: 'delete',
             })
             .finally(() => {
-                localStorage.removeItem('email');
                 setEmail('');
                 setAuthState(AuthState.Unauthenticated)
                 navigate('/')

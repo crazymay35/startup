@@ -25,12 +25,15 @@ export function Login(props) {
             body: JSON.stringify({email: emailLogin, 
             password: passwordLogin}),
             headers: { 'Content-type': 'application/json; charset=UTF-8'},
+            credentials: 'include',
         });
         if (response.ok) {
             const body = await response.json();
+            localStorage.setItem('email', body.email);
+            localStorage.setItem('username', body.username);
             props.onAuthChange(body.email, AuthState.Authenticated);
             console.log('logged in')
-            navigate("/generator");
+            navigate("/create");
         }
         else {
             const error = await response.json();
@@ -47,12 +50,15 @@ export function Login(props) {
                 username: usernameCreate, 
                 password: passwordCreate}),
             headers: { 'Content-type': 'application/json; charset=UTF-8'},
+            credentials: 'include'
         });
         if (response.ok) {
-            const ok = await response.json();
-            setErrorMessageLogin(ok.msg);
-            setShowCreateAccount(false);
-            console.log('account created')
+            const body = await response.json();
+            localStorage.setItem('email', body.email);
+            localStorage.setItem('username', body.username);
+            props.onAuthChange(body.email, AuthState.Authenticated);
+            console.log('account created and logged in')
+            navigate("/create");
         }
         else {
             const error = await response.json();

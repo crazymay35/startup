@@ -28,6 +28,12 @@ async function createUser(user) {
     return user;
 }
 function updateUser(email, update) {
+    if (!update && typeof userOrEmail === 'object') {
+        return userCollection.updateOne(
+            { email: userOrEmail.email }, 
+            { $set: { token: userOrEmail.token } }
+        );
+    }
     return userCollection.updateOne({email: email}, update);
 }
 function updateUserByToken(token, update) {

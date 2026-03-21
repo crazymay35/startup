@@ -49,6 +49,7 @@ export function Following({email}) {
         const response = await fetch('/api/friends', {
             method: 'delete',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ friendEmail })
         })
         const data = await response.json();
@@ -64,6 +65,7 @@ export function Following({email}) {
         const response = await fetch('/api/friends', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ friendEmail: newFriend })
         });
         const data = await response.json();
@@ -80,6 +82,7 @@ export function Following({email}) {
         const response = await fetch('/api/notifications/clear', {
             method: 'delete',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ index })
         });
         const data = await response.json();
@@ -92,6 +95,7 @@ export function Following({email}) {
         const response = await fetch('/api/palettes', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
+            credentials: 'include',
             body: JSON.stringify({palette: notif.palette})
         });
         const data = await response.json();

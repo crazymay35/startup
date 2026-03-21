@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './create.css';
 
 export function Create({email}) {
     
-    const [color1, setColor1] = useState({r:0,g:0,b:0});
-    const [color2, setColor2] = useState({r:0,g:0,b:0});
+    const [color1, setColor1] = useState({});
+    const [color2, setColor2] = useState({});
 
+    useEffect(() => {
+        generateColors();
+    }, []);
     async function generateColors() {
         const response = await fetch(`https://x-colors.yurace.pro/api/random?number=2`)
         const data = await response.json();
@@ -94,8 +97,9 @@ export function Create({email}) {
                     </div>
                     <div>
                         <button type="button" className="btn btn-primary my-button"
-                            onClick={handleSavePalette}>Save Palette
-                        </button>
+                            onClick={handleSavePalette}>Save Palette</button>
+                        <button type="button" className="btn btn-secondary"
+                            onClick={generateColors}>Generate</button>
                     </div>
                 </div>
             </div>

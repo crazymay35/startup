@@ -38,12 +38,7 @@ apiRouter.post('/auth/login', async (req, res) => {
       const authToken = uuid.v4();
       await DB.updateUser(email, {$set: {token: authToken}});
 
-      res.cookie(authCookieName, authToken, {
-        maxAge: 1000 * 60 * 60 * 24 * 365,
-        secure: true,
-        httpOnly: true,
-        sameSite: 'strict',
-      }) 
+      setAuthCookie(res, authToken);
       res.send({email: user.email});
       return;
     }
@@ -55,6 +50,16 @@ apiRouter.post('/auth/login', async (req, res) => {
     return res.status(404).send({msg:"user not found"});
   }
 });
+
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    maxAge: 1000 * 60 * 60 * 24 * 365,
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+    path: '/',
+  });
+}
 
 const verifyAuth = async (req, res, next) => {
   const token = req.cookies[authCookieName];
@@ -179,6 +184,10 @@ apiRouter.delete('/notifications/clear', async (req,res) => {
   user.notifications.splice(index,1);
   await DB.updateUser(user.email, {$set: {notifications: user.notifications}});
   res.send(user.notifications);
+});
+
+app.use((_req, res) => {
+  res.sendFile('index.html', { root: 'public' });
 });
 
 app.listen(port, () => {

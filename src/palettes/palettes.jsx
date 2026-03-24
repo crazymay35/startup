@@ -6,10 +6,18 @@ export function Palettes({email}) {
     const [palettes,setPalettes] = useState([]);
 
     useEffect(() => {
-        if (!email) return;
+        if (!email) {
+            setPalettes([]);
+            return;
+        }
 
         fetch(`/api/user/${email}`)
         .then(response => {
+            if (response.status === 401) {
+                setPalettes([]); 
+                window.location.href = '/'; 
+                return;
+            }
             if (!response.ok) throw new Error('failed to fetch');
             return response.json();
         })

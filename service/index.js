@@ -61,6 +61,20 @@ function setAuthCookie(res, authToken) {
   });
 }
 
+apiRouter.delete('/auth/logout', async (req,res) => {
+  const token = req.cookies[authCookieName];
+
+  if (token) {
+    await DB.updateUserByToken(token, {$set: {token: null}});
+  }
+  res.clearCookie(authCookieName, {
+    path: '/',
+    sameSite: 'strict',
+    secure: true,
+  });
+  res.status(204).end();
+})
+
 const verifyAuth = async (req, res, next) => {
   const token = req.cookies[authCookieName];
   const user = await DB.getUserByToken(token);
@@ -80,16 +94,6 @@ apiRouter.get('/user/me', (req, res) => {
     username: req.user.username 
   });
 });
-
-apiRouter.delete('/auth/logout', async (req,res) => {
-  const token = req.cookies[authCookieName];
-
-  if (token) {
-    await DB.updateUserByToken(token, {$set: {token: null}});
-  }
-  res.clearCookie(authCookieName);
-  res.status(204).end();
-})
 
 //get user data to edit it directly
 apiRouter.get('/user/name/:email', async (req,res) => {

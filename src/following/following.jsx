@@ -10,7 +10,11 @@ export function Following({email}) {
     
 
     useEffect(() => {
-        if (!email) return;
+        if (!email) {
+            setFollowing([]); // Clear the data!
+            setNotifications([]);
+            return;
+        }
 
         fetch(`/api/user/${email}`)
         .then(response => {
@@ -26,6 +30,10 @@ export function Following({email}) {
     }, [email]);
 
     useEffect(() => {
+        if (!email || following.length === 0) {
+            setFriendNames({});
+            return;
+        }
         async function loadNames() {
             const entries = await Promise.all(
                 following.map(async (friendEmail) => {
@@ -41,6 +49,7 @@ export function Following({email}) {
             );
             setFriendNames(Object.fromEntries(entries));
         }
+        
         if (following.length > 0) loadNames();
         else setFriendNames({});
     }, [following]); 

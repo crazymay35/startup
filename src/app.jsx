@@ -16,33 +16,36 @@ export default function App() {
     const [email, setEmail] = useState('');
     const [authState, setAuthState] = useState(AuthState.Unknown);
 
-    const [loading, setLoading] = useState(true);
-
     useEffect(() => {
-        fetch('/api/user/me')
-            .then((response) => {
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/user/me', { credentials: 'include' });
+                
                 if (response.ok) {
-                    return response.json();
+                    const user = await response.json();
+                    setEmail(user.email);
+                    setAuthState(AuthState.Authenticated);
+                } else {
+                    throw new Error('Unauthorized');
                 }
-                throw new Error('Not logged in');
-            })
-            .then((user) => {
-                setEmail(user.email);
-                setAuthState(AuthState.Authenticated);
-            })
-            .catch(() => {
+            } catch (error) {
+                // Network error OR the Error thrown above
+                console.error("Auth check failed:", error);
                 setAuthState(AuthState.Unauthenticated);
-                setEmail("");
-                localStorage.removeItem('email');
-                localStorage.removeItem('username');
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+                localStorage.clear(); 
+            }
+        }
+        checkAuth();
     }, []);
 
-    if (loading) {
-        return <div className="loading-spinner">Loading...</div>;
+    if (authState === AuthState.Unknown) {
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{height: '100vh'}}>
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -94,7 +97,6 @@ function NotFound() {
 function Header ({ authState, setAuthState, setEmail }) {
         const location = useLocation();
         const navigate = useNavigate();
-        const onLoginPage = location.pathname === "/";
 
         async function logout() {
             await fetch(`/api/auth/logout`, {method: 'delete',credentials: 'include'})
@@ -105,6 +107,7 @@ function Header ({ authState, setAuthState, setEmail }) {
             navigate('/')
             console.log('logged out');
         }
+
         return (
             <header>
                 <h1>
@@ -112,13 +115,21 @@ function Header ({ authState, setAuthState, setEmail }) {
                     alt="icon of a paintbrush and a color pallete"/>
                     COLOR PAL
                 </h1>
-                <ul> {authState === AuthState.Authenticated ? (<>
-                    <li><button className='btn btn-secondary' onClick={logout}>Logout</button></li>
-                    <li><NavLink to="/generator">Generate</NavLink></li>
-                    <li><NavLink to="/create">Create</NavLink></li>
-                    <li><NavLink to="/palettes">Palettes</NavLink></li>
-                    <li><NavLink to="/following">Friends</NavLink></li>
-                </>) : (<li><NavLink to="/">Login</NavLink></li>)} 
+                <ul> {authState === AuthState.Authenticated ? (
+                    <>
+                        <li><button className='btn btn-secondary' onClick={logout}>Logout</button></li>
+                        <li><NavLink to="/generator">Generate</NavLink></li>
+                        <li><NavLink to="/create">Create</NavLink></li>
+                        <li><NavLink to="/palettes">Palettes</NavLink></li>
+                        <li><NavLink to="/following">Friends</NavLink></li>
+                    </>
+                ) : authState === AuthState.Unauthenticated ? (
+                    /* 2. Only show Login if definitely Unauthenticated */
+                    <li><NavLink to="/">Login</NavLink></li>
+                ) : (
+                    /* 3. If Unknown, show nothing at all (prevents flicker) */
+                    <li><NavLink to="/">Login</NavLink></li>
+                )} 
                 </ul>
             </header>
         );

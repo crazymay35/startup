@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import './app.css';
@@ -16,6 +16,32 @@ export default function App() {
     const [email, setEmail] = React.useState(localStorage.getItem('email') || '');
     const currentAuthState = email ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('/api/user/me')
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Not logged in');
+            })
+            .then((user) => {
+                setEmail(user.email);
+                setAuthState(AuthState.Authenticated);
+            })
+            .catch(() => {
+                setAuthState(AuthState.Unauthenticated);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <div className="loading-spinner">Loading...</div>;
+    }
 
     function Header () {
         const location = useLocation();

@@ -3,8 +3,8 @@ import './create.css';
 
 export function Create({email}) {
     
-    const [color1, setColor1] = useState({});
-    const [color2, setColor2] = useState({});
+    const [color1, setColor1] = useState({r:255, g:255, b:255});
+    const [color2, setColor2] = useState({r:200, g:200, b:200});
 
     useEffect(() => {
         generateColors();

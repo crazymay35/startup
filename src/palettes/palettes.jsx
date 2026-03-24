@@ -26,8 +26,8 @@ export function Palettes({email}) {
             body: JSON.stringify({ index })
         });
         if (response.ok) {
-            const updatedPalettes = await response.json();
-            setPalettes(updatedPalettes);
+            const data = await response.json();
+            setPalettes(data.palettes);
             console.log("removed palette");
         }
     }

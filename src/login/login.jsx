@@ -50,15 +50,14 @@ export function Login(props) {
                 username: usernameCreate, 
                 password: passwordCreate}),
             headers: { 'Content-type': 'application/json; charset=UTF-8'},
-            credentials: 'include'
         });
         if (response.ok) {
-            const body = await response.json();
-            localStorage.setItem('email', body.email);
-            localStorage.setItem('username', body.username);
-            props.onAuthChange(body.email, AuthState.Authenticated);
-            console.log('account created and logged in')
-            navigate("/create");
+            setEmailLogin(emailCreate);
+            setPasswordLogin(passwordCreate);
+            console.log('account created')
+            setErrorMessageLogin('account created! please login');
+            setErrorMessageCreate('');
+            setShowCreateAccount(false);
         }
         else {
             const error = await response.json();

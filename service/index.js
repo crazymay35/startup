@@ -39,7 +39,7 @@ apiRouter.post('/auth/login', async (req, res) => {
       await DB.updateUser(email, {$set: {token: authToken}});
 
       setAuthCookie(res, authToken);
-      res.send({email: user.email});
+      res.send({email: user.email, username: user.username});
       return;
     }
     else {
@@ -73,6 +73,13 @@ const verifyAuth = async (req, res, next) => {
 };
 
 apiRouter.use(verifyAuth);
+
+apiRouter.get('/user/me', (req, res) => {
+  res.send({ 
+    email: req.user.email, 
+    username: req.user.username 
+  });
+});
 
 apiRouter.delete('/auth/logout', async (req,res) => {
   const token = req.cookies[authCookieName];
@@ -119,71 +126,67 @@ apiRouter.post('/palettes', async (req,res) => {
   if (!palette) {
     return res.status(400).send({msg: "palette required"});
   }
-  const user = req.user;
-
-  await DB.updateUser(user.email, {$push: {palettes: palette}});
-  res.status(201).send(user.palettes);
+  await DB.updateUser(req.user.email, {$push: {palettes: palette}});
+  const updatedUser = await DB.getUser(req.user.email);
+  res.status(201).send({palettes: updatedUser.palettes});
 });
 
 apiRouter.delete('/palettes', async (req, res) => {
   const{index} = req.body;
-  const user = req.user;
 
-  if (index < 0 || index >= user.palettes.length) {
+  if (index < 0 || index >= req.user.palettes.length) {
     return res.status(400).send({msg:"invalid index"});
   }
-  user.palettes.splice(index,1);
-  await DB.updateUser(user.email, {$set: {palettes: user.palettes}});
-  res.send(user.palettes);
+  req.user.palettes.splice(index,1);
+  await DB.updateUser(req.user.email, {$set: {palettes: req.user.palettes}});
+  const updatedUser = await DB.getUser(req.user.email);
+  res.status(201).send({palettes: updatedUser.palettes});
 });
 
 //friends endpoints
 apiRouter.post('/friends', async (req,res) => {
   const {friendEmail} = req.body;
-  const user = req.user;
 
   const friendExists = await DB.getUser(friendEmail);
 
   if (!friendExists) {
     return res.status(404).send({msg: "user not found"});
   }
-  if (user.email === friendEmail) {
+  if (req.user.email === friendEmail) {
     return res.status(400).send({msg:"cannot follow yourself"});
   }
-  await DB.updateUser(user.email, {$addToSet: {following: friendEmail}});
-  const updatedUser = await DB.getUser(user.email);
+  await DB.updateUser(req.user.email, {$addToSet: {following: friendEmail}});
+  const updatedUser = await DB.getUser(req.user.email);
   res.send(updatedUser.following);
 });
 
 apiRouter.delete('/friends', async (req, res) => {
   const {friendEmail} = req.body;
-  const user = req.user;
   
-  await DB.updateUser(user.email, {$pull: {following: friendEmail}});
-  const updatedUser = await DB.getUser(user.email);
+  await DB.updateUser(req.user.email, {$pull: {following: friendEmail}});
+  const updatedUser = await DB.getUser(req.user.email);
   res.send(updatedUser.following);
 });
 
 apiRouter.post('/share', async (req, res) => {
   const {palette} = req.body;
-  const fromEmail = req.user.email;
 
   if (!palette) {
     return res.status(400).send({msg: "palette required"});
   }
-  await DB.addNotificationToFollowers(fromEmail, palette)
+  await DB.addNotificationToFollowers(req.user.email, palette)
   res.send({msg:'shared palette'});
 });
 
 apiRouter.delete('/notifications/clear', async (req,res) => {
   const {index} = req.body;
-  const user = req.user;
-  if (index < 0 || index >= user.notifications.length) {
+  if (index < 0 || index >= req.user.notifications.length) {
     return res.status(400).send({msg:"invalid notification"});
   }
-  user.notifications.splice(index,1);
-  await DB.updateUser(user.email, {$set: {notifications: user.notifications}});
-  res.send(user.notifications);
+  req.user.notifications.splice(index,1);
+  await DB.updateUser(req.user.email, {$set: {notifications: req.user.notifications}});
+  const updateUser = await DB.getUser(req.user.email);
+  res.send(updateUser.notifications);
 });
 
 app.use((_req, res) => {

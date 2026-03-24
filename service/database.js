@@ -27,14 +27,8 @@ async function createUser(user) {
     await userCollection.insertOne(user);
     return user;
 }
-function updateUser(email, update) {
-    if (!update && typeof userOrEmail === 'object') {
-        return userCollection.updateOne(
-            { email: userOrEmail.email }, 
-            { $set: { token: userOrEmail.token } }
-        );
-    }
-    return userCollection.updateOne({email: email}, update);
+async function updateUser(email, update) {
+    return await userCollection.updateOne({email: email}, update);
 }
 function updateUserByToken(token, update) {
     return userCollection.updateOne({token: token}, update);

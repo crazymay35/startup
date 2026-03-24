@@ -108,7 +108,7 @@ export function Following({email}) {
     return (
         <main className="following-main-container">
             <div className="following-main-transparent-container">
-                <span className="thing">You Are: &emsp; {email}</span>
+                <span className="thing">You Are: &emsp; {localStorage.getItem('username')}</span>
                 <span id="following-faculty-glyphic-regular">FRIENDS</span>
                 
                 {following.map(email => (
